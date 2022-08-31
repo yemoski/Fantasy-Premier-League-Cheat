@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>FPL CHEAT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2PR0K08RF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-D2PR0K08RF');
+</script>
+
+</head>
+<body>	
+
+
+	<div class="main">
+		<h2>FPL CHEAT</h2>
+			<img class='background' src="{{ url_for('static', filename='/images/field.png') }}">
+			<div class="goalkeeper">
+				{% for x in f442['GK'] %}
+				<div class="gk">
+					<img class='img' src="{{ x['team_shirt'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+			</div>
+			
+			<div class="defenders">
+				{% for x in range(0,4) %}
+					<div class="player_pos">
+						<img class='img' src="{{ f442['DEF'][x]['team_shirt'] }}">
+					<b><p> {{f442['DEF'][x]['name']}}</p></b>
+					<b><p class="price"> £{{f442['DEF'][x]['now_cost']}}</p></b>
+					</div>
+				
+				{% endfor %}
+			</div>
+			<div class="midfielders">
+				{% for x in range(0,4) %}
+					<div class="player_pos">
+						<img class='img' src="{{ f442['MID'][x]['team_shirt'] }}">
+					<b><p> {{f442['MID'][x]['name']}}</p></b>
+					<b><p class="price"> £{{f442['MID'][x]['now_cost']}}</p></b>
+					</div>
+				
+				{% endfor %}
+			</div>
+			<div class="forwards">
+				{% for x in range(0,2) %}
+					<div class="player_pos">
+						<img class='img' src="{{ f442['FOW'][x]['team_shirt'] }}">
+					<b><p> {{f442['FOW'][x]['name']}}</p></b>
+					<b><p class="price"> £{{(f442['FOW'][x]['now_cost'])|safe}}</p></b>
+					</div>
+				
+				{% endfor %}
+			</div>
+			
+		</div>
+
+		
+</body>
+</html>

@@ -1,0 +1,315 @@
+
+
+
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+.main {
+   background-color: black;
+    height: 100vh;
+    position: relative;
+
+}
+
+
+
+.background {
+    height: 100vh;
+    margin-left: 200px ;
+    top: 0;
+    left: 0;
+    position: relative;
+}
+
+.goalkeeper{
+    position: absolute;
+    top: 9px;
+    left: 462px;
+
+}
+.gk{
+    position: absolute;
+    max-width: 90px;
+   
+}
+.img{
+    width: 90px;
+}
+.defenders {
+    position: absolute;
+    top: 181px;
+    left: 314px;
+}
+.player_pos{
+    max-width: 90px;
+    display: inline-block;
+    margin: 5px;
+}
+
+.midfielders{
+    position: absolute;
+    top: 427px;
+    left: 312px;
+}
+
+.forwards{
+    position: absolute;
+    top: 670px;
+    left: 411px;
+}
+
+}
+/***---------------------------------------------------------------------------------------------------------***/
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+.main {
+   background-color: black;
+    height: 100vh;
+    position: relative;
+
+}
+
+
+
+.background {
+    height: 100vh;
+    margin-left: 200px ;
+    top: 0;
+    left: 0;
+    position: relative;
+}
+
+.goalkeeper{
+    position: absolute;
+    top: 9px;
+    left: 462px;
+
+}
+.gk{
+    position: absolute;
+    max-width: 90px;
+   
+}
+.img{
+    width: 90px;
+}
+.defenders {
+    position: absolute;
+    top: 181px;
+    left: 314px;
+}
+.player_pos{
+    max-width: 90px;
+    display: inline-block;
+    margin: 5px;
+}
+
+.midfielders{
+    position: absolute;
+    top: 427px;
+    left: 312px;
+}
+
+.forwards{
+    position: absolute;
+    top: 670px;
+    left: 411px;
+}
+}
+/***---------------------------------------------------------------------------------------------------------***/
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+p{
+    font-size: 60px;
+}
+
+.price{
+    color: darkred;
+}
+.main {
+   background-color: black;
+    height: 185vh;
+    width: 185vh;
+
+    position: relative;
+
+}
+
+
+
+.background {
+    height: 161vh;
+    width: 75vh;
+    top: 0;
+    left: 190px;
+    position: relative;
+}
+
+.goalkeeper{
+    position: absolute;
+    top: 50px;
+    left: 1025px;
+
+}
+.gk{
+    position: absolute;
+    max-width: 90px;
+   
+}
+.img{
+    width: 310px;
+}
+.defenders {
+    position: absolute;
+    top: 650px;
+    left: 447px;
+}
+.player_pos{
+    max-width: 95px;
+    display: inline-block;
+    margin: 100px;
+}
+
+.midfielders{
+    position: absolute;
+    top: 1560px;
+    left: 450px;
+}
+
+.forwards{
+    position: absolute;
+    top: 2485px;
+    left: 770px;
+}
+}
+/***---------------------------------------------------------------------------------------------------------***/
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+.main {
+   background-color: black;
+    height: 100vh;
+    position: relative;
+
+}
+
+
+
+.background {
+    height: 100vh;
+    margin-left: 200px ;
+    top: 0;
+    left: 0;
+    position: relative;
+}
+
+.goalkeeper{
+    position: absolute;
+    top: 9px;
+    left: 462px;
+
+}
+.gk{
+    position: absolute;
+    max-width: 90px;
+   
+}
+.img{
+    width: 90px;
+}
+
+.defenders {
+    position: absolute;
+    top: 181px;
+    left: 314px;
+}
+.player_pos{
+    max-width: 90px;
+    display: inline-block;
+    margin: 5px;
+}
+
+.midfielders{
+    position: absolute;
+    top: 427px;
+    left: 312px;
+}
+
+.forwards{
+    position: absolute;
+    top: 670px;
+    left: 411px;
+}}
+
+
+
+
+/***---------------------------------------------------------------------------------------------------------***/
+
+
+@media screen and (min-width: 1200px){
+
+.main {
+   background-color: black;
+    height: 100vh;
+    position: relative;
+
+}
+p{
+    font-size: 30px;
+}
+
+
+.background {
+    height: 150vh;
+    width: 85vh;
+    
+    top: 0;
+    left: 135px;
+    position: relative;
+}
+
+.goalkeeper{
+    position: absolute;
+    top: 9px;
+    left: 640px;
+
+}
+.gk{
+    position: absolute;
+    max-width: 90px;
+   
+}
+
+.img{
+    width: 90px;
+}
+.defenders {
+    position: absolute;
+    top: 265px;
+    left: 425px;
+}
+.player_pos{
+    max-width: 90px;
+    display: inline-block;
+    margin: 20px;
+}
+
+.midfielders{
+    position: absolute;
+    top: 622px;
+    left: 450px;
+}
+
+.forwards{
+    position: absolute;
+    top: 985px;
+    left: 555px;
+}
+
+}
