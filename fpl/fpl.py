@@ -98,7 +98,7 @@ dataset = pd.DataFrame({
 })
 
 dataset = dataset.sort_values(by=['form_ict_index'], ascending=False)
-dataset.to_csv(index=False, path_or_buf='data.csv')
+#dataset.to_csv(index=False, path_or_buf='data.csv')
 
 
 def get_442():
@@ -107,7 +107,9 @@ def get_442():
     f442 = {'GK':[],
             'DEF':[],
             'MID':[],
-            'FOW':[]
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[]
             }
 
     budget = 100
@@ -116,6 +118,7 @@ def get_442():
     MID = 0
     FOW = 0
     teams = []
+    ict_form = 0
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3:
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
@@ -125,6 +128,7 @@ def get_442():
                             'team': row['team']}
                 f442['FOW'].append(new_row)
                 budget -=row['now_cost']
+                ict_form += row['form_ict_index']
                 teams.append(row['team'])
                 FOW = FOW +1
             if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost']:
@@ -135,6 +139,7 @@ def get_442():
                 f442['MID'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 MID = MID +1
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 new_row = {'name': row['name'],
@@ -143,6 +148,7 @@ def get_442():
                             'team': row['team']}
                 f442['GK'].append(new_row)
                 budget -=row['now_cost']
+                ict_form += row['form_ict_index']
                 teams.append(row['team'])
                 GK = GK +1
             if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
@@ -152,16 +158,20 @@ def get_442():
                             'team': row['team']}
                 f442['DEF'].append(new_row)
                 budget -=row['now_cost']
+                ict_form += row['form_ict_index']
                 teams.append(row['team'])
                 DEF = DEF +1
-
+    f442['ict_form'] = ict_form
+    f442['team_value'] = 100-budget
     return f442
 
 def get_532():
     f532 = {'GK':[],
             'DEF':[],
             'MID':[],
-            'FOW':[]
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[]
             }
     budget = 100
     GK = 0
@@ -169,29 +179,51 @@ def get_532():
     MID = 0
     FOW = 0
     teams = []
+    ict_form = 0
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3:
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
-                f532['FOW'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f532['FOW'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 FOW = FOW +1
             if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost']:
-                f532['MID'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f532['MID'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 MID = MID +1
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                f532['GK'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f532['GK'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 GK = GK +1
             if row['position']=='DEF' and DEF<=4 and row['status']=='a' and budget>row['now_cost']:
-                f532['DEF'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f532['DEF'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 DEF = DEF +1
-
+    f532['ict_form'] =ict_form
+    f532['team_value'] =  100-budget
     return f532
  
 
@@ -201,7 +233,9 @@ def get_451():
     f451 = {'GK':[],
             'DEF':[],
             'MID':[],
-            'FOW':[]
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[]
             }
     budget = 100
     GK = 0
@@ -209,36 +243,60 @@ def get_451():
     MID = 0
     FOW = 0
     teams = []
+    ict_form = 0
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3:
             if row['position']=='FOW' and FOW<=0 and row['status']=='a' and budget>row['now_cost']:
-                f451['FOW'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f451['FOW'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 FOW = FOW +1
             if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost']:
-                f451['MID'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f451['MID'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 MID = MID +1
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                f451['GK'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f451['GK'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 GK = GK +1
             if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
-                f451['DEF'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f451['DEF'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 DEF = DEF +1
-
+    f451['ict_form'] =ict_form
+    f451['team_value'] =  100-budget
     return f451
 
 def get_433():
     f433 = {'GK':[],
             'DEF':[],
             'MID':[],
-            'FOW':[]
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[]
             }
     budget = 100
     GK = 0
@@ -246,28 +304,112 @@ def get_433():
     MID = 0
     FOW = 0
     teams = []
+    ict_form = 0
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3:
             if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost']:
-                f433['FOW'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f433['FOW'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 FOW = FOW +1
             if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost']:
-                f433['MID'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f433['MID'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 MID = MID +1
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                f433['GK'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f433['GK'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 GK = GK +1
             if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
-                f433['DEF'].append(row['name'])
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f433['DEF'].append(new_row)
                 budget -=row['now_cost']
                 teams.append(row['team'])
+                ict_form += row['form_ict_index']
                 DEF = DEF +1
-
+    f433['ict_form'] =ict_form
+    f433['team_value'] =  100-budget
     return f433
-    
+
+
+
+def get_352():
+    f352 = {'GK':[],
+            'DEF':[],
+            'MID':[],
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[]
+            }
+    budget = 100
+    GK = 0
+    DEF = 0
+    MID = 0
+    FOW = 0
+    teams = []
+    ict_form = 0
+    for index,row in dataset.iterrows():
+        if teams.count(row['team']) < 3:
+            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f352['FOW'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                FOW = FOW +1
+            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost']:
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f352['MID'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                MID = MID +1
+            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f352['GK'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                GK = GK +1
+            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost']:
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f352['DEF'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                DEF = DEF +1
+    f352['ict_form'] =ict_form
+    f352['team_value'] =  100-budget
+    return f352

@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, url_for,flash,jsonify
 import fpl
 from pprint import pprint
-from freebible import bibles
+import bible
+
 
 app = Flask(__name__)
 app.secret_key = 'fpl'
@@ -12,10 +13,70 @@ print()
 @app.route("/", methods = ["GET", "POST"])
 def home():
 	f442 = fpl.get_442()
-	pprint(f442)
+	f451 = fpl.get_451()
+	f532 = fpl.get_532()
+	f433 = fpl.get_433()
+	f352 = fpl.get_352()
+	#pprint(f451)
+	#pprint(f352)
+	#pprint(f442)
+	verse = bible.get_verse()
+	formations = []
+	row = {
+	
+	}
+	row['name'] = '442'
+	row['value'] = round(f442['team_value'],2)
+	row['ict_form'] = round(f442['ict_form'],2)
+	row['budget'] = round(100- f442['team_value'],2)
+	formations.append(row)
+
+	row = {
+	
+	}
+	row['name'] = '451'
+	row['value'] = round(f451['team_value'],2)
+	row['ict_form'] = round(f451['ict_form'],2)
+	row['budget'] = round(100-f451['team_value'],2)
+	formations.append(row)
+
+	row = {
+	
+	}
+	row['name'] = '433'
+	row['value'] = round(f433['team_value'],2)
+	row['ict_form'] = round(f433['ict_form'],2)
+	row['budget'] = round(100- f433['team_value'],2)
+	formations.append(row)
+
+	row = {
+	
+	}
+	row['name'] = '532'
+	row['value'] = round(f532['team_value'],2)
+	row['ict_form'] = round(f532['ict_form'],2)
+	row['budget'] = round(100- f532['team_value'],2)
+	formations.append(row)
+
+	row = {
+	
+	}
+	row['name'] = '352'
+	row['value'] = round(f352['team_value'],2)
+	row['ict_form'] = round(f352['ict_form'],2)
+	row['budget'] = round(100- f352['team_value'],2)
+	formations.append(row)
 
 
-	return render_template("index.html",f442=f442)
+
+
+	#print(formations)
+
+	
+	
+
+
+	return render_template("index.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532)
 
 
 
