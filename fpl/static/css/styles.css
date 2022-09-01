@@ -232,3 +232,9 @@ table tbody tr:last-child td {
 .help{
     display: inline-block;
 }
+
+
+
+.player h3{
+    color: darkmagenta;
+}
