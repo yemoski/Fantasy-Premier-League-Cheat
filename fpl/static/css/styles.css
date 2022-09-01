@@ -238,3 +238,9 @@ table tbody tr:last-child td {
 .player h3{
     color: darkmagenta;
 }
+
+.footer{
+    text-align: center;
+    color: darkorange;
+    font-weight: bold;
+}
