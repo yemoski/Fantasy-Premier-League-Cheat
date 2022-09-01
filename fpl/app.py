@@ -17,7 +17,7 @@ def home():
 	f532 = fpl.get_532()
 	f433 = fpl.get_433()
 	f352 = fpl.get_352()
-	#pprint(f451)
+	#pprint(f433)
 	#pprint(f352)
 	#pprint(f442)
 	verse = bible.get_verse()

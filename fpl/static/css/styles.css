@@ -27,9 +27,11 @@
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
-
+body{
+    background-color: grey;
+}
 .main {
-   background-color:grey;
+    background-color:grey;
     height: 100vh;
     display: block;
     
@@ -50,7 +52,7 @@
    
 }
 .header h2{
-    color: black;
+    color: darkmagenta;
     display: block;
     margin: auto;
     font-size: 50px;
@@ -104,6 +106,7 @@
 
 .recent-orders h2{
     text-align: center;
+    color: darkmagenta;
 }
 
 
@@ -145,6 +148,13 @@ table tbody tr:last-child td {
     transition: opacity 0.5s ease;
 
 }
+
+
+.ict_form_info{
+    white-space: normal;
+}
+
+
 .formation_name_info::before, .team_value_info::before, .ict_form_info::before, .budget_info::before{
     content: '';
     position: absolute;
@@ -181,6 +191,7 @@ table tbody tr:last-child td {
     visibility: visible;
     opacity: 1;
     font-size: 10px;
+    white-space: normal;
 }
 
 #help4:hover .budget_info{
@@ -206,6 +217,12 @@ table tbody tr:last-child td {
 
 .formation_name{
     text-align: center;
+    color: darkmagenta;
+}
+
+.captain_name{
+    text-align: center;
+    color: darkorange;
 }
 
 .price{

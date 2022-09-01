@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="explanation">
-			<h3>This is a live Bot that chooses the best available(Injury free) players to start in your FPL team based on ICT (Influence, Creativity, Threat) and Form for all FPL Formations.It follows all the FPL rules( 3 players max from a particular team, budget of £100M, etc).This only picks the starting 11, Use the remaining budget to pick your bench.</h3>
+			<h3>This is an Automatic live Bot that chooses the best available(Injury free) players to start in your FPL team based on ICT (Influence, Creativity, Threat) and Form for all FPL Formations.It follows all the FPL rules (3 players max from a particular team, budget of £100M, etc).This only picks the starting 11, Use the remaining budget to pick your bench.</h3>
 			
 		</div>
 		</div>
@@ -44,10 +44,10 @@
 				<table>
 					<thead>
 						<tr>
-							<th>formation_name <div id='help1'class="help"><span class="formation_name_info">The name of the Formation</span><span class="material-symbols-outlined">help</span></div></th>
-							<th>£Team_value    <div id='help2' class="help"><span class="team_value_info">The monetary value of the Team  from the live transfer market in £</span><span class="material-symbols-outlined">help</span></div></th>
-							<th> ICT_Form    <div id="help3" class="help"><span class="ict_form_info">Statistical index developed specifically to assess a player as an FPL asset, combining Influence, Creativity and Threat scores and Form is a player’s average score per match, calculated from all matches played by his club in the last 30 days.</span><span class="material-symbols-outlined">help</span></div></th>
-							<th>Remaining Budget    <div id="help4" class="help"><span class="budget_info">The money to spend on your bench players</span><span class="material-symbols-outlined">help</span></div></th>
+							<th>formation_name<div id='help1'class="help"><span class="formation_name_info">The name of the Formation</span><span class="material-symbols-outlined">help</span></div></th>
+							<th>Team_value<div id='help2' class="help"><span class="team_value_info">The monetary value of the Team  from the live transfer market in £</span><span class="material-symbols-outlined">help</span></div></th>
+							<th> ICT_Form<div id="help3" class="help"><span class="ict_form_info">Statistical index developed specifically to assess a player as an FPL asset, combining Influence, Creativity and Threat scores and Form is a player’s average score per match, calculated from all matches played by his club in the last 30 days.</span><span class="material-symbols-outlined">help</span> </div></th>
+							<th>Remaining Budget<div id="help4" class="help"><span class="budget_info">The money to spend on your bench players</span><span class="material-symbols-outlined">help</span></div></th>
 
 							
 						</tr>
@@ -57,7 +57,7 @@
 						{%for x in formations %}
 						<tr>
 							<td> {{x['name']}}</td>
-							<td> {{x['value']}}</td>
+							<td> £{{x['value']}}</td>
 							<td> {{x['ict_form']}}</td>
 							<td> {{x['budget']}}</td>
 							
@@ -75,6 +75,7 @@
 
 			<div class="formation">
 				<h2 class="formation_name">FORMATION:442</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f442['captain']['name']}} </h3>
 			<div class="player">
 				<h2>Goalkeeper</h2>
 				{% for x in f442['GK'] %}
@@ -131,6 +132,7 @@
 <!------------------------------------------ formation 2 ------------------------------------------------------------------->
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:451</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f451['captain']['name']}} </h3>
 			<div class="player">
 				<h2>Goalkeeper</h2>
 				{% for x in f451['GK'] %}
@@ -185,6 +187,7 @@
 		<!------------------------------------------ formation 3 ------------------------------------------------------------------->
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:433</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f451['captain']['name']}} </h3>
 			<div class="player">
 				<h2>Goalkeeper</h2>
 				{% for x in f433['GK'] %}
@@ -240,6 +243,7 @@
 	<!------------------------------------------ formation 4 ------------------------------------------------------------------->
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:532</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f532['captain']['name']}} </h3>
 			<div class="player">
 				<h2>Goalkeeper</h2>
 				{% for x in f532['GK'] %}
@@ -291,9 +295,10 @@
 			</div>
 			</div>
 <hr>
-			<!------------------------------------------ formation 4 ------------------------------------------------------------------->
+			<!------------------------------------------ formation 5------------------------------------------------------------------->
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:352</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f352['captain']['name']}} </h3>
 			<div class="player">
 				<h2>Goalkeeper</h2>
 				{% for x in f352['GK'] %}
