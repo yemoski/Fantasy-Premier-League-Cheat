@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'fpl'
 
 
-print()
+
 
 @app.route("/", methods = ["GET", "POST"])
 def home():
@@ -17,6 +17,7 @@ def home():
 	f532 = fpl.get_532()
 	f433 = fpl.get_433()
 	f352 = fpl.get_352()
+	f343 = fpl.get_343()
 	#pprint(f433)
 	#pprint(f352)
 	#pprint(f442)
@@ -69,6 +70,16 @@ def home():
 
 
 
+	row = {
+	
+	}
+	row['name'] = '343'
+	row['value'] = round(f343['team_value'],2)
+	row['ict_form'] = round(f343['ict_form'],2)
+	row['budget'] = round(100- f343['team_value'],2)
+	formations.append(row)
+
+
 
 	#print(formations)
 
@@ -76,7 +87,7 @@ def home():
 	
 
 
-	return render_template("index.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532)
+	return render_template("index.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343)
 
 
 

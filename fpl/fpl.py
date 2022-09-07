@@ -30,6 +30,8 @@ for i in data['elements']:
     position = position.replace('3',"MID")
     position = position.replace('4',"FOW")
 
+    photo = photo.replace('jpg','png')
+
     if len(team)==1:
         team = team.replace('1','Arsenal')
         team = team.replace('2','Aston Villa')
@@ -131,6 +133,7 @@ def get_442():
 
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f442['FOW'].append(new_row)
@@ -146,6 +149,7 @@ def get_442():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f442['MID'].append(new_row)
@@ -159,6 +163,7 @@ def get_442():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f442['GK'].append(new_row)
@@ -172,6 +177,7 @@ def get_442():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f442['DEF'].append(new_row)
@@ -210,6 +216,7 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f532['FOW'].append(new_row)
@@ -223,6 +230,7 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f532['MID'].append(new_row)
@@ -236,6 +244,7 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f532['GK'].append(new_row)
@@ -249,6 +258,7 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f532['DEF'].append(new_row)
@@ -290,6 +300,7 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f451['FOW'].append(new_row)
@@ -303,6 +314,7 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f451['MID'].append(new_row)
@@ -316,6 +328,7 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f451['GK'].append(new_row)
@@ -329,6 +342,7 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f451['DEF'].append(new_row)
@@ -367,6 +381,7 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f433['FOW'].append(new_row)
@@ -380,6 +395,7 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f433['MID'].append(new_row)
@@ -393,6 +409,7 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f433['GK'].append(new_row)
@@ -406,6 +423,7 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f433['DEF'].append(new_row)
@@ -446,6 +464,7 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f352['FOW'].append(new_row)
@@ -459,6 +478,7 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f352['MID'].append(new_row)
@@ -472,6 +492,7 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f352['GK'].append(new_row)
@@ -485,6 +506,7 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
                 f352['DEF'].append(new_row)
@@ -496,3 +518,85 @@ def get_352():
     f352['team_value'] =  100-budget
     f352['captain'] = captain
     return f352
+
+
+def get_343():
+    f343 = {'GK':[],
+            'DEF':[],
+            'MID':[],
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[],
+            'captain':None
+            }
+    budget = 100
+    GK = 0
+    DEF = 0
+    MID = 0
+    FOW = 0
+    teams = []
+    ict_form = 0
+    captain =  {'name':None,
+            'ict_form_index': 0}
+    for index,row in dataset.iterrows():
+        if teams.count(row['team']) < 3:
+            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost']:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f343['FOW'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                FOW = FOW +1
+            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost']:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f343['MID'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                MID = MID +1
+            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f343['GK'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                GK = GK +1
+            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost']:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                f343['DEF'].append(new_row)
+                budget -=row['now_cost']
+                teams.append(row['team'])
+                ict_form += row['form_ict_index']
+                DEF = DEF +1
+    f343['ict_form'] =ict_form
+    f343['team_value'] =  100-budget
+    f343['captain'] = captain
+    return f343
