@@ -1,0 +1,405 @@
+{% extends 'index.html' %}
+{% block maincontent %}
+		<div class="info">
+				<div class="verse">
+			<h2>{{verse}} </h2>
+			
+		</div>
+
+		<div class="explanation">
+			<h3>This is an Automatic live Program that chooses the best available(Injury free) players to start in your FPL team based on ICT (Influence, Creativity, Threat) and Form for all FPL Formations.It follows all the FPL rules (3 players max from a particular team, budget of £100M, etc).This only picks the starting 11, Use the remaining budget to pick your bench.</h3>
+			
+		</div>
+		</div>
+
+	<hr>
+
+		<div class="recent-orders">
+				<h2> Formation Summary</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>formation_name<div id='help1'class="help"><span class="formation_name_info">The name of the Formation</span><span class="material-symbols-outlined">help</span></div></th>
+							<th>Team_value<div id='help2' class="help"><span class="team_value_info">The monetary value of the Team  from the live transfer market in £</span><span class="material-symbols-outlined">help</span></div></th>
+							<th> ICT_Form<div id="help3" class="help"><span class="ict_form_info">Statistical index developed specifically to assess a player as an FPL asset, combining Influence, Creativity and Threat scores and Form is a player’s average score per match, calculated from all matches played by his club in the last 30 days.</span><span class="material-symbols-outlined">help</span> </div></th>
+							<th>Remaining Budget<div id="help4" class="help"><span class="budget_info">The money to spend on your bench players</span><span class="material-symbols-outlined">help</span></div></th>
+
+							
+						</tr>
+
+					</thead>
+					<tbody>
+						{%for x in formations %}
+						<tr>
+							<td> {{x['name']}}</td>
+							<td> £{{x['value']}}</td>
+							<td> {{x['ict_form']}}</td>
+							<td> {{x['budget']}}</td>
+							
+						</tr>
+				{% endfor %}
+
+					</tbody>
+				</table>
+		</div>
+
+
+
+
+		<div class="results">
+
+			<div class="formation">
+				<h2 class="formation_name">FORMATION:442</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f442['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in f442['GK'] %}
+				<div class="gk">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDER</h3>
+				{% for x in f442['DEF'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDER</h3>
+				{% for x in f442['MID'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in f442['FOW'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+			
+			<hr>
+
+<!------------------------------------------ formation 2 ------------------------------------------------------------------->
+	<div class="formation">
+				<h2 class="formation_name">FORMATION:451</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f451['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in f451['GK'] %}
+				<div class="gk">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDERS</h3>
+				{% for x in f451['DEF'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDERS</h3>
+				{% for x in f451['MID'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in f451['FOW'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+<hr>
+		<!------------------------------------------ formation 3 ------------------------------------------------------------------->
+	<div class="formation">
+				<h2 class="formation_name">FORMATION:433</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f451['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in f433['GK'] %}
+				<div class="gk">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDERS</h3>
+				{% for x in f433['DEF'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDERS</h3>
+				{% for x in f433['MID'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in f433['FOW'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+
+			<hr>
+	<!------------------------------------------ formation 4 ------------------------------------------------------------------->
+	<div class="formation">
+				<h2 class="formation_name">FORMATION:532</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f532['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in f532['GK'] %}
+				<div class="gk">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDERS</h3>
+				{% for x in f532['DEF'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDERS</h3>
+				{% for x in f532['MID'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in f532['FOW'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+<hr>
+			<!------------------------------------------ formation 5------------------------------------------------------------------->
+	<div class="formation">
+				<h2 class="formation_name">FORMATION:352</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f352['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in f352['GK'] %}
+				<div class="gk">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDERS</h3>
+				{% for x in f352['DEF'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDERS</h3>
+				{% for x in f352['MID'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in f352['FOW'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+			
+			
+
+<hr>
+			<!------------------------------------------ formation 6------------------------------------------------------------------->
+	<div class="formation">
+				<h2 class="formation_name">FORMATION:343</h2>
+				<h3 class="captain_name"> CAPTAIN: {{f343['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in f343['GK'] %}
+				<div class="gk">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDERS</h3>
+				{% for x in f343['DEF'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDERS</h3>
+				{% for x in f343['MID'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in f343['FOW'] %}
+				<div class="pos">
+					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+
+
+{% endblock %}

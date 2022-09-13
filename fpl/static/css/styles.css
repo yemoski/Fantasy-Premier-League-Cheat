@@ -275,6 +275,91 @@ table tbody tr:last-child td {
     color: darkmagenta;
 }
 
+
+
+/*********************************Help page******************************************/
+.main_help_info img{
+    max-width: 100%;
+    height: 500px;
+
+}
+.help_main_info p{
+    line-height: 2.5;
+    font-size: 20px;
+
+}
+
+
+.help_main_info a{
+    color: darkmagenta;
+    text-decoration: none;
+
+}
+
+.help_main_info a:hover{
+    text-decoration: underline;
+}
+
+.influence h2{
+    font-size: 33px ;
+}
+
+.influence p{
+    line-height: 2.5;
+    font-size: 20px;
+}
+
+
+.influence h2{
+    font-size: 33px ;
+}
+
+.influence p{
+    line-height: 2.5;
+    font-size: 20px;
+}
+
+
+.creativity h2{
+    font-size: 33px ;
+}
+
+.creativity p{
+    line-height: 2.5;
+    font-size: 20px;
+}
+
+
+.threat h2{
+    font-size: 33px ;
+}
+
+.threat p{
+    line-height: 2.5;
+    font-size: 20px;
+}
+
+
+
+.overall h2{
+    font-size: 33px ;
+}
+
+.overall p{
+    line-height: 2.5;
+    font-size: 20px;
+}
+.main_help_info{
+
+    display: inline-block;
+    width: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+
+
+}
+
+
 .footer{
     text-align: center;
     color: darkorange;

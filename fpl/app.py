@@ -87,8 +87,14 @@ def home():
 	
 
 
-	return render_template("index.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343)
+	return render_template("main.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343)
 
+
+@app.route("/help", methods = ["GET", "POST"])
+def help():
+
+
+	return render_template("help.html")
 
 
 	
