@@ -31,7 +31,6 @@ for i in data['elements']:
     position = position.replace('4',"FOW")
 
     photo = photo.replace('jpg','png')
-
     if len(team)==1:
         team = team.replace('1','Arsenal')
         team = team.replace('2','Aston Villa')
@@ -79,7 +78,14 @@ for i in data['elements']:
         team_shirt = team_shirt.replace('Wolves','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_39-66.webp')
 
 
-    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt]
+    postponed_games = ['Man United','Leeds', 'Crystal Palace', 'Brighton', 'Chelsea','Liverpool']
+    #for game week 8 alone the teams in the above array have their games postponed
+    if team in postponed_games:
+        postponed = 'Yes'
+    else:
+        postponed = 'No'
+
+    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed]
     all_players.append(stats)
 
 
@@ -94,7 +100,8 @@ dataset = pd.DataFrame({
     'team': all_players[:,6],
     'now_cost': all_players[:,7].astype(float),
     'position': all_players[:,8],
-    'team_shirt': all_players[:,9]
+    'team_shirt': all_players[:,9],
+    'postponed': all_players[:,10]
 
 
 })
@@ -125,7 +132,7 @@ def get_442():
     captain =  {'name':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3:
+        if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
@@ -209,7 +216,7 @@ def get_532():
     captain =  {'name':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3:
+        if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
@@ -293,7 +300,7 @@ def get_451():
     captain =  {'name':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3:
+        if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=0 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
@@ -374,7 +381,7 @@ def get_433():
     captain =  {'name':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3:
+        if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
@@ -457,7 +464,7 @@ def get_352():
     captain =  {'name':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3:
+        if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
@@ -539,7 +546,7 @@ def get_343():
     captain =  {'name':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3:
+        if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
