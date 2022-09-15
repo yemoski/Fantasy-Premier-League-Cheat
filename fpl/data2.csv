@@ -1,0 +1,39 @@
+id,name,deadline_time,average_entry_score,finished,data_checked,highest_scoring_entry,deadline_time_epoch,deadline_time_game_offset,highest_score,is_previous,is_current,is_next,cup_leagues_created,h2h_ko_matches_created,chip_plays,most_selected,most_transferred_in,top_element,top_element_info,transfers_made,most_captained,most_vice_captained
+1,Gameweek 1,2022-08-05 17:30:00,57,True,True,7309963.0,1659720600,0,119.0,False,False,False,False,False,"[{'chip_name': 'bboost', 'num_played': 170273}, {'chip_name': '3xc', 'num_played': 348557}]",28.0,105.0,366.0,"{'id': 366, 'points': 15}",0,283.0,318.0
+2,Gameweek 2,2022-08-13 10:00:00,57,True,True,3977474.0,1660384800,0,139.0,False,False,False,False,False,"[{'chip_name': 'bboost', 'num_played': 136909}, {'chip_name': 'freehit', 'num_played': 116234}, {'chip_name': 'wildcard', 'num_played': 280387}, {'chip_name': '3xc', 'num_played': 425115}]",28.0,318.0,28.0,"{'id': 28, 'points': 19}",12847501,318.0,283.0
+3,Gameweek 3,2022-08-20 10:00:00,48,True,True,9105261.0,1660989600,0,118.0,False,False,False,False,False,"[{'chip_name': 'bboost', 'num_played': 118152}, {'chip_name': 'freehit', 'num_played': 150737}, {'chip_name': 'wildcard', 'num_played': 492170}, {'chip_name': '3xc', 'num_played': 309279}]",28.0,19.0,7.0,"{'id': 7, 'points': 16}",20175060,28.0,318.0
+4,Gameweek 4,2022-08-27 10:00:00,62,True,True,9406675.0,1661594400,0,149.0,False,False,False,False,False,"[{'chip_name': 'bboost', 'num_played': 145393}, {'chip_name': 'freehit', 'num_played': 112828}, {'chip_name': 'wildcard', 'num_played': 380916}, {'chip_name': '3xc', 'num_played': 277947}]",28.0,225.0,279.0,"{'id': 279, 'points': 22}",16105042,283.0,28.0
+5,Gameweek 5,2022-08-30 17:00:00,62,True,True,2109803.0,1661878800,0,124.0,False,False,False,False,False,"[{'chip_name': 'bboost', 'num_played': 92307}, {'chip_name': 'freehit', 'num_played': 111429}, {'chip_name': 'wildcard', 'num_played': 330787}, {'chip_name': '3xc', 'num_played': 244159}]",28.0,104.0,318.0,"{'id': 318, 'points': 17}",14741619,318.0,28.0
+6,Gameweek 6,2022-09-03 10:00:00,45,True,True,2896012.0,1662199200,0,118.0,True,False,False,False,False,"[{'chip_name': 'bboost', 'num_played': 110023}, {'chip_name': 'freehit', 'num_played': 126955}, {'chip_name': 'wildcard', 'num_played': 410070}, {'chip_name': '3xc', 'num_played': 213257}]",28.0,104.0,335.0,"{'id': 335, 'points': 18}",17124386,318.0,283.0
+7,Gameweek 7,2022-09-10 10:00:00,0,True,True,1.0,1662804000,0,0.0,False,True,False,False,False,[],318.0,335.0,502.0,"{'id': 502, 'points': 0}",12077352,318.0,283.0
+8,Gameweek 8,2022-09-16 17:30:00,0,False,False,,1663349400,0,,False,False,True,False,False,"[{'chip_name': 'bboost', 'num_played': 4117}, {'chip_name': 'freehit', 'num_played': 4009}, {'chip_name': 'wildcard', 'num_played': 275575}, {'chip_name': '3xc', 'num_played': 5194}]",,,,,491362,,
+9,Gameweek 9,2022-10-01 10:00:00,0,False,False,,1664618400,0,,False,False,False,False,False,[],,,,,0,,
+10,Gameweek 10,2022-10-08 12:30:00,0,False,False,,1665232200,0,,False,False,False,False,False,[],,,,,0,,
+11,Gameweek 11,2022-10-14 17:30:00,0,False,False,,1665768600,0,,False,False,False,False,False,[],,,,,0,,
+12,Gameweek 12,2022-10-18 17:00:00,0,False,False,,1666112400,0,,False,False,False,False,False,[],,,,,0,,
+13,Gameweek 13,2022-10-22 10:00:00,0,False,False,,1666432800,0,,False,False,False,False,False,[],,,,,0,,
+14,Gameweek 14,2022-10-29 10:00:00,0,False,False,,1667037600,0,,False,False,False,False,False,[],,,,,0,,
+15,Gameweek 15,2022-11-05 13:30:00,0,False,False,,1667655000,0,,False,False,False,False,False,[],,,,,0,,
+16,Gameweek 16,2022-11-12 11:00:00,0,False,False,,1668250800,0,,False,False,False,False,False,[],,,,,0,,
+17,Gameweek 17,2022-12-26 13:30:00,0,False,False,,1672061400,0,,False,False,False,False,False,[],,,,,0,,
+18,Gameweek 18,2022-12-31 13:30:00,0,False,False,,1672493400,0,,False,False,False,False,False,[],,,,,0,,
+19,Gameweek 19,2023-01-02 13:30:00,0,False,False,,1672666200,0,,False,False,False,False,False,[],,,,,0,,
+20,Gameweek 20,2023-01-14 13:30:00,0,False,False,,1673703000,0,,False,False,False,False,False,[],,,,,0,,
+21,Gameweek 21,2023-01-21 13:30:00,0,False,False,,1674307800,0,,False,False,False,False,False,[],,,,,0,,
+22,Gameweek 22,2023-02-04 13:30:00,0,False,False,,1675517400,0,,False,False,False,False,False,[],,,,,0,,
+23,Gameweek 23,2023-02-11 13:30:00,0,False,False,,1676122200,0,,False,False,False,False,False,[],,,,,0,,
+24,Gameweek 24,2023-02-18 13:30:00,0,False,False,,1676727000,0,,False,False,False,False,False,[],,,,,0,,
+25,Gameweek 25,2023-02-25 13:30:00,0,False,False,,1677331800,0,,False,False,False,False,False,[],,,,,0,,
+26,Gameweek 26,2023-03-04 13:30:00,0,False,False,,1677936600,0,,False,False,False,False,False,[],,,,,0,,
+27,Gameweek 27,2023-03-11 13:30:00,0,False,False,,1678541400,0,,False,False,False,False,False,[],,,,,0,,
+28,Gameweek 28,2023-03-18 13:30:00,0,False,False,,1679146200,0,,False,False,False,False,False,[],,,,,0,,
+29,Gameweek 29,2023-04-01 12:30:00,0,False,False,,1680352200,0,,False,False,False,False,False,[],,,,,0,,
+30,Gameweek 30,2023-04-08 12:30:00,0,False,False,,1680957000,0,,False,False,False,False,False,[],,,,,0,,
+31,Gameweek 31,2023-04-15 12:30:00,0,False,False,,1681561800,0,,False,False,False,False,False,[],,,,,0,,
+32,Gameweek 32,2023-04-22 12:30:00,0,False,False,,1682166600,0,,False,False,False,False,False,[],,,,,0,,
+33,Gameweek 33,2023-04-25 17:15:00,0,False,False,,1682442900,0,,False,False,False,False,False,[],,,,,0,,
+34,Gameweek 34,2023-04-29 12:30:00,0,False,False,,1682771400,0,,False,False,False,False,False,[],,,,,0,,
+35,Gameweek 35,2023-05-06 12:30:00,0,False,False,,1683376200,0,,False,False,False,False,False,[],,,,,0,,
+36,Gameweek 36,2023-05-13 12:30:00,0,False,False,,1683981000,0,,False,False,False,False,False,[],,,,,0,,
+37,Gameweek 37,2023-05-20 12:30:00,0,False,False,,1684585800,0,,False,False,False,False,False,[],,,,,0,,
+38,Gameweek 38,2023-05-28 13:30:00,0,False,False,,1685280600,0,,False,False,False,False,False,[],,,,,0,,

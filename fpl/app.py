@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, url_for,flash,jsonify
 import fpl
 from pprint import pprint
 import bible
-
+import team_stats
+import gameweek_info
 
 app = Flask(__name__)
 app.secret_key = 'fpl'
@@ -21,6 +22,11 @@ def home():
 	#pprint(f433)
 	#pprint(f352)
 	#pprint(f442)
+	pprint(gameweek_info.get_info())
+
+	
+
+	
 	verse = bible.get_verse()
 	formations = []
 	row = {
@@ -87,7 +93,7 @@ def home():
 	
 
 
-	return render_template("main.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343)
+	return render_template("main.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, gameweek_info =gameweek_info.get_info() )
 
 
 @app.route("/help", methods = ["GET", "POST"])
@@ -95,6 +101,16 @@ def help():
 
 
 	return render_template("help.html")
+
+
+@app.route("/stats", methods = ["GET", "POST"])
+def stats():
+	#print(stats.get_xga())
+	#teams_data = stats.get_xga()
+	#print(team_stats.get_expected_ga())
+
+
+	return render_template("stats.html" , teams_data = team_stats.get_expected_ga() )
 
 
 	

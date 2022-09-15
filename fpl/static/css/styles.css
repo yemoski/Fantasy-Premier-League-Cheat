@@ -1,5 +1,11 @@
 
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 
+$base-spacing-unit: 24px;
+$half-spacing-unit: $base-spacing-unit / 2;
+
+$color-alpha: #1772FF;
+$color-form-highlight: #EEEEEE;
 :root{
     --color-bg: #FFDEAD;
     --white-smoke:  #F5F5F5;
@@ -48,14 +54,14 @@ body{
     overflow: auto;
     border-radius: 25px;
   
-    margin-top: 10px;
+
    
 }
 .header h2{
-    color: darkmagenta;
+    color: black;
     display: block;
     margin: auto;
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     vertical-align: middle;
     line-height: 90px;
@@ -65,6 +71,10 @@ nav{
     align-items: center;
     justify-content: space-between;
 
+}
+nav ul{
+    background-color: dimgray;
+    margin: 25px;
 }
 
 nav ul li{
@@ -101,8 +111,9 @@ nav ul li a:hover{
    
     overflow: auto;
     float: right;
-    margin-top: 10px;
-    border-radius: 25px;
+    margin: 10px;
+    background-color: dimgray;
+    border-radius: 5px;
     width: 335px;
     height: fit-content;
 
@@ -113,10 +124,10 @@ nav ul li a:hover{
 
 .explanation{
     float: left;
-   margin-top: 10px;
-
+   margin: 10px;
+   background-color: dimgray;
     overflow: auto;
-    border-radius: 25px;
+    border-radius: 5px;
     width: 600px;
     height: fit-content;
    
@@ -125,6 +136,35 @@ nav ul li a:hover{
 
 
 
+.gameweek_info{
+    background-color: dimgray;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gameweek_info_header{
+    text-align: center;
+    display: block;
+    font-size: 30px;
+}
+.deadline{
+    display: inline-block;
+    width: fit-content;
+    margin: 20px;
+    padding: 10px;
+    color: darkred;
+    font-size: 20px;
+    background-color: grey;
+}
+.chips{
+    display: inline-block;
+    width: fit-content;
+    margin: 20px;
+    padding: 10px;
+    background-color: grey;
+    font-size: 20px;
+}
 
 
 
@@ -135,7 +175,8 @@ nav ul li a:hover{
 
 .recent-orders h2{
     text-align: center;
-    color: darkmagenta;
+    color: black;
+    font-size: 30px;
 }
 
 
@@ -253,12 +294,13 @@ table tbody tr:last-child td {
 }
 .formation_name{
     text-align: center;
-    color: darkmagenta;
+    color: black;
+    font-size: 30px;
 }
 
 .captain_name{
     text-align: center;
-    color: darkorange;
+    color: darkmagenta;
 }
 
 .price{
@@ -359,7 +401,81 @@ table tbody tr:last-child td {
 
 }
 
+//***********************************************************************************STATS****/
 
+
+*, *:before, *:after {
+    box-sizing:border-box;
+}
+
+body {
+    padding:$base-spacing-unit;
+    font-family:'Source Sans Pro', sans-serif;
+    margin:0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin:0;
+}
+
+.xg{
+    padding: 5px;
+    display: block;
+    background-color: dimgray;
+    margin: 30px;
+}
+
+.container {
+    max-width: 1000px;
+    margin-right:auto;
+    margin-left:auto;
+    display:block;
+    justify-content:center;
+    align-items:center;
+    
+}
+
+.table {
+    width:100%;
+    border:1px solid $color-form-highlight;
+    display: block;
+}
+.table_head_info{
+    font-size: 30px;
+    text-align: center;
+}
+.table-header {
+    display:flex;
+    width:100%;
+    background:#000;
+
+}
+
+.table-row {
+    display:flex;
+    width:100%;
+   
+}
+
+.table-data, .header__item {
+    flex: 1 1 20%;
+    text-align:center;
+}
+
+.header__item {
+    text-transform:uppercase;
+}
+
+.filter__link {
+    color:white;
+    text-decoration: none;
+    position:relative;
+    display:inline-block;
+    padding-left:$base-spacing-unit;
+    padding-right:$base-spacing-unit;
+    
+
+}
 .footer{
     text-align: center;
     color: darkorange;

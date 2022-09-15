@@ -13,6 +13,22 @@
 		</div>
 
 	<hr>
+	<div class="gameweek_info_header">
+			<h3>{{gameweek_info['Gameweek']}}: What FPL managers need to know!</h3>
+	</div>
+
+	<div class="gameweek_info">
+		
+		<div class="deadline">
+			<p>The Deadline is {{gameweek_info['deadline_time']}} uk time</h3>
+		</div>
+		{% for x in gameweek_info['chip_plays']%}
+		<div class="chips" id={{x['chip_name']}}>
+			<p>{{x['chip_name']}} played by {{x['num_played']}} of our Managers</p>
+		</div>
+		{% endfor %}
+	</div>
+	<hr>
 
 		<div class="recent-orders">
 				<h2> Formation Summary</h2>
@@ -44,7 +60,7 @@
 		</div>
 
 
-
+			<hr>
 
 		<div class="results">
 
