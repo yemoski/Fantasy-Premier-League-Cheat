@@ -11,7 +11,8 @@ My goal was to create the most precise method for shot quality evaluation.
 
 For this case, we trained neural network prediction algorithms with the large dataset (>100,000 shots, over 10 parameters for each).
 
-On this site, you will find our detailed xG and xGA statistics for the top Premier Leagues.
+On this site, you will find our detailed xG and xGA statistics for the Premier Leagues.
+Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lowest xGA.
 	</p>
 	</div>
 	<div class="table">
@@ -23,12 +24,12 @@ On this site, you will find our detailed xG and xGA statistics for the top Premi
 			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Wins</a></div>
 			<div class="header__item"><a id="name" class="filter__link">Draws</a></div>
 			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Losses</a></div>
-			<div class="header__item"><a id="draws" class="filter__link filter__link--number">XGA</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number">xGA</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number">GoalKeeper</a></div>
 			
 		</div>
 		<div class="table-content">	
-		{% for x in teams_data %}
+		{% for index,x in teams_data.iterrows() %}
 			<div class="table-row">
 				<div class="table-data">{{x['rk']}}</div>
 				<div class="table-data">{{x['squad']}}</div>

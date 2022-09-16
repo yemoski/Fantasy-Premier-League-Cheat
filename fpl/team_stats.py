@@ -1,10 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
+import numpy as np
+import pandas as pd
 
 
-def test():
-    return 'hello'
 def get_expected_ga():
     # Grab the html code from the webpage
     url = 'https://fbref.com/en/comps/9/Premier-League-Stats'
@@ -47,9 +47,16 @@ def get_expected_ga():
         row_headings['w'] = all_rows_data[3]
         row_headings['d'] = all_rows_data[4]
         row_headings['l'] = all_rows_data[5]
-        row_headings['xga'] = all_rows_data[12]
+        row_headings['xga'] = float(all_rows_data[12])
         row_headings['goal_keeper'] = all_rows_data[18]
         all_teams.append(row_headings)
+
+
+
+    all_teams = pd.DataFrame(all_teams)
+
+    all_teams = all_teams.sort_values(by=['xga'], ascending=True)
+
 
     return all_teams
 

@@ -70,11 +70,13 @@
 			<div class="player">
 				<h3>GOALKEEPER</h3>
 				{% for x in f442['GK'] %}
+				<div class="pos">
 				<div class="gk">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
 				<b><p class="price">£{{x['now_cost']}}</p></b>
 				</div>	
+			</div>
 			{% endfor %}
 
 				
@@ -127,10 +129,12 @@
 			<div class="player">
 				<h3>GOALKEEPER</h3>
 				{% for x in f451['GK'] %}
+				<div class="pos">
 				<div class="gk">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
 				<b><p class="price">£{{x['now_cost']}}</p></b>
+				</div>
 				</div>	
 			{% endfor %}
 
@@ -182,11 +186,13 @@
 			<div class="player">
 				<h3>GOALKEEPER</h3>
 				{% for x in f433['GK'] %}
+				<div class="pos">
 				<div class="gk">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
 				<b><p class="price">£{{x['now_cost']}}</p></b>
-				</div>	
+				</div>
+					</div>
 			{% endfor %}
 
 				
@@ -238,11 +244,13 @@
 			<div class="player">
 				<h3>GOALKEEPER</h3>
 				{% for x in f532['GK'] %}
+				<div class="pos">
 				<div class="gk">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
 				<b><p class="price">£{{x['now_cost']}}</p></b>
 				</div>	
+			</div>
 			{% endfor %}
 
 				
@@ -293,11 +301,13 @@
 			<div class="player">
 				<h3>GOALKEEPER</h3>
 				{% for x in f352['GK'] %}
+				<div class="pos">
 				<div class="gk">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
 				<b><p class="price">£{{x['now_cost']}}</p></b>
 				</div>	
+			</div>
 			{% endfor %}
 
 				
@@ -351,11 +361,14 @@
 			<div class="player">
 				<h3>GOALKEEPER</h3>
 				{% for x in f343['GK'] %}
-				<div class="gk">
+				<div class="pos">
+					<div class="gk">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
 				<b><p class="price">£{{x['now_cost']}}</p></b>
-				</div>	
+				</div>
+				</div>
+					
 			{% endfor %}
 
 				

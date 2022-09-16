@@ -22,7 +22,7 @@ def home():
 	#pprint(f433)
 	#pprint(f352)
 	#pprint(f442)
-	pprint(gameweek_info.get_info())
+	#pprint(gameweek_info.get_info())
 
 	
 
