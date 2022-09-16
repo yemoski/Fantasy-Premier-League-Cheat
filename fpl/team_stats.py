@@ -61,4 +61,63 @@ def get_expected_ga():
     return all_teams
 
 
+def get_expected_g():
+
+    # Grab the html code from the webpage
+    url = 'https://www.fotmob.com/leagues/47/stats/season/17664/players/expected_goals'
+    soup = BeautifulSoup(requests.get(url).text, 'html.parser')
+    data = soup.find_all('table')[0]
+    data = data.find_all('tbody')
+
+
+    for row in data:
+        rows = row.find_all('tr')
+
+
+
+    all_players_data = []
+    for i in range(0,15):
+        all_rows_data = []
+        row_heading = {
+            'rankings': '',
+            'name': '',
+            'xg': '',
+            'goals': ''
+        }
+        if i==0:
+            for x in rows[i]:
+                all_rows_data.append(x.get_text())
+            #print(all_rows_data)
+            row_heading['rankings'] = 1
+            row_heading['name'] = all_rows_data[3].replace('Goals','')
+            row_heading['name'] = row_heading['name'].replace(':','')
+            row_heading['goals'] = [int(s) for s in row_heading['name'].split() if s.isdigit()][0]
+            row_heading['name'] = row_heading['name'].replace(str(row_heading['goals']),'')
+            row_heading['xg'] = all_rows_data[4]
+
+        else:
+            for x in rows[i]:
+                all_rows_data.append(x.get_text())
+            row_heading['rankings'] = all_rows_data[0]
+            row_heading['name'] = all_rows_data[2].replace('Goals', '')
+            row_heading['name'] = row_heading['name'].replace(':', '')
+            row_heading['goals'] = [int(s) for s in row_heading['name'].split() if s.isdigit()][0]
+            row_heading['name'] = row_heading['name'].replace(str(row_heading['goals']), '')
+            row_heading['xg'] = all_rows_data[3]
+
+            #print(all_rows_data)
+
+
+        all_players_data.append(row_heading)
+    return all_players_data
+
+
+
+
+
+
+
+
+
+
 

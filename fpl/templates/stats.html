@@ -16,9 +16,32 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 	</p>
 	</div>
 	<div class="table">
-		<h3 class="table_head_info">Expected Goals Against (xGA)</h3>
+		<h3 class="table_head_info">Players Expected Goals (xG)</h3>
 		<div class="table-header">
 			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Ranking</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player Name</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Goals</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >xg</a></div>
+			
+			
+		</div>
+		<div class="table-content">	
+		{% for x in xg%}
+			<div class="table-row">
+				<div class="table-data">{{x['rankings']}}</div>
+				<div class="table-data">{{x['name']}}</div>
+				<div class="table-data">{{x['goals']}}</div>
+				<div class="table-data">{{x['xg']}}</div>
+			
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
+
+	<div class="table">
+		<h3 class="table_head_info">Expected Goals Against (xGA)</h3>
+		<div class="table-header">
+			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Team Ranking</a></div>
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team Name</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Matches Played</a></div>
 			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Wins</a></div>

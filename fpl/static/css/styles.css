@@ -351,6 +351,7 @@ table tbody tr:last-child td {
 .help_main_info {
     background-color: dimgray;
     margin: 20px;
+    padding: 20px;
 }
 .help_main_info a{
     color: darkmagenta;
@@ -366,6 +367,8 @@ table tbody tr:last-child td {
 .influence {
     background-color: dimgray;
     margin: 20px;
+     padding: 20px;
+
 }
 
 
@@ -381,6 +384,7 @@ table tbody tr:last-child td {
 .creativity {
     background-color: dimgray;
     margin: 20px;
+     padding: 20px;
 }
 .creativity h2{
     font-size: 33px ;
@@ -394,6 +398,7 @@ table tbody tr:last-child td {
 .threat {
     background-color: dimgray;
     margin: 20px;
+     padding: 20px;
 }
 .threat h2{
     font-size: 33px ;
@@ -407,6 +412,7 @@ table tbody tr:last-child td {
 .overall {
     background-color: dimgray;
     margin: 20px;
+     padding: 20px;
 }
 
 .overall h2{
@@ -467,6 +473,7 @@ h1,h2,h3,h4,h5,h6 {
     display: block;
     background-color: dimgray;
     margin: 10px;
+    margin-top: 20px;
 }
 .table_head_info{
     font-size: 30px;

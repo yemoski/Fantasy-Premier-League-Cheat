@@ -107,10 +107,10 @@ def help():
 def stats():
 	#print(stats.get_xga())
 	#teams_data = stats.get_xga()
-	#print(team_stats.get_expected_ga())
+	#pprint(team_stats.get_expected_g())
 
 
-	return render_template("stats.html" , teams_data = team_stats.get_expected_ga() )
+	return render_template("stats.html" , teams_data = team_stats.get_expected_ga(), xg=  team_stats.get_expected_g() )
 
 
 	
