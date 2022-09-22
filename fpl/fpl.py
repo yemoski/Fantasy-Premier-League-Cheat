@@ -78,7 +78,7 @@ for i in data['elements']:
         team_shirt = team_shirt.replace('Wolves','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_39-66.webp')
 
 
-    postponed_games = ['Man United','Leeds', 'Crystal Palace', 'Brighton', 'Chelsea','Liverpool']
+    postponed_games = []
     #for game week 8 alone the teams in the above array have their games postponed
     if team in postponed_games:
         postponed = 'Yes'
