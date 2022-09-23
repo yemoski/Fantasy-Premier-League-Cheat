@@ -25,9 +25,12 @@ for i in data['elements']:
     status = i['status']
     now_cost = i['now_cost']/10
     news = i['news']
+    in_dreamteam = i['in_dreamteam']
     news_added = i['news_added']
     transfers_in_event = i['transfers_in_event']
     transfers_out_event = i['transfers_out_event']
+    transfers_in_event = '{:,}'.format(int(transfers_in_event))
+    transfers_out_event = '{:,}'.format(int(transfers_out_event))
     points_per_game = i['points_per_game']
     selected_by_percent = i['selected_by_percent']
     chance_of_playing_next_round = i['chance_of_playing_next_round']
@@ -94,7 +97,7 @@ for i in data['elements']:
     else:
         postponed = 'No'
 
-    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game]
+    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game, in_dreamteam]
     all_players.append(stats)
 
 
@@ -116,7 +119,8 @@ dataset = pd.DataFrame({
     'transfer_in_event': all_players[:, 13],
     'transfer_out_event': all_players[:, 14],
     'selected_by_percent': all_players[:, 15],
-    'points_per_game': all_players[:,16]
+    'points_per_game': all_players[:,16],
+    'in_dreamteam': all_players[:,17]
 
 
 })
@@ -183,6 +187,11 @@ def get_442():
 
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -199,6 +208,11 @@ def get_442():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -213,6 +227,11 @@ def get_442():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -227,6 +246,11 @@ def get_442():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -266,6 +290,11 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -280,6 +309,11 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -294,6 +328,11 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -308,6 +347,11 @@ def get_532():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -350,6 +394,11 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -364,6 +413,11 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -378,6 +432,11 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -392,6 +451,11 @@ def get_451():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -431,6 +495,11 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -445,6 +514,11 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -459,6 +533,11 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -473,6 +552,11 @@ def get_433():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -514,6 +598,11 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -528,6 +617,11 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -542,6 +636,11 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -556,6 +655,11 @@ def get_352():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -596,6 +700,11 @@ def get_343():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -610,6 +719,11 @@ def get_343():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -624,6 +738,11 @@ def get_343():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}
@@ -638,6 +757,11 @@ def get_343():
                     captain['name'] = row['name']
                 new_row = {'name': row['name'],
                             'now_cost': row['now_cost'],
+                            'transfer_in_event':row['transfer_in_event'],
+                            'transfer_out_event': row['transfer_out_event'],
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
                             'photo': row['photo'],
                             'team_shirt': row['team_shirt'],
                             'team': row['team']}

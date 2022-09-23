@@ -32,30 +32,24 @@ $color-form-highlight: #EEEEEE;
 }
 
 body{
-    background-color: grey;
+    background-color: black;
+    
 }
 .main {
-    background-color:grey;
+    background-color:black;
     height: 100vh;
     display: block;
-
     
-
-
 }
 
 .header{
    display: block;
    align-items: center;
    justify-content: center;
-    
-
     overflow: auto;
-    border-radius: 25px;
-  
-
-   
+    border-radius: 25px;   
 }
+
 .webpage_header h2{
     color: black;
     display: block;
@@ -112,10 +106,9 @@ nav ul li a:hover{
 }
 .verse{
     display: block;
-   
     overflow: auto;
     float: right;
-    margin: 10px;
+    margin: 5px;
     background-color: dimgray;
     border-radius: 5px;
     width: 335px;
@@ -128,7 +121,7 @@ nav ul li a:hover{
 
 .explanation{
     float: left;
-   margin: 10px;
+   margin: 5px;
    background-color: dimgray;
     overflow: auto;
     border-radius: 5px;
@@ -139,7 +132,11 @@ nav ul li a:hover{
 }
 
 
-
+.main-body{
+    background-color: grey;
+    margin:10px;
+    border-radius: 10px;
+}
 .gameweek_info{
     background-color: dimgray;
     margin: 10px;
@@ -160,7 +157,7 @@ nav ul li a:hover{
     margin: 20px;
     padding: 10px;
     color: darkred;
-    font-size: 20px;
+    font-size: 15px;
     background-color: grey;
 }
 .chips{
@@ -284,8 +281,9 @@ table tbody tr:last-child td {
 .results{
     margin-top: 2rem;
     background-color: grey;
-    width: 100%;
-    margin: 15px;
+    margin: 10px;
+    border-radius: 10px;
+    
 }
 
 .pos{
@@ -306,7 +304,7 @@ table tbody tr:last-child td {
     text-align: center;
     color: black;
     font-size: 30px;
-    width: 100%;
+    
     margin: 15px;
     background-color: dimgray;
 }
@@ -428,6 +426,8 @@ table tbody tr:last-child td {
 
     display: inline-block;
     width: auto;
+    background-color: grey;
+    border-radius: 15px;
     margin-left: 20px;
     margin-right: 20px;
 
@@ -465,6 +465,9 @@ h1,h2,h3,h4,h5,h6 {
     display:block;
     justify-content:center;
     align-items:center;
+   background-color: grey;
+   border-radius: 10px;
+
     
 }
 
@@ -473,6 +476,7 @@ h1,h2,h3,h4,h5,h6 {
     border:1px solid $color-form-highlight;
     display: block;
     background-color: dimgray;
+    border-radius: 10px;
     margin: 10px;
     margin-top: 20px;
 }
@@ -519,6 +523,9 @@ h1,h2,h3,h4,h5,h6 {
 
 .news_container{
     display: inline-block;
+    margin: 20px;
+    border-radius: 20px;
+    background-color: grey;
 }
 
 .each_news{
