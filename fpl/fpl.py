@@ -2,7 +2,7 @@ import requests
 import json
 import numpy as np
 import pandas as pd
-import datetime
+from datetime import datetime
 
 
 # Make a get request to get the latest player data from the FPL API
@@ -24,6 +24,15 @@ for i in data['elements']:
     transfers_in = i['transfers_in']
     status = i['status']
     now_cost = i['now_cost']/10
+    news = i['news']
+    news_added = i['news_added']
+    transfers_in_event = i['transfers_in_event']
+    transfers_out_event = i['transfers_out_event']
+    points_per_game = i['points_per_game']
+    selected_by_percent = i['selected_by_percent']
+    chance_of_playing_next_round = i['chance_of_playing_next_round']
+    ep_next = i['ep_next'] #expected points next game week
+
     position = str(i['element_type'])
     position = position.replace('1',"GK")
     position = position.replace('2',"DEF")
@@ -85,7 +94,7 @@ for i in data['elements']:
     else:
         postponed = 'No'
 
-    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed]
+    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game]
     all_players.append(stats)
 
 
@@ -101,13 +110,47 @@ dataset = pd.DataFrame({
     'now_cost': all_players[:,7].astype(float),
     'position': all_players[:,8],
     'team_shirt': all_players[:,9],
-    'postponed': all_players[:,10]
+    'postponed': all_players[:,10],
+    'news': all_players[:, 11],
+    'news_added': all_players[:, 12],
+    'transfer_in_event': all_players[:, 13],
+    'transfer_out_event': all_players[:, 14],
+    'selected_by_percent': all_players[:, 15],
+    'points_per_game': all_players[:,16]
 
 
 })
 
+
 dataset = dataset.sort_values(by=['form_ict_index'], ascending=False)
 #dataset.to_csv(index=False, path_or_buf='data.csv')
+
+
+def get_news():
+    #dataset = dataset.sort_values(by=['name'], ascending=False)
+    news_list = []
+    
+    for index,row in dataset.iterrows():
+        if row['news']!='' and 'loan' not in row['news'] and 'Transferred' not in row['news'] and 'left' not in row['news']:
+
+            time = row['news_added']
+            time = time.split('T',1)
+            time = time[0]
+            time = datetime.strptime(time,'%Y-%m-%d')
+            #time = time.strptime("%b %d %Y %H:%M:%S")
+            news = {'time': time,
+            'news': row['news'],
+            'name': row['name'],
+            'photo': row['photo'],
+            'team': row['team']}
+        
+
+            news_list.append(news)
+    news_df = pd.DataFrame(news_list)
+    news_df = news_df.sort_values(by=['time'], ascending=False)
+    return news_df
+
+
 
 
 def get_442():

@@ -56,7 +56,7 @@ body{
 
    
 }
-.header h2{
+.webpage_header h2{
     color: black;
     display: block;
     margin: auto;
@@ -89,7 +89,7 @@ nav ul li{
 
 nav ul li a{
     color: black;
-    font-size: 35px;
+    font-size: 25px;
     text-decoration: none;
     font-weight: bold;
     text-transform: capitalize;
@@ -291,6 +291,7 @@ table tbody tr:last-child td {
 .pos{
     display: inline-block;
     margin: 5px;
+    padding: 10px;
     background-color: dimgray;
 }
 
@@ -511,9 +512,31 @@ h1,h2,h3,h4,h5,h6 {
     
 
 }
+
+
+
+/********************************news ***/
+
+.news_container{
+    display: inline-block;
+}
+
+.each_news{
+    float: left;
+    display: inline-block;
+    margin: 70px;
+    height: 280px;
+    width: 280px;
+}
+
+
+.footer-div{
+    margin-top: 50px;
+}
 .footer{
     text-align: center;
     color: darkmagenta;
     font-size: 25px;
     font-weight: bold;
+    margin-top: 20px;
 }

@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% block maincontent %}
+<div class="webpage_header">
+					<h2>Latest Player News</h2>
+		</div>
+<hr>
+<div class="news_container">
+{% for index,x in news.iterrows() %}
+
+	<div class="each_news">
+		<div class="pos">
+			<b><p> {{x['time']}}</p></b>
+				<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+				<b><p> {{x['name']}}</p></b>
+				<b><p class="price">{{x['news']}}</p></b>
+		</div>	
+
+		
+	</div>
+	
+
+{% endfor %}
+</div>
+
+
+{% endblock %}

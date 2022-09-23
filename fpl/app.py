@@ -5,6 +5,7 @@ import bible
 import team_stats
 import gameweek_info
 
+
 app = Flask(__name__)
 app.secret_key = 'fpl'
 
@@ -112,6 +113,12 @@ def stats():
 
 	return render_template("stats.html" , teams_data = team_stats.get_expected_ga(), xg=  team_stats.get_expected_g() )
 
+@app.route("/news", methods = ["GET", "POST"])
+def news():
+	#pprint(fpl.get_news())
+
+
+	return render_template("news.html" , news= fpl.get_news())
 
 	
 if __name__ == "__main__":
