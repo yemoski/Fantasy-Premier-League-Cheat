@@ -157,7 +157,7 @@ nav ul li a:hover{
     margin: 20px;
     padding: 10px;
     color: darkred;
-    font-size: 15px;
+    font-size: 20px;
     background-color: grey;
 }
 .chips{
@@ -460,6 +460,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .container {
     max-width: 1000px;
+    padding: 20px;
     margin-right:auto;
     margin-left:auto;
     display:block;
@@ -472,7 +473,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .table {
-    width:100%;
+    
     border:1px solid $color-form-highlight;
     display: block;
     background-color: dimgray;
@@ -526,6 +527,7 @@ h1,h2,h3,h4,h5,h6 {
     margin: 20px;
     border-radius: 20px;
     background-color: grey;
+    padding: 20px;
 }
 
 .each_news{

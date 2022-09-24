@@ -43,7 +43,8 @@ def get_info():
             #current_gameweek['most_vice_captained'] = row['most_vice_captained']
             break
     for x in current_gameweek['chip_plays']:
-        if x['chip_name'] =='bboost':
+        x['num_played'] = '{:,}'.format(int(x['num_played']))
+        if x['chip_name'] =='bboost':     
             x['chip_name'] = 'Bench Boost'
         elif x['chip_name']=='freehit':
             x['chip_name'] = 'Free Hit'
