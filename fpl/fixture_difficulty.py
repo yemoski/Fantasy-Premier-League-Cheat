@@ -25,9 +25,7 @@ def get_fixtures():
             unique_team_id.append(z['team'])
             player_from_unique_team.append(z['id'])
             teams_counter = teams_counter + 1
-
-
-    #print(unique_team_id)
+ 
 
 
     all_fixtutes = []
@@ -48,12 +46,12 @@ def get_fixtures():
             'team_name': '',
             'fixtures': ''
         }
-
+        # fixing the opponents team name
         for xy in range(0,5):
             if fixtures['fixtures'][xy]['is_home']:
                 opponent = str(fixtures['fixtures'][xy]['team_a'])
                 if len(opponent)==1:
-                    opponent = opponent.replace('1','Ars')
+                    opponent = opponent.replace('1','ARS')
                     opponent = str(opponent).replace('2','AVL')
                     opponent = str(opponent).replace('3','BOU')
                     opponent = str(opponent).replace('4','BRE')
@@ -61,7 +59,7 @@ def get_fixtures():
                     opponent = str(opponent).replace('6','CHE')
                     opponent = str(opponent).replace('7','CRY')
                     opponent = str(opponent).replace('8','EVE')
-                    opponent = str(opponent).replace('9','Ful')
+                    opponent = str(opponent).replace('9','FUL')
             
 
                 elif len(opponent)==2:
@@ -82,7 +80,7 @@ def get_fixtures():
             else:
                 opponent = str(fixtures['fixtures'][xy]['team_h'])
                 if len(opponent)==1:
-                    opponent = opponent.replace('1','Ars')
+                    opponent = opponent.replace('1','ARS')
                     opponent = str(opponent).replace('2','AVL')
                     opponent = str(opponent).replace('3','BOU')
                     opponent = str(opponent).replace('4','BRE')
@@ -90,7 +88,7 @@ def get_fixtures():
                     opponent = str(opponent).replace('6','CHE')
                     opponent = str(opponent).replace('7','CRY')
                     opponent = str(opponent).replace('8','EVE')
-                    opponent = str(opponent).replace('9','Ful')
+                    opponent = str(opponent).replace('9','FUL')
             
 
                 elif len(opponent)==2:
@@ -140,7 +138,7 @@ def get_fixtures():
             fixtures_dict['team_id'] = str(fixtures_dict['team_id']).replace('19','Westham')
             fixtures_dict['team_id'] = str(fixtures_dict['team_id']).replace('20','Wolves')
 
-        # fixing the opponents 
+        
         fixtures_dict['fixtures'] = next_5_games
         fixtures_dict['difficulty'] = difficulty
 
@@ -158,7 +156,7 @@ def get_fixtures_header():
     response = requests.get(url)
     fixtures = json.loads(response.text)
 
-    headers = [] #Next 5 game week names
+    headers = [] # Next 5 game week names
 
     for xy in range(0,5):
             headers.append(fixtures['fixtures'][xy]['event'])
