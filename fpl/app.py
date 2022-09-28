@@ -4,6 +4,7 @@ from pprint import pprint
 import bible
 import team_stats
 import gameweek_info
+import fixture_difficulty as fd
 
 
 app = Flask(__name__)
@@ -14,16 +15,27 @@ app.secret_key = 'fpl'
 
 @app.route("/", methods = ["GET", "POST"])
 def home():
+
+	
+
+	
+	verse = bible.get_verse()
+
+
+	
+	
+
+
+	return render_template("main.html", verse=verse,gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header())
+@app.route("/formations", methods = ["GET", "POST"])
+def formations():
 	f442 = fpl.get_442()
 	f451 = fpl.get_451()
 	f532 = fpl.get_532()
 	f433 = fpl.get_433()
 	f352 = fpl.get_352()
 	f343 = fpl.get_343()
-	#pprint(f433)
-	#pprint(f352)
-	#pprint(f442)
-	#pprint(gameweek_info.get_info())
+	
 
 	
 
@@ -87,16 +99,7 @@ def home():
 	formations.append(row)
 
 
-
-	#print(formations)
-
-	
-	
-
-
-	return render_template("main.html",f442=f442, verse=verse,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, gameweek_info =gameweek_info.get_info() )
-
-
+	return render_template('formations.html',f442=f442,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343)
 @app.route("/help", methods = ["GET", "POST"])
 def help():
 
@@ -109,6 +112,10 @@ def stats():
 	#print(stats.get_xga())
 	#teams_data = stats.get_xga()
 	#pprint(team_stats.get_expected_g())
+	#pprint(fd.get_fixtures()[0])
+	
+
+
 
 
 	return render_template("stats.html" , teams_data = team_stats.get_expected_ga(), xg=  team_stats.get_expected_g() )

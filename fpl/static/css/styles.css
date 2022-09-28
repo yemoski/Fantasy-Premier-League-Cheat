@@ -72,18 +72,18 @@ nav{
 }
 nav ul{
     background-color: darkgray;
-    margin: 25px;
+    margin: 15px;
 }
 
 nav ul li{
     list-style-type: none;
     display: inline-block;
-    padding:  10px 25px;
+    padding:  5px 15px;
 }
 
 nav ul li a{
     color: black;
-    font-size: 25px;
+    font-size: 20px;
     text-decoration: none;
     font-weight: bold;
     text-transform: capitalize;
@@ -107,11 +107,10 @@ nav ul li a:hover{
 .verse{
     display: block;
     overflow: auto;
-    float: right;
-    margin: 5px;
+    margin: 10px;
     background-color: dimgray;
     border-radius: 5px;
-    width: 335px;
+    padding: 15px;
     height: fit-content;
 
 }
@@ -120,12 +119,11 @@ nav ul li a:hover{
 }
 
 .explanation{
-    float: left;
-   margin: 5px;
+   margin: 10px;
    background-color: dimgray;
     overflow: auto;
+    padding: 15px;
     border-radius: 5px;
-    width: 600px;
     height: fit-content;
    
 
@@ -332,8 +330,25 @@ table tbody tr:last-child td {
     color: darkmagenta;
 }
 
+#difficulty1{
+    background-color: green;
+}
 
+#difficulty2{
+    background-color: lightgreen;
+}
 
+#difficulty3{
+    background-color: palevioletred;
+}
+
+#difficulty4{
+    background-color: indianred;
+}
+
+#difficulty5{
+    background-color: red;
+}
 /*********************************Help page******************************************/
 .main_help_info img{
     max-width: 100%;
