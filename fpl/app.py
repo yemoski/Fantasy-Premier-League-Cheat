@@ -21,12 +21,12 @@ def home():
 	
 	verse = bible.get_verse()
 
-
-	
-	
+	return render_template("main.html", verse=verse,gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header(), transfer_in= fpl.get_most_transferred_in(), transfer_out = fpl.get_most_transferred_out())
 
 
-	return render_template("main.html", verse=verse,gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header())
+
+
+
 @app.route("/formations", methods = ["GET", "POST"])
 def formations():
 	f442 = fpl.get_442()
@@ -125,7 +125,7 @@ def news():
 	#pprint(fpl.get_news())
 
 
-	return render_template("news.html" , news= fpl.get_news())
+	return render_template("news.html" , news= fpl.get_news(), current_date_time = fpl.get_current_time())
 
 	
 if __name__ == "__main__":

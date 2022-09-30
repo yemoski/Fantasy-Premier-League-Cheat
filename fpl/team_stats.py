@@ -82,7 +82,8 @@ def get_expected_g():
             'rankings': '',
             'name': '',
             'xg': '',
-            'goals': ''
+            'goals': '',
+            'p':''
         }
         if i==0:
             for x in rows[i]:
@@ -95,6 +96,11 @@ def get_expected_g():
             row_heading['name'] = row_heading['name'].replace(str(row_heading['goals']),'')
             row_heading['xg'] = all_rows_data[4]
 
+            if float(row_heading['goals']) > float(row_heading['xg']):
+                row_heading['p'] = 'overperforming'
+            else:
+                row_heading['p'] = 'underperforming'
+
         else:
             for x in rows[i]:
                 all_rows_data.append(x.get_text())
@@ -105,7 +111,10 @@ def get_expected_g():
             row_heading['name'] = row_heading['name'].replace(str(row_heading['goals']), '')
             row_heading['xg'] = all_rows_data[3]
 
-            #print(all_rows_data)
+            if float(row_heading['goals']) > float(row_heading['xg']):
+                row_heading['p'] = 'overperforming'
+            else:
+                row_heading['p'] = 'underperforming'
 
 
         all_players_data.append(row_heading)

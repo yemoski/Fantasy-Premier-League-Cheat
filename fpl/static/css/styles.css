@@ -59,6 +59,10 @@ body{
     vertical-align: middle;
     line-height: 90px;
 }
+.webpage_header p{
+    text-align: center;
+    font-weight: bold;
+}
 .webpage_header{
     background-color: dimgray;
     margin: 20px;
@@ -317,7 +321,7 @@ table tbody tr:last-child td {
 }
 
 .price{
-    color: darkred;
+    color: darkblue;
 }
 
 .help{
@@ -517,7 +521,13 @@ h1,h2,h3,h4,h5,h6 {
     width:100%;
    
 }
+#overperforming{
+    color: greenyellow;
+}
 
+#underperforming{
+    color: darkred;
+}
 .table-data, .header__item {
     flex: 1 1 20%;
     text-align:center;
@@ -538,9 +548,11 @@ h1,h2,h3,h4,h5,h6 {
 
 }
 
+.reference p{
+    text-align: center;
+}
 
-
-/********************************news ***/
+/********************************news **********************************************/
 
 .news_container{
     display: inline-block;
@@ -556,6 +568,13 @@ h1,h2,h3,h4,h5,h6 {
     margin: 70px;
     height: 280px;
     width: 280px;
+}
+
+#risen{
+    color: greenyellow;
+}
+#fallen{
+    color: darkred;
 }
 
 

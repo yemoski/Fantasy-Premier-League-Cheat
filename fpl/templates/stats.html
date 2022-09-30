@@ -9,7 +9,7 @@
 			<p >
 	Expected goals (xG) is the new revolutionary metric in low scoring sports like football, which allows you to evaluate team and player performance.
 
-This is why more and more sports analytics turn to the advanced models like xG and xGA, which is a statistical measure of the quality of chances created and conceded, because match score does not provide a clear picture of performance.
+ This is why more and more sports analytics turn to the advanced models like xG and xGA, which is a statistical measure of the quality of chances created and conceded, because match score does not provide a clear picture of performance.
 
 My goal was to create the most precise method for shot quality evaluation.
 
@@ -34,7 +34,7 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 		{% for x in xg%}
 			<div class="table-row">
 				<div class="table-data">{{x['rankings']}}</div>
-				<div class="table-data">{{x['name']}}</div>
+				<div id='{{x['p']}}' class="table-data">{{x['name']}}</div>
 				<div class="table-data">{{x['goals']}}</div>
 				<div class="table-data">{{x['xg']}}</div>
 			
@@ -46,30 +46,37 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 	<div class="table">
 		<h3 class="table_head_info">Expected Goals Against (xGA)</h3>
 		<div class="table-header">
-			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Team Ranking</a></div>
+			
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team Name</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number">GoalKeeper</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Matches Played</a></div>
 			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Wins</a></div>
 			<div class="header__item"><a id="name" class="filter__link">Draws</a></div>
 			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Losses</a></div>
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number">xGA</a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number">GoalKeeper</a></div>
+			
 			
 		</div>
 		<div class="table-content">	
 		{% for index,x in teams_data.iterrows() %}
 			<div class="table-row">
-				<div class="table-data">{{x['rk']}}</div>
+				
 				<div class="table-data">{{x['squad']}}</div>
+				<div class="table-data">{{x['goal_keeper']}}</div>
 				<div class="table-data">{{x['mp']}}</div>
 				<div class="table-data">{{x['w']}}</div>
 				<div class="table-data">{{x['d']}}</div>
 				<div class="table-data">{{x['l']}}</div>
-				<div class="table-data">{{x['xga']}}</div>
-				<div class="table-data">{{x['goal_keeper']}}</div>
+				<div class="table-data">{{x['xga']}}</div>	
 			</div>
 			{% endfor %}
 		</div>	
+	</div>
+
+	<div class="reference">
+		<p>The data was gotten from <a href="https://fbref.com/en/" target="_blank">FBREF</a></p>
+		<p id=overperforming>Green -> Players Outperforming their xG</p>
+		<p id=underperforming>Red -> Players Underperforming their xG</p>		
 	</div>
 </div>
 {% endblock %}

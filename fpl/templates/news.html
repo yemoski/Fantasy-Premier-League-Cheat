@@ -2,6 +2,7 @@
 {% block maincontent %}
 <div class="webpage_header">
 					<h2>LATEST PLAYER NEWS</h2>
+					<p>{{current_date_time}}</p>
 		</div>
 <hr>
 <div class="news_container">
@@ -12,7 +13,13 @@
 			<b><p> Time: {{x['time']}}</p></b>
 				<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
 				<b><p> {{x['name']}}</p></b>
-				<b><p class="price">{{x['news']}}</p></b>
+				{% if x['price_change']=='risen' %}
+					<b><p id='{{x['price_change']}}' class="price">Price has risen to £{{x['news']}}</p></b>
+				{% elif x['price_change']=='fallen' %}
+					<b><p id='{{x['price_change']}}' class="price">Price has fallen to £{{x['news']}}</p></b>
+				{% else %}
+					<b><p id='{{x['price_change']}}' class="price">{{x['news']}}</p></b>
+				{% endif %}
 		</div>	
 
 		

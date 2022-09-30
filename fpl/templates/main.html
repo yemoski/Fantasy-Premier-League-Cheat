@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block maincontent %}
 <div class="webpage_header">
-					<h2>FPL CHEAT CODE BOT</h2>
+					<h2>FPL CHEAT BOT</h2>
 		</div>
 		<hr>
 <div class="main-body">
@@ -67,6 +67,56 @@
 			{% endfor %}
 		</div>	
 	</div>
+
+
+
+
+
+<div class="table">
+		<h3 class="table_head_info">MOST TRANSFERRED IN PLAYERS</h3>
+		<div class="table-header">
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Ranking</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Player Name</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Transferred in by</a></div>	
+		</div>
+
+		<div class="table-content">	
+		{% for index,x in transfer_in.iterrows() %}
+			<div class="table-row">
+				<div class="table-data">{{index+1}}</div>
+				<div class="table-data">{{x['name']}}</div>
+				<div class="table-data">{{x['team']}}</div>
+				<div class="table-data">{{x['count']}} Managers</div>
+				
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
+		
+
+<div class="table">
+		<h3 class="table_head_info">MOST TRANSFERRED OUT PLAYERS</h3>
+		<div class="table-header">
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Ranking</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Player Name</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Transferred out by</a></div>	
+		</div>
+
+		<div class="table-content">	
+		{% for index,x in transfer_out.iterrows() %}
+			<div class="table-row">
+				<div class="table-data">{{index+1}}</div>
+				<div class="table-data">{{x['name']}}</div>
+				<div class="table-data">{{x['team']}}</div>
+				<div class="table-data">{{x['count']}} Managers</div>
+				
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
+		
 		
 
 
