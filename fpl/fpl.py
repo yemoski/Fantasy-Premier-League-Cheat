@@ -139,9 +139,18 @@ def get_current_time():
     now = datetime.today()
 
     current_time = now.strftime('%Y-%m-%d %H:%M:%S')
+    time = current_time
+    time = datetime.strptime(time,'%Y-%m-%d %H:%M:%S')
+    month_name = str(time.strftime('%B'))
+    year = str(time.strftime('%Y'))
+    day = str(time.strftime('%d'))
+    time2 = time.strftime('%H:%M:%S')
+    day_name = pd.Timestamp(time)
+    day_name = day_name.day_name() 
+    full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+time2 +  ' Local time'
     
 
-    return current_time
+    return full_date
 
 def get_most_transferred_in():
     players_list = []
@@ -204,9 +213,19 @@ def get_news():
             time = time.split('T',1)
             time = time[0]
             time = datetime.strptime(time,'%Y-%m-%d')
+            month_name = str(time.strftime('%B'))
+            year = str(time.strftime('%Y'))
+            day = str(time.strftime('%d'))
+
+            day_name = pd.Timestamp(time)
+            day_name = day_name.day_name() 
+            full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year
+           
+            
             #print(type(time))
             #time = time.strptime("%b %d %Y %H:%M:%S")
-            news = {'time': time,
+            news = {'time': full_date,
+                'sorting_time': time,
             'news': row['news'],
             'name': row['name'],
             'photo': row['photo'],
@@ -219,6 +238,7 @@ def get_news():
             if row['cost_change_event']==1: 
                 news = {
                 'time' : current_time,
+                 'sorting_time': current_time,
                 'news': str(row['now_cost']),
                 'name': row['name'],
                 'photo': row['photo'],
@@ -228,6 +248,7 @@ def get_news():
             else:
                 news = {
                 'time' : current_time,
+                 'sorting_time': current_time,
                 'news': str(row['now_cost']),
                 'name': row['name'],
                 'photo': row['photo'],
@@ -237,7 +258,7 @@ def get_news():
 
             news_list.append(news)
     news_df = pd.DataFrame(news_list)
-    news_df = news_df.sort_values(by=['time'], ascending=False)
+    news_df = news_df.sort_values(by=['sorting_time'], ascending=False)
     return news_df
 
 

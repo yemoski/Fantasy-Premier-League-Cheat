@@ -36,6 +36,8 @@ def get_info():
         if str(row['finished']).lower()=='false':
             current_gameweek['Gameweek'] = row['name']
             current_gameweek['deadline_time'] =  str(row['deadline_time']).strip('Timestamp')
+            day = pd.Timestamp(current_gameweek['deadline_time'])
+            current_gameweek['deadline_time'] = day.day_name() + ' ' +current_gameweek['deadline_time'] 
             current_gameweek['chip_plays'] = row['chip_plays']
             #current_gameweek['most_selected'] = row['most_selected']
             #current_gameweek['most_transferred_in'] = row['most_transferred_in']

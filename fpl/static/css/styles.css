@@ -1,6 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 $base-spacing-unit: 24px;
 $half-spacing-unit: $base-spacing-unit / 2;
 
@@ -31,6 +31,27 @@ $color-form-highlight: #EEEEEE;
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
+
+
+
+:root {
+    --color-text-primary: #1c2a38;
+    --color-text-secondary: #8A8F98;
+    --color-text-alert: #d72641;
+    --color-text-icon: #dbdade;
+    --color-bg-primary: #fff;
+    --color-bg-secondary: #f3f5f9;
+    --color-bg-alert: #fdeaec;
+    --color-theme-primary: #623ce6;
+}
+
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
 body{
     background-color: black;
     
@@ -39,6 +60,7 @@ body{
     background-color:black;
     height: 100vh;
     display: block;
+    overflow: auto;
     
 }
 
@@ -576,6 +598,230 @@ h1,h2,h3,h4,h5,h6 {
 #fallen{
     color: darkred;
 }
+
+/************************************   Livescore ******************************************/
+
+
+img {
+    display: block;
+    
+}
+
+strong {
+    font-weight: 600;
+}
+
+
+
+
+.match {
+    background-color: darkgray;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    margin: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(#303030, 0.1), 0 4px 4px 0 rgba(#303030, 0.1);
+    
+}
+
+.match-header {
+    display: flex;
+    padding: 16px;
+    border-bottom: 2px solid rgba(#303030, 0.1);
+}
+
+.match-status {
+    background-color: var(--color-bg-alert);
+    color: var(--color-text-alert);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin-right: auto;
+    &:before {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background-color: currentcolor;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+    
+}
+
+.match-tournament {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    img {
+        width: 20px;
+        margin-right: 12px;
+    }
+    
+}
+
+.match-actions {
+    display: flex;
+    margin-left: auto;
+}
+
+.btn-icon {
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-icon);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.match-content {
+    display: flex;
+    position: relative;
+}
+
+.column {
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100%/3);
+}
+
+
+.team {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    
+}
+
+.team-logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 4px 4px 0 rgba(#303030, 0.15),
+        0 0 0 15px var(--color-bg-secondary);
+   
+
+}
+
+.team-name {
+    text-align:center;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.match-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.match-date, .match-referee {
+    font-size: 14px;
+    color: black;
+   
+}
+
+.match-score {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.match-score-number {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    &--leading {
+        color: var(--color-theme-primary);
+    }
+}
+
+.match-score-divider {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    color: var (--color-text-icon);
+    margin-left: 10px;
+    margin-right: 10px;
+    
+}
+
+.match-time-lapsed {
+    color: #DF9443;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.match-referee {
+    margin-top: 12px;
+}
+
+.match-bet-options {
+    display: flex;
+    margin-top: 8px;
+    padding-bottom: 12px;
+}
+
+
+.match-bet-option {
+    margin-left: 4px;
+    margin-right: 4px;
+    border: 1px solid var(--color-text-icon);
+    background-color: #F9F9F9;
+    border-radius: 2px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 8px;
+}
+
+.match-bet-place {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    background-color: var(--color-theme-primary);
+    border-radius: 6px;
+    padding: 10px 48px;
+    color: rgba(#fff, 0.9);
+    font-size: 14px;
+    box-shadow: 0 4px 8px 0 rgba(#303030, 0.25);
+}
+
+
+.livescore_container {
+    margin: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+}
+.gameweek_header{
+    font-size: 35px;
+    text-align: center;
+}
+
+
+.bonus{
+    color: darkred;
+}
+
+
+
 
 
 .footer-div{
