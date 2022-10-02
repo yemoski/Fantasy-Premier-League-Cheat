@@ -1,41 +1,24 @@
 {% extends 'index.html' %}
 {% block maincontent %}
-<div class="livescore_container">
-		<div class="gameweek_header">
-			<h3>Gameweek {{livescore['game_week']}}</h3>
+	<div class="webpage_header ">
+			<h2>Gameweek {{livescore['game_week']}}</h3>
 			<p>Data automatically refreshes!</p>
 		</div>
-		<!----
-		{%for x in range(0,length) %}
-		<div class="livescore_results">
-			<div class="livescore_team_name">
-				<div class="home">
-					<h3>{{livescore['Game_results'][x]['team_h']}}</h3>
-				<div class="livescore_badge"><img class='livescore_badge' src="{{livescore['Game_results'][x]['team_h_badge']}}"></div>
-				</div>
-				
-				<h3>{{livescore['Game_results'][x]['team_h_score']}} |</h3>
-				<h3>{{livescore['Game_results'][x]['team_a_score']}}</h3>
-				<div class="away">
-					<div class="livescore_badge"><img class='livescore_badge' src="{{livescore['Game_results'][x]['team_a_badge']}}"></div>
-				<h3>{{livescore['Game_results'][x]['team_a']}}</h3>
-				</div>
-				<div class="events">
-				{% if  livescore['Game_results'][x]['events']!=None %}
-					{% for p in livescore['Game_results'][x]['events'] %}
-						<h4>(Goal) {{p['player_name']}}</h4>
-					{% endfor %}
-				{% endif %}
-				</div>
-				
-			</div>
-			
-		</div>
-		{% endfor %} -->
+	<hr>
+<div class="livescore_container">
+	
+
 		{%for x in range(0,length) %}
 			<div class="match">
 		<div class="match-header">
-			<div class="match-status"></div>
+			{% if  livescore['Game_results'][x]['started']==True and livescore['Game_results'][x]['finished']==False %}
+				<div id='match-status_ongoing' class="match-status">{{livescore['Game_results'][x]['mins']}}'</div>
+			
+			{% elif  livescore['Game_results'][x]['started']==False and livescore['Game_results'][x]['finished']==False%}
+				<div class="match-status">Upcoming</div>
+			{% else %}
+				<div  class="match-status">Full Time</div>
+			{% endif %}
 			<div class="match-tournament"><img src="https://assets.codepen.io/285131/pl-logo.svg" />English Premier League</div>
 			<div class="match-actions">
 				<button class="btn-icon"><i class="material-icons-outlined"></i></button>

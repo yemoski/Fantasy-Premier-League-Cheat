@@ -176,10 +176,11 @@ def get_livescore():
         #If the game has been played or is being played
         if gw[p]['stats'] != []:
             goal_scored =  gw[p]['stats'][0]
-
             assist = gw[p]['stats'][1]
             own_goals = gw[p]['stats'][2]
-
+            mins = gw[p]['minutes'] #Current minute in the game
+            finished = gw[p]['finished'] # Has the game finished
+            started = gw[p]['started'] #Has the game started
             total_events = []
             yellow_cards = gw[p]['stats'][5]
             red_cards = gw[p]['stats'][6]
@@ -279,6 +280,9 @@ def get_livescore():
         
             game_info = {
                 'kick_off_time':full_date,
+                'started': started,
+                'finished': finished ,
+                'minutes': mins,
                 'team_h':get_team_name(gw[p]['team_h']),
                  'team_a':get_team_name(gw[p]['team_a']),
                  'team_h_score':gw[p]['team_h_score'],
@@ -291,6 +295,9 @@ def get_livescore():
         #If the game has not been played yet
         else:
             total_events = None
+            mins = gw[p]['minutes'] #Current minute in the game
+            finished =  gw[p]['finished'] # Has the game finished
+            started = gw[p]['started'] #Has the game started
             time = gw[p]['kickoff_time']
             time_arr = time.split('T',1)
             time = time_arr[0] # Date part of the datetime
@@ -307,6 +314,9 @@ def get_livescore():
             full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
             game_info = {
                 'kick_off_time':full_date,
+                'started': started,
+                'finished': finished,
+                'minutes': mins,
                 'team_h':get_team_name(gw[p]['team_h']),
                  'team_a':get_team_name(gw[p]['team_a']),
                  'team_h_score':gw[p]['team_h_score'],

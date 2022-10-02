@@ -633,7 +633,7 @@ strong {
 
 .match-status {
     background-color: var(--color-bg-alert);
-    color: var(--color-text-alert);
+    color: black;
     padding: 8px 12px;
     border-radius: 6px;
     font-weight: 600;
@@ -652,6 +652,11 @@ strong {
         margin-right: 8px;
     }
     
+}
+
+
+#match-status_ongoing{
+    background-color: lightgreen;
 }
 
 .match-tournament {

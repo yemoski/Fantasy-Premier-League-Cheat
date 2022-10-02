@@ -147,7 +147,7 @@ def get_current_time():
     time2 = time.strftime('%H:%M:%S')
     day_name = pd.Timestamp(time)
     day_name = day_name.day_name() 
-    full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+time2 +  ' Local time'
+    full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+time2 +  ' UK time'
     
 
     return full_date
@@ -164,13 +164,14 @@ def get_most_transferred_in():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'fake_count': row['transfer_in_event'],
         'count': '{:,}'.format(int(row['transfer_in_event']))
         }
         players_list.append(player_dict)
         counter = counter +1
 
     df = pd.DataFrame(players_list)
-    df = df.sort_values(by=['count'], ascending=False)
+    df = df.sort_values(by=['fake_count'], ascending=False)
     return df
 
 def get_most_transferred_out():
@@ -185,13 +186,14 @@ def get_most_transferred_out():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'fake_count': row['transfer_out_event'],
         'count': '{:,}'.format(int(row['transfer_out_event']))
         }
         players_list.append(player_dict)
         counter = counter +1
 
     df = pd.DataFrame(players_list)
-    df = df.sort_values(by=['count'], ascending=False)
+    df = df.sort_values(by=['fake_count'], ascending=False)
     return df
 
 
