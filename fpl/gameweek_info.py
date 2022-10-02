@@ -21,7 +21,7 @@ def get_info():
     events_df['deadline_time'] = pd.to_datetime(events_df['deadline_time'])
     events_df['deadline_time'] = events_df['deadline_time'].dt.tz_localize(None)
 
-    events_df.to_csv(index=False, path_or_buf='data2.csv')
+    #events_df.to_csv(index=False, path_or_buf='data2.csv')
 
     current_gameweek = {'Gameweek': '',
                         'deadline_time': '',
