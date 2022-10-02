@@ -8,53 +8,53 @@ import re
 
 
 
-def get_current_gw():
-    # GETTING GAME WEEK DEADLINE AND CHIP PLAYS
-    # Make a get request to get the latest player data from the FPL API
-    link3 = "https://fantasy.premierleague.com/api/bootstrap-static/"
-    response3 = requests.get(link3)
 
-    # Convert JSON data to a python object
-    data3 = json.loads(response3.text)
+# GETTING GAME WEEK DEADLINE 
+# Make a get request to get the latest player data from the FPL API
+link3 = "https://fantasy.premierleague.com/api/bootstrap-static/"
+response3 = requests.get(link3)
 
-    events = data3['events']
+# Convert JSON data to a python object
+data3 = json.loads(response3.text)
 
-    events_df = pd.DataFrame(events)
+events = data3['events']
 
-
-    current_gameweek = {'Gameweek': ''}
-
-    for index, row in events_df.iterrows():
-        if str(row['finished']).lower() == 'false':
-            current_gameweek['Gameweek'] = row['name']
-            gw = [int(s) for s in re.findall(r'\b\d+\b', current_gameweek['Gameweek'])]
-            return gw[0]
+events_df = pd.DataFrame(events)
 
 
-def get_all_players_list():
-    # Make a get request to get the latest player data from the FPL API
-    link2 = "https://fantasy.premierleague.com/api/bootstrap-static/"
-    response2 = requests.get(link2)
+current_gameweek = {'Gameweek': ''}
 
-    # Convert JSON data to a python object
-    data2 = json.loads(response2.text)
-    all_players = []
-    for i in data2['elements']:
-        first_name = i['first_name']
-        second_name = i['second_name']
-        id = i['id']
-        full_name = first_name + ' ' + second_name
-        row = {
-            'id': id,
-            'name': full_name
-        }
+for index, row in events_df.iterrows():
+    if str(row['finished']).lower() == 'false':
+        current_gameweek['Gameweek'] = row['name']
+        current_gw = [int(s) for s in re.findall(r'\b\d+\b', current_gameweek['Gameweek'])]
+        current_gw= current_gw[0]
+        break
 
-        all_players.append(row)
 
-    return all_players
+
+# Make a get request to get the latest player data from the FPL API
+link2 = "https://fantasy.premierleague.com/api/bootstrap-static/"
+response2 = requests.get(link2)
+
+# Convert JSON data to a python object
+data2 = json.loads(response2.text)
+all_players = []
+for i in data2['elements']:
+    first_name = i['first_name']
+    second_name = i['second_name']
+    id = i['id']
+    full_name = first_name + ' ' + second_name
+    row = {
+        'id': id,
+        'name': full_name
+    }
+
+    all_players.append(row)
+
+
 def get_player_name(player_code):
-   all_players_list = get_all_players_list()
-   for i in all_players_list:
+   for i in all_players:
        if player_code==i['id']:
            return i['name']
 
@@ -159,12 +159,12 @@ def get_livescore():
     gw = []
 
 
-    current_gameweek  = get_current_gw()
+
 
 
 
     for x in data:
-        if x['event']==current_gameweek:
+        if x['event']==current_gw:
             gw.append(x)
 
 
@@ -173,6 +173,7 @@ def get_livescore():
 
     total_info = []
     for p in range(0,len(gw)):
+        #If the game has been played or is being played
         if gw[p]['stats'] != []:
             goal_scored =  gw[p]['stats'][0]
 
@@ -183,6 +184,7 @@ def get_livescore():
             yellow_cards = gw[p]['stats'][5]
             red_cards = gw[p]['stats'][6]
             bonus = gw[p]['stats'][8]
+            #Getting all the stats (goal scored, assist, own goal and bonus ) for away team
             for z in goal_scored['a']:
                 events_dict = {
                     'event_name': 'goal_scored',
@@ -219,6 +221,9 @@ def get_livescore():
                 }
 
                 total_events.append(events_dict)
+
+
+            #Getting all the stats (goal scored, assist, own goal and bonus ) for away team
             for z in goal_scored['h']:
                 events_dict = {
                     'event_name': 'goal_scored',
@@ -254,6 +259,9 @@ def get_livescore():
                 }
 
                 total_events.append(events_dict)
+
+
+            #Getting kick_off time of the game
             time = gw[p]['kickoff_time']
             time_arr = time.split('T',1)
             time = time_arr[0] # Date part of the datetime
@@ -280,6 +288,7 @@ def get_livescore():
                  'events':total_events
 
                 }
+        #If the game has not been played yet
         else:
             total_events = None
             time = gw[p]['kickoff_time']
@@ -312,7 +321,7 @@ def get_livescore():
 
 
     info = {
-        'game_week': current_gameweek,
+        'game_week': current_gw,
         'Game_results': total_info
 
     }
