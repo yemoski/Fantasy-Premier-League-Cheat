@@ -50,7 +50,7 @@ def formations():
 	f352 = fpl.get_352()
 	f343 = fpl.get_343()
 
-	#dream = fpl.get_dream_team()
+	dream = fpl.get_dream_team()
 	#pprint(dream)
 	
 
