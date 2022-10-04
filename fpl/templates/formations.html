@@ -40,7 +40,89 @@
 	
 		
 <div class="results">
+<!------------------------------------------  Dream Team ------------------------------------------------------------------->
+	<div class="formation">
+				<h2 class="formation_name">Dream Team</h2>
+				<h3 class="captain_name"> CAPTAIN: {{dream['captain']['name']}} </h3>
+			<div class="player">
+				<h3>GOALKEEPER</h3>
+				{% for x in dream['GK'] %}
+				<div class="pos">
+				<div class="gk">
+					<div class="dream_team_img">
+						<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+					<span class="material-symbols-outlined dream_star">stars</span>
+					</div>
+					
+				<b><p> {{x['name']}}</p></b>
+				<b><p> Transfer in: {{x['transfer_in_event']}}</p></b>
+				<b><p> Transfer out: {{x['transfer_out_event']}}</p></b>
+				<b><p> Selected by: {{x['selected_by_percent']}}%</p></b>
+				<b><p class="price">Price: £{{x['now_cost']}}</p></b>
+				</div>
+				</div>	
+			{% endfor %}
 
+				
+			</div>
+				<div class="player">
+				<h3>DEFENDERS</h3>
+				{% for x in dream['DEF'] %}
+				<div class="pos">
+					<div class="dream_team_img">
+						<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+					<span class="material-symbols-outlined dream_star">stars</span>
+					</div>
+				<b><p> {{x['name']}}</p></b>
+				<b><p> Transfer in: {{x['transfer_in_event']}}</p></b>
+				<b><p> Transfer out: {{x['transfer_out_event']}}</p></b>
+				<b><p> Selected by: {{x['selected_by_percent']}}%</p></b>
+				<b><p class="price">Price: £{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			<div class="player">
+				<h3>MIDFIELDERS</h3>
+				{% for x in dream['MID'] %}
+				<div class="pos">
+					<div class="dream_team_img">
+						<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+					<span class="material-symbols-outlined dream_star">stars</span>
+					</div>
+				<b><p> {{x['name']}}</p></b>
+				<b><p> Transfer in: {{x['transfer_in_event']}}</p></b>
+				<b><p> Transfer out: {{x['transfer_out_event']}}</p></b>
+				<b><p> Selected by: {{x['selected_by_percent']}}%</p></b>
+				<b><p class="price">Price: £{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+
+			<div class="player">
+				<h3>FORWARDS</h3>
+				{% for x in dream['FOW'] %}
+				<div class="pos">
+					<div class="dream_team_img">
+						<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
+					<span class="material-symbols-outlined dream_star">stars</span>
+					</div>
+				<b><p> {{x['name']}}</p></b>
+				<b><p> Transfer in: {{x['transfer_in_event']}}</p></b>
+				<b><p> Transfer out: {{x['transfer_out_event']}}</p></b>
+				<b><p> Selected by: {{x['selected_by_percent']}}%</p></b>
+				<b><p class="price">Price: £{{x['now_cost']}}</p></b>
+				</div>	
+			{% endfor %}
+
+				
+			</div>
+			</div>
+<hr>
+<!------------------------------------------  Formation 1 ------------------------------------------------------------------->
 
 			<div class="formation">
 				<h2 class="formation_name">FORMATION:442</h2>

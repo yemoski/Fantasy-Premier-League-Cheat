@@ -121,7 +121,7 @@ dataset = pd.DataFrame({
     'news_added': all_players[:, 12],
     'transfer_in_event': all_players[:, 13],
     'transfer_out_event': all_players[:, 14],
-    'selected_by_percent': all_players[:, 15],
+    'selected_by_percent': all_players[:, 15].astype(float),
     'points_per_game': all_players[:,16],
     'in_dreamteam': all_players[:,17],
     'cost_change_event': all_players[:,18]
@@ -147,10 +147,36 @@ def get_current_time():
     time2 = time.strftime('%H:%M:%S')
     day_name = pd.Timestamp(time)
     day_name = day_name.day_name() 
-    full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+time2 +  ' UK time'
-    
+    full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year
 
     return full_date
+
+
+
+
+def get_differentials():
+    players_list = []
+    counter = 0
+    for index,row in dataset.iterrows():
+        if counter ==15 :
+            break
+        elif  row['selected_by_percent']<15.0 and row['status']=='a':
+                player_dict = {
+                'name': row['name'],
+                'team': row['team'],
+                'position': row['position'],
+                'points_per_game': row['points_per_game'],
+                'price': row['now_cost'],
+                'selected': row['selected_by_percent'],
+        
+                }
+                players_list.append(player_dict)
+                counter = counter +1
+
+    df = pd.DataFrame(players_list)
+    return df
+
+
 
 def get_most_transferred_in():
     players_list = []
@@ -196,7 +222,25 @@ def get_most_transferred_out():
     df = df.sort_values(by=['fake_count'], ascending=False)
     return df
 
+def get_most_selected():
+    players_list = []
+    datasets = dataset.sort_values(by=['selected_by_percent'], ascending=False)
 
+    counter = 0
+    for index,row in datasets.iterrows():
+        if counter ==15:
+            break
+
+        player_dict = {
+        'name': row['name'],
+        'team': row['team'],
+        'percent': row['selected_by_percent']
+        }
+        players_list.append(player_dict)
+        counter = counter +1
+
+    df = pd.DataFrame(players_list)
+    return df
 #pprint(get_most_transferred_out())
 def get_news():
     #dataset = dataset.sort_values(by=['name'], ascending=False)
@@ -262,6 +306,104 @@ def get_news():
     news_df = pd.DataFrame(news_list)
     news_df = news_df.sort_values(by=['sorting_time'], ascending=False)
     return news_df
+
+
+
+def get_dream_team():
+    dream = {'GK':[],
+            'DEF':[],
+            'MID':[],
+            'FOW':[],
+            'team_value':[],
+            'ict_form':[],
+            'captain': None
+            }
+
+    GK = 0
+    DEF = 0
+    MID = 0
+    FOW = 0
+    teams = []
+    ict_form = 0
+    captain =  {'name':None,
+            'ict_form_index': 0}
+    for index,row in dataset.iterrows():
+            if row['position']=='FOW' and row['in_dreamteam']==True:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
+                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                dream['FOW'].append(new_row)
+                teams.append(row['team'])
+
+                
+            if row['position']=='MID'  and row['in_dreamteam']==True:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
+                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                dream['MID'].append(new_row)
+                teams.append(row['team'])
+                
+                
+            if row['position']=='GK'  and row['in_dreamteam']==True:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
+                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                dream['GK'].append(new_row)
+                
+                teams.append(row['team'])
+                
+            if row['position']=='DEF'  and row['in_dreamteam']==True:
+                if row['form_ict_index'] >= captain['ict_form_index']:
+                    captain['ict_form_index'] = row['form_ict_index']
+                    captain['name'] = row['name']
+                new_row = {'name': row['name'],
+                            'now_cost': row['now_cost'],
+                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
+                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
+                            'selected_by_percent': row['selected_by_percent'],
+                            'in_dreamteam': row['in_dreamteam'],
+                            'points_per_game': row['points_per_game'],
+                            'photo': row['photo'],
+                            'team_shirt': row['team_shirt'],
+                            'team': row['team']}
+                dream['DEF'].append(new_row)
+            
+                teams.append(row['team'])
+              
+    
+    dream['captain'] = captain
+    return dream
 
 
 

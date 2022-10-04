@@ -22,10 +22,10 @@ def home():
 	
 	verse = bible.get_verse()
 
-	#print(fpl.get_most_transferred_in())
+	#pprint(fpl.get_differentials())
 	
 
-	return render_template("main.html", verse=verse, gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header(), transfer_in= fpl.get_most_transferred_in(), transfer_out = fpl.get_most_transferred_out())
+	return render_template("main.html", verse=verse,differentials=fpl.get_differentials(), gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header(), transfer_in= fpl.get_most_transferred_in(), transfer_out = fpl.get_most_transferred_out(), selected= fpl.get_most_selected())
 
 
 
@@ -49,6 +49,9 @@ def formations():
 	f433 = fpl.get_433()
 	f352 = fpl.get_352()
 	f343 = fpl.get_343()
+
+	#dream = fpl.get_dream_team()
+	#pprint(dream)
 	
 
 	
@@ -113,7 +116,7 @@ def formations():
 	formations.append(row)
 
 
-	return render_template('formations.html',f442=f442,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343)
+	return render_template('formations.html',f442=f442,formations= formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
 @app.route("/help", methods = ["GET", "POST"])
 def help():
 
