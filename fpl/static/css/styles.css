@@ -321,6 +321,7 @@ table tbody tr:last-child td {
     width: 150px;
     display: inline-block;
 
+
 }
 .gk img{
     width: 150px;
@@ -812,6 +813,7 @@ strong {
 
 .livescore_container {
     margin: 30px;
+    padding: 30px;
     justify-content: center;
     align-items: center;
     background-color: grey;
