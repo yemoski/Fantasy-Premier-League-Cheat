@@ -241,7 +241,7 @@ def get_most_selected():
 
     df = pd.DataFrame(players_list)
     return df
-#pprint(get_most_transferred_out())
+
 def get_news():
     #dataset = dataset.sort_values(by=['name'], ascending=False)
     news_list = []
@@ -251,7 +251,15 @@ def get_news():
 
     current_time = now.strftime('%Y-%m-%d')
     current_time = datetime.strptime(current_time,'%Y-%m-%d')
-    
+
+    month_name2 = str(current_time.strftime('%B'))
+    year2 = str(current_time.strftime('%Y'))
+    day2 = str(current_time.strftime('%d'))
+
+    day_name2 = pd.Timestamp(current_time)
+    day_name2 = day_name2.day_name() 
+    full_date2 = day_name2 + ', '+day2+ ' '+ month_name2 + ' ' + year2
+
     for index,row in dataset.iterrows():
         if row['news']!='' and 'loan' not in row['news'] and 'Transferred' not in row['news'] and 'left' not in row['news']:
 
@@ -283,7 +291,7 @@ def get_news():
             
             if row['cost_change_event']==1: 
                 news = {
-                'time' : current_time,
+                'time' : full_date2,
                  'sorting_time': current_time,
                 'news': str(row['now_cost']),
                 'name': row['name'],
@@ -293,7 +301,7 @@ def get_news():
                 }
             else:
                 news = {
-                'time' : current_time,
+                'time' : full_date2,
                  'sorting_time': current_time,
                 'news': str(row['now_cost']),
                 'name': row['name'],

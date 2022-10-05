@@ -148,7 +148,7 @@ def get_team_badge(code):
 
 def get_livescore():
 
-    #GETTING GAME WEEK livescores
+    
 
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
     response = requests.get(link2)

@@ -25,10 +25,14 @@ def get_fixtures():
             unique_team_id.append(z['team'])
             player_from_unique_team.append(z['id'])
             teams_counter = teams_counter + 1
+
+        if teams_counter==20:
+            break
  
 
 
     all_fixtutes = []
+    #Matching the player id to team
     for x in range(0,20):
         # Make sure to keep the trailing in the url
         player_id = player_from_unique_team[x]
