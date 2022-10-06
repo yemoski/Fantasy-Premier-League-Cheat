@@ -6,10 +6,15 @@
 		</div>
 	<hr>
 <div class="livescore_container">
-	
-
+		{%for day in livescore['days'] %}
+		<div class="game_days">
+			<h2>{{day}}</h2>
+		</div>
+			
 		{%for x in range(0,length) %}
-			<div class="match">
+		{% if livescore['Game_results'][x]['kick_off_time'].find(day)!=-1 %}
+			{{break}}
+			<div class="match">	
 		<div class="match-header">
 			{% if  livescore['Game_results'][x]['started']==True and livescore['Game_results'][x]['finished']==False %}
 				<div id='match-status_ongoing' class="match-status">{{livescore['Game_results'][x]['mins']}}'</div>
@@ -100,7 +105,10 @@
 			</div>
 		</div>
 	</div>
+	{% endif %}
 	{% endfor %}
+	{% endfor %}
+
 	</div>
 
 

@@ -156,7 +156,17 @@ def get_livescore():
     # Convert JSON data to a python object
     data = json.loads(response.text)
 
+    #list of games in this game week
     gw = []
+
+
+    #Distinct days in the game week {Friday, saturday, sunday etc}
+    distinct_days = []
+
+    distinct_days_dict = {
+        'day': '',
+        'games':[]
+    }
 
 
 
@@ -173,6 +183,25 @@ def get_livescore():
 
     total_info = []
     for p in range(0,len(gw)):
+        time = gw[p]['kickoff_time']
+        time_arr = time.split('T',1)
+        time = time_arr[0] # Date part of the datetime
+        time_2 = time_arr[1] #Time part of the datetime
+        time_2 = time_2.split('Z',1)
+        time2 = datetime.strptime(time_2[0],'%H:%M:%S')
+        time = datetime.strptime(time,'%Y-%m-%d')
+        month_name = str(time.strftime('%B'))
+        year = str(time.strftime('%Y'))
+        day = str(time.strftime('%d'))
+
+        day_name = pd.Timestamp(time)
+        day_name = day_name.day_name() 
+        full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
+
+        if day_name not in distinct_days :
+            distinct_days.append(day_name)
+
+
         #If the game has been played or is being played
         if gw[p]['stats'] != []:
             goal_scored =  gw[p]['stats'][0]
@@ -262,21 +291,7 @@ def get_livescore():
                 total_events.append(events_dict)
 
 
-            #Getting kick_off time of the game
-            time = gw[p]['kickoff_time']
-            time_arr = time.split('T',1)
-            time = time_arr[0] # Date part of the datetime
-            time_2 = time_arr[1] #Time part of the datetime
-            time_2 = time_2.split('Z',1)
-            time2 = datetime.strptime(time_2[0],'%H:%M:%S')
-            time = datetime.strptime(time,'%Y-%m-%d')
-            month_name = str(time.strftime('%B'))
-            year = str(time.strftime('%Y'))
-            day = str(time.strftime('%d'))
-
-            day_name = pd.Timestamp(time)
-            day_name = day_name.day_name() 
-            full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
+            
         
             game_info = {
                 'kick_off_time':full_date,
@@ -298,20 +313,7 @@ def get_livescore():
             mins = gw[p]['minutes'] #Current minute in the game
             finished =  gw[p]['finished'] # Has the game finished
             started = gw[p]['started'] #Has the game started
-            time = gw[p]['kickoff_time']
-            time_arr = time.split('T',1)
-            time = time_arr[0] # Date part of the datetime
-            time_2 = time_arr[1] #Time part of the datetime
-            time_2 = time_2.split('Z',1)
-            time2 = datetime.strptime(time_2[0],'%H:%M:%S')
-            time = datetime.strptime(time,'%Y-%m-%d')
-            month_name = str(time.strftime('%B'))
-            year = str(time.strftime('%Y'))
-            day = str(time.strftime('%d'))
-
-            day_name = pd.Timestamp(time)
-            day_name = day_name.day_name() 
-            full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
+            
             game_info = {
                 'kick_off_time':full_date,
                 'started': started,
@@ -327,13 +329,18 @@ def get_livescore():
 
                 }
         total_info.append(game_info)
+    new_list = []
+    for days in distinct_days:
+        for y in range(0,len(total_info)):
+            if total_info[y]['kick_off_time'].find(days)!=-1:
+              new_list.append(total_info[y]['team_h'])
 
-
-
+    #print(new_list) 
     info = {
         'game_week': current_gw,
+        'days': distinct_days,
         'Game_results': total_info
 
     }
-
+    
     return info
