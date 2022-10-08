@@ -197,6 +197,7 @@ def get_livescore():
         day_name = pd.Timestamp(time)
         day_name = day_name.day_name() 
         full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
+        display_date = day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
 
         if day_name not in distinct_days :
             distinct_days.append(day_name)
@@ -295,6 +296,7 @@ def get_livescore():
         
             game_info = {
                 'kick_off_time':full_date,
+                'display_kick_off_time': display_date,
                 'started': started,
                 'finished': finished ,
                 'minutes': mins,
@@ -318,6 +320,7 @@ def get_livescore():
                 'kick_off_time':full_date,
                 'started': started,
                 'finished': finished,
+                'display_kick_off_time': display_date,
                 'minutes': mins,
                 'team_h':get_team_name(gw[p]['team_h']),
                  'team_a':get_team_name(gw[p]['team_a']),

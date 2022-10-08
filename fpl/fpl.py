@@ -190,6 +190,9 @@ def get_most_transferred_in():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'position': row['position'],
+        'points_per_game': row['points_per_game'],
+        'price': row['now_cost'],
         'fake_count': row['transfer_in_event'],
         'count': '{:,}'.format(int(row['transfer_in_event']))
         }
@@ -212,6 +215,9 @@ def get_most_transferred_out():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'position': row['position'],
+        'points_per_game': row['points_per_game'],
+        'price': row['now_cost'],
         'fake_count': row['transfer_out_event'],
         'count': '{:,}'.format(int(row['transfer_out_event']))
         }
@@ -234,6 +240,9 @@ def get_most_selected():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'position': row['position'],
+        'points_per_game': row['points_per_game'],
+        'price': row['now_cost'],
         'percent': row['selected_by_percent']
         }
         players_list.append(player_dict)

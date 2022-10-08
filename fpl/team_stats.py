@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 from pprint import pprint
 import numpy as np
 import pandas as pd
+import json
+
 
 
 def get_expected_ga():
@@ -123,10 +125,75 @@ def get_expected_g():
 
 
 
+def get_expected_a():
+    base_url = 'https://understat.com/league'
+    leagues = ['La_liga', 'EPL', 'Bundesliga', 'Serie_A', 'Ligue_1', 'RFPL']
+    
+
+    url = base_url+'/'+leagues[1]+'/2022'
+    res = requests.get(url)
+    soup = BeautifulSoup(res.content, "lxml")
+
+    # Based on the structure of the webpage, I found that data is in the JSON variable, under 'script' tags
+    scripts = soup.find_all('script')
+
+    string_with_json_obj = ''
+
+    # Find data for players
+    for el in scripts:
+        if 'playersData' in str(el):
+            string_with_json_obj = str(el).strip()
+
+    # print(string_with_json_obj)
+    # strip unnecessary symbols and get only JSON data
+    ind_start = string_with_json_obj.index("('") + 2
+    ind_end = string_with_json_obj.index("')")
+    json_data = string_with_json_obj[ind_start:ind_end]
+    json_data = json_data.encode('utf8').decode('unicode_escape')
+    data = {}
+    data = json.loads(json_data)
+    
+    
+    
+    df = pd.DataFrame(data)
+    new_df = []
+    counter = 0
+    df = df.sort_values(by=['xA'], ascending=False)
+    for index,row in df.iterrows():
+        new_row = {
+        'name' : row['player_name'],
+        'p': '',
+        'assist': row['assists'],
+        'xa' :round(float(row['xA']),1)
+        }
 
 
 
 
+        if float(row['assists']) > float(row['xA']):
+                new_row['p'] = 'overperforming'
+        else:
+            new_row['p'] = 'underperforming'
+        new_df.append(new_row)
+        counter = counter + 1
 
+    xa = pd.DataFrame(new_df)
+    xa = xa.sort_values(by=['xa'], ascending=False)
+    xa = xa.iloc[0:15]
+
+
+
+    return xa
+    
+
+
+
+    """xa = df[['player_name','assists','xA']]
+    xa['xA']=xa['xA'].astype(float)
+    xa = xa.sort_values(by=['xA'], ascending=False)
+    xa = xa.loc[0:15]
+    pprint(xa)
+    """
+    
 
 

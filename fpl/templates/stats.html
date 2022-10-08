@@ -26,7 +26,7 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Ranking</a></div>
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player Name</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Goals</a></div>
-			<div class="header__item"><a id="total" class="filter__link filter__link--number" >xg</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >xG</a></div>
 			
 			
 		</div>
@@ -37,6 +37,29 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 				<div id='{{x['p']}}' class="table-data">{{x['name']}}</div>
 				<div class="table-data">{{x['goals']}}</div>
 				<div class="table-data">{{x['xg']}}</div>
+			
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
+
+	<div class="table">
+		<h3 class="table_head_info">Players Expected Assist (xA)</h3>
+		<div class="table-header">
+			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Ranking</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player Name</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Assist</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >xA</a></div>
+			
+			
+		</div>
+		<div class="table-content">	
+		{%for index, row in xa.iterrows(): %}
+			<div class="table-row">
+				<div  class="table-data">{{index+1}}</div>
+				<div id='{{row['p']}}' class="table-data">{{row['name']}}</div>
+				<div class="table-data">{{row['assist']}}</div>
+				<div class="table-data">{{row['xa']}}</div>
 			
 			</div>
 			{% endfor %}
