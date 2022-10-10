@@ -16,7 +16,7 @@
 			{{break}}
 			<div class="match">	
 		<div class="match-header">
-			{% if  livescore['Game_results'][x]['started']==True and livescore['Game_results'][x]['finished']==False %}
+			{% if  livescore['Game_results'][x]['started']==True and livescore['Game_results'][x]['minutes']!=90 %}
 				<div id='match-status_ongoing' class="match-status">LIVE'</div>
 			
 			{% elif  livescore['Game_results'][x]['started']==False and livescore['Game_results'][x]['finished']==False%}
