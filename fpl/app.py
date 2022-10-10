@@ -33,7 +33,7 @@ def home():
 def livescore():
 	#pprint(ls.get_livescore())
 	length_of_games = len(ls.get_livescore()['Game_results'])
-	#pprint(ls.get_livescore()['days'])
+	#pprint(ls.get_livescore()['Game_results'])
 
 	return render_template("livescore.html", livescore=ls.get_livescore(), length=length_of_games)
 

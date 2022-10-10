@@ -41,13 +41,13 @@ response2 = requests.get(link2)
 data2 = json.loads(response2.text)
 all_players = []
 for i in data2['elements']:
-    first_name = i['first_name']
-    second_name = i['second_name']
+    web_name = i['web_name']
+    
     id = i['id']
-    full_name = first_name + ' ' + second_name
+    
     row = {
         'id': id,
-        'name': full_name
+        'name': web_name
     }
 
     all_players.append(row)
@@ -162,6 +162,8 @@ def get_livescore():
 
     #Distinct days in the game week {Friday, saturday, sunday etc}
     distinct_days = []
+    #Distict date like 08 october 2022
+    distinct_date = []
 
     distinct_days_dict = {
         'day': '',
@@ -198,9 +200,14 @@ def get_livescore():
         day_name = day_name.day_name() 
         full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
         display_date = day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
+        display_time = time_2[0] +  ' UK Time'
+        date_name = day_name + ', '+day+ ' '+ month_name + ' ' + year
 
         if day_name not in distinct_days :
             distinct_days.append(day_name)
+
+        if date_name not in distinct_date :
+            distinct_date.append(date_name)
 
 
         #If the game has been played or is being played
@@ -253,8 +260,31 @@ def get_livescore():
 
                 total_events.append(events_dict)
 
+            away_goals_string = ''
+            for z in goal_scored['a']:
+                away_goals_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + away_goals_string
+            
+            for z in own_goals['h']:
+                away_goals_string =  get_player_name(z['element'])+' x'+str(z['value']) + '   ' + away_goals_string 
 
-            #Getting all the stats (goal scored, assist, own goal and bonus ) for away team
+            away_assists_string = ''
+            for z in assist['a']:
+                away_assists_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + away_assists_string
+
+            away_yellowcards_string = ''
+            for z in yellow_cards['a']:
+                away_yellowcards_string =  get_player_name(z['element']) + ', ' + away_yellowcards_string
+
+            away_redcards_string = ''
+            for z in red_cards['a']:
+                away_redcards_string =  get_player_name(z['element']) + ', ' + away_redcards_string
+
+            away_bonus = ''
+            for z in bonus['a']:
+                away_bonus = get_player_name(z['element'])+' ='+str(z['value']) + ', ' + away_bonus
+
+
+            #Getting all the stats (goal scored, assist, own goal and bonus ) for home team
             for z in goal_scored['h']:
                 events_dict = {
                     'event_name': 'goal_scored',
@@ -291,12 +321,40 @@ def get_livescore():
 
                 total_events.append(events_dict)
 
+            #Getting goals and own goals for the home team
+            home_goals_string = ''
+            for z in goal_scored['h']:
+                home_goals_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + home_goals_string 
+            
+            for z in own_goals['a']:
+                home_goals_string =  '(OG) ' + get_player_name(z['element'])+' x'+str(z['value']) + ', ' + home_goals_string 
+
+            #home_goals_string = home_goals_string.rstrip(home_goals_string[-1])
+
+            home_assists_string = ''
+            for z in assist['h']:
+                home_assists_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + home_assists_string
+
+            home_yellowcards_string = ''
+            for z in yellow_cards['h']:
+                home_yellowcards_string =  get_player_name(z['element']) + ', ' + home_yellowcards_string
+
+            home_redcards_string = ''
+            for z in red_cards['h']:
+                home_redcards_string =  get_player_name(z['element']) + ', ' + home_redcards_string
+
+            home_bonus = ''
+            for z in bonus['h']:
+                home_bonus = get_player_name(z['element'])+' ='+str(z['value']) + ', ' + home_bonus 
+
+
 
             
         
             game_info = {
                 'kick_off_time':full_date,
                 'display_kick_off_time': display_date,
+                'display_time': display_time,
                 'started': started,
                 'finished': finished ,
                 'minutes': mins,
@@ -306,7 +364,17 @@ def get_livescore():
                  'team_a_score':gw[p]['team_a_score'],
                  'team_h_badge':get_team_badge(gw[p]['team_h']),
                  'team_a_badge':get_team_badge(gw[p]['team_a']),
-                 'events':total_events
+                 'events':total_events,
+                 'home_goals_string': home_goals_string[:-2],
+                 'away_goals_string': away_goals_string[:-2],
+                 'home_assists_string': home_assists_string[:-2],
+                 'away_assists_string': away_assists_string[:-2],
+                 'home_yellowcards_string': home_yellowcards_string[:-2],
+                 'away_yellowcards_string': away_yellowcards_string[:-2],
+                 'home_redcards_string': home_redcards_string[:-2],
+                 'away_redcards_string': away_redcards_string[:-2],
+                 'home_bonus': home_bonus[:-2],
+                 'away_bonus': away_bonus[:-2]
 
                 }
         #If the game has not been played yet
@@ -321,6 +389,7 @@ def get_livescore():
                 'started': started,
                 'finished': finished,
                 'display_kick_off_time': display_date,
+                'display_time': display_time,
                 'minutes': mins,
                 'team_h':get_team_name(gw[p]['team_h']),
                  'team_a':get_team_name(gw[p]['team_a']),
@@ -332,16 +401,13 @@ def get_livescore():
 
                 }
         total_info.append(game_info)
-    new_list = []
-    for days in distinct_days:
-        for y in range(0,len(total_info)):
-            if total_info[y]['kick_off_time'].find(days)!=-1:
-              new_list.append(total_info[y]['team_h'])
+    
 
     #print(new_list) 
     info = {
         'game_week': current_gw,
         'days': distinct_days,
+        'date': distinct_date,
         'Game_results': total_info
 
     }

@@ -6,22 +6,22 @@
 		</div>
 	<hr>
 <div class="livescore_container">
-		{%for day in livescore['days'] %}
+		{%for date in livescore['date'] %}
 		<div class="game_days">
-			<h2>{{day}}</h2>
+			<h2>{{date}} </h2>
 		</div>
 			
 		{%for x in range(0,length) %}
-		{% if livescore['Game_results'][x]['kick_off_time'].find(day)!=-1 %}
+		{% if livescore['Game_results'][x]['kick_off_time'].find(date)!=-1 %}
 			{{break}}
 			<div class="match">	
 		<div class="match-header">
 			{% if  livescore['Game_results'][x]['started']==True and livescore['Game_results'][x]['finished']==False %}
-				<div id='match-status_ongoing' class="match-status">{{livescore['Game_results'][x]['mins']}}'</div>
+				<div id='match-status_ongoing' class="match-status">LIVE'</div>
 			
 			{% elif  livescore['Game_results'][x]['started']==False and livescore['Game_results'][x]['finished']==False%}
 				<div class="match-status">Upcoming</div>
-			{% else %}
+			{% elif livescore['Game_results'][x]['minutes']==90 %}
 				<div  class="match-status">Full Time</div>
 			{% endif %}
 			<div class="match-tournament"><img src="https://assets.codepen.io/285131/pl-logo.svg" />English Premier League</div>
@@ -40,6 +40,8 @@
 					
 					<h2 class="team-name">{{livescore['Game_results'][x]['team_h']}}</h2>
 
+					<!---
+
 					{% if  livescore['Game_results'][x]['events']!=None %}
 					
 					{% for p in livescore['Game_results'][x]['events'] %}
@@ -54,13 +56,15 @@
 					{% endif %}
 					{% endfor %}
 					{% endif %}
+
+				-->
 			
 				</div>
 			</div>
 			<div class="column">
 				<div class="match-details">
 					<div class="match-date">
-						 <strong>{{livescore['Game_results'][x]['display_kick_off_time']}}</strong>
+						 <strong>{{livescore['Game_results'][x]['display_time']}}</strong>
 					</div>
 					<div class="match-score">
 						{%if livescore['Game_results'][x]['team_h_score'] ==None%}
@@ -87,6 +91,8 @@
 						<img src="{{livescore['Game_results'][x]['team_a_badge']}}" />
 					</div>
 					<h2 class="team-name"> {{livescore['Game_results'][x]['team_a']}}</h2>
+
+					<!--
 					{% if  livescore['Game_results'][x]['events']!=None %}
 					
 					{% for p in livescore['Game_results'][x]['events'] %}
@@ -101,9 +107,78 @@
 					{% endif %}
 					{% endfor %}
 					{% endif %}
+				-->
 				</div>
 			</div>
 		</div>
+		{% if  livescore['Game_results'][x]['events']!=None %}
+		<div class="table game_details">
+		<h3 class="table_head_info">GAME DETAILS</h3>
+		<div class="table-header ">
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Home </a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >EVENT </a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Away </a></div>
+		</div>
+
+		<div class="table-content">	
+		
+		
+			<div class="table-row">
+				
+			<div class="table-data ">{{livescore['Game_results'][x]['home_goals_string']}} </div>
+			<div class="table-data ">GOALS </div>
+			<div class="table-data ">{{livescore['Game_results'][x]['away_goals_string']}} </div>
+			
+				
+			</div>
+
+			<div class="table-row">
+				
+			<div class="table-data ">{{livescore['Game_results'][x]['home_assists_string']}} </div>
+			<div class="table-data ">ASSISTS </div>
+			<div class="table-data ">{{livescore['Game_results'][x]['away_assists_string']}} </div>
+			
+				
+			</div>
+
+			<div class="table-row">
+				
+			<div class="table-data ">{{livescore['Game_results'][x]['home_yellowcards_string']}} </div>
+			<div class="table-data ">YELLOW CARDS </div>
+			<div class="table-data ">{{livescore['Game_results'][x]['away_yellowcards_string']}} </div>
+			
+				
+			</div>
+
+
+			<div class="table-row">
+				
+			<div class="table-data ">{{livescore['Game_results'][x]['home_redcards_string']}} </div>
+			<div class="table-data ">RED CARDS </div>
+			<div class="table-data ">{{livescore['Game_results'][x]['away_redcards_string']}} </div>
+			
+				
+			</div>
+
+
+			<div class="table-row">
+				
+			<div class="table-data  " id="bonus">{{livescore['Game_results'][x]['home_bonus']}} </div>
+			<div class="table-data ">BONUS POINTS </div>
+			<div class="table-data " id="bonus">{{livescore['Game_results'][x]['away_bonus']}} </div>
+			
+				
+			</div>
+			
+			
+			
+		</div>	
+	</div>
+
+
+
+	{% endif %}
+
 	</div>
 	{% endif %}
 	{% endfor %}

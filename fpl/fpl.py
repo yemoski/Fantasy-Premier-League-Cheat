@@ -157,8 +157,9 @@ def get_current_time():
 def get_differentials():
     players_list = []
     counter = 0
+
     for index,row in dataset.iterrows():
-        if counter ==15 :
+        if counter ==20 :
             break
         elif  row['selected_by_percent']<15.0 and row['status']=='a':
                 player_dict = {

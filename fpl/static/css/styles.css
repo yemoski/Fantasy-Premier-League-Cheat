@@ -526,9 +526,9 @@ h1,h2,h3,h4,h5,h6 {
     display: block;
     background-color: dimgray;
     border-radius: 10px;
-    margin: 10px;
+    margin: 25px;
     margin-top: 20px;
-}
+}      
 .table_head_info{
     font-size: 30px;
     text-align: center;
@@ -544,6 +544,11 @@ h1,h2,h3,h4,h5,h6 {
     display:flex;
     width:100%;
    
+}
+
+.line_padding{
+    border: 1px solid black;
+    padding: 15px;
 }
 #overperforming{
     color: greenyellow;
@@ -832,6 +837,9 @@ strong {
     color: darkred;
 }
 
+.game_details{
+    background-color: lightgrey;
+}
 
 
 

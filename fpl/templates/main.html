@@ -86,7 +86,7 @@
 
 		<div class="table-content">	
 		{% for index,x in transfer_in.iterrows() %}
-			<div class="table-row">
+			<div class="table-row line_padding">
 				<div class="table-data">{{index+1}}</div>
 				<div class="table-data">{{x['name']}}</div>
 				<div class="table-data">{{x['team']}}</div>
@@ -115,7 +115,7 @@
 
 		<div class="table-content">	
 		{% for index,x in transfer_out.iterrows() %}
-			<div class="table-row">
+			<div class="table-row line_padding">
 				<div class="table-data">{{index+1}}</div>
 				<div class="table-data">{{x['name']}}</div>
 				<div class="table-data">{{x['team']}}</div>
@@ -143,7 +143,7 @@
 
 		<div class="table-content">	
 		{% for index,x in selected.iterrows() %}
-			<div class="table-row">
+			<div class="table-row line_padding">
 				<div class="table-data">{{index+1}}</div>
 				<div class="table-data">{{x['name']}}</div>
 				<div class="table-data">{{x['team']}}</div>
@@ -162,7 +162,7 @@
 
 <div class="table">
 		<h3 class="table_head_info">DIFFERENTIALS</h3>
-		<div class="table-header">
+		<div class="table-header ">
 			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Ranking</a></div>
 			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Player Name</a></div>
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team</a></div>
@@ -174,7 +174,7 @@
 
 		<div class="table-content">	
 		{% for index,x in differentials.iterrows() %}
-			<div class="table-row">
+			<div class="table-row line_padding">
 				<div class="table-data">{{index+1}}</div>
 				<div class="table-data">{{x['name']}}</div>
 				<div class="table-data">{{x['team']}}</div>
