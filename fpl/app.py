@@ -137,7 +137,7 @@ def stats():
 
 
 
-	return render_template("stats.html" , teams_data = team_stats.get_expected_ga(), xg=  team_stats.get_expected_g(), xa=team_stats.get_expected_a()  )
+	return render_template("stats.html" , teams_data = team_stats.get_expected_ga(), xg=  team_stats.get_expected_g(), xa=team_stats.get_expected_a(), table =  team_stats.get_league_table())
 
 @app.route("/news", methods = ["GET", "POST"])
 def news():

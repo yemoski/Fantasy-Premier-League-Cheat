@@ -19,7 +19,34 @@ On this site, you will find our detailed xG and xGA statistics for the Premier L
 Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lowest xGA.
 	</p>
 	</div>
-	
+	<div class="table">
+		<h3 class="table_head_info">LEAGUE TABLE</h3>
+		<div class="table-header">
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number">POSITION</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team Name</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Matches Played</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Wins</a></div>
+			<div class="header__item"><a id="name" class="filter__link">Draws</a></div>
+			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Losses</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number">POINTS</a></div>
+			
+			
+		</div>
+		<div class="table-content">	
+		{% for index,x in table.iterrows() %}
+			<div class="table-row">
+				<div class="table-data">{{x['rk']}}</div>
+				<div class="table-data">{{x['squad']}}</div>
+				
+				<div class="table-data">{{x['mp']}}</div>
+				<div class="table-data">{{x['w']}}</div>
+				<div class="table-data">{{x['d']}}</div>
+				<div class="table-data">{{x['l']}}</div>
+				<div class="table-data">{{x['points']}}</div>	
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
 	<div class="table">
 		<h3 class="table_head_info">Players Expected Goals (xG)</h3>
 		<div class="table-header">
@@ -31,12 +58,12 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 			
 		</div>
 		<div class="table-content">	
-		{% for x in xg%}
+		{%for index, row in xg.iterrows(): %}
 			<div class="table-row">
-				<div class="table-data">{{x['rankings']}}</div>
-				<div id='{{x['p']}}' class="table-data">{{x['name']}}</div>
-				<div class="table-data">{{x['goals']}}</div>
-				<div class="table-data">{{x['xg']}}</div>
+				<div class="table-data">{{index+1}}</div>
+				<div id='{{row['p']}}' class="table-data">{{row['name']}}</div>
+				<div class="table-data">{{row['goals']}}</div>
+				<div class="table-data">{{row['xg']}}</div>
 			
 			</div>
 			{% endfor %}
@@ -76,6 +103,7 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Wins</a></div>
 			<div class="header__item"><a id="name" class="filter__link">Draws</a></div>
 			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Losses</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number">GA</a></div>
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number">xGA</a></div>
 			
 			
@@ -85,11 +113,12 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 			<div class="table-row">
 				
 				<div class="table-data">{{x['squad']}}</div>
-				<div class="table-data">{{x['goal_keeper']}}</div>
+				<div id='{{x['p']}}' class="table-data">{{x['goal_keeper']}}</div>
 				<div class="table-data">{{x['mp']}}</div>
 				<div class="table-data">{{x['w']}}</div>
 				<div class="table-data">{{x['d']}}</div>
 				<div class="table-data">{{x['l']}}</div>
+				<div class="table-data">{{x['ga']}}</div>
 				<div class="table-data">{{x['xga']}}</div>	
 			</div>
 			{% endfor %}
@@ -98,8 +127,8 @@ Ideally, You would want to pick Defenders and Goalkeepers from Teams with the lo
 
 	<div class="reference">
 		<p>The data was gotten from <a href="https://fbref.com/en/" target="_blank">FBREF</a> and <a href="https://understat.com/league/EPL" target="_blank">UNDERSTAT</a></p>
-		<p id=overperforming>Green -> Players Outperforming their xG or xA</p>
-		<p id=underperforming>Red -> Players Underperforming their xG or xA</p>		
+		<p id=overperforming>Green -> Players Outperforming their xG, xGA or xA</p>
+		<p id=underperforming>Red -> Players Underperforming their xG, xGA or xA</p>		
 	</div>
 </div>
 {% endblock %}
