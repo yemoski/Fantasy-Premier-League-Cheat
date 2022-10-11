@@ -59,6 +59,34 @@ def get_player_name(player_code):
            return i['name']
 
 
+def get_twitter_handle(team_code):
+    team = str(team_code)
+    if len(team) == 1:
+        team = team.replace('1', 'ARS')
+        team = team.replace('2', 'AVL')
+        team = team.replace('3', 'BOU')
+        team = team.replace('4', 'BRE')
+        team = team.replace('5', 'BHA')
+        team = team.replace('6', 'CHE')
+        team = team.replace('7', 'CRY')
+        team = team.replace('8', 'EVE')
+        team = team.replace('9', 'FUL')
+
+
+    elif len(team) == 2:
+        team = team.replace('10', 'LEI')
+        team = team.replace('11', 'LEE')
+        team = team.replace('12', 'LIV')
+        team = team.replace('13', 'MCI')
+        team = team.replace('14', 'MUN')
+        team = team.replace('15', 'NEW')
+        team = team.replace('16', 'NFO')
+        team = team.replace('17', 'SOU')
+        team = team.replace('18', 'TOT')
+        team = team.replace('19', 'WHU')
+        team = team.replace('20', 'WOL')
+
+    return team
 
 
 def get_team_name(team_code):
@@ -348,6 +376,11 @@ def get_livescore():
                 home_bonus = get_player_name(z['element'])+' ='+str(z['value']) + ', ' + home_bonus 
 
 
+            twitter_handle = get_twitter_handle(gw[p]['team_h']) +get_twitter_handle(gw[p]['team_a'])
+            twitter_link = 'https://twitter.com/search?q=%23'+twitter_handle
+        
+
+
 
             
         
@@ -374,7 +407,9 @@ def get_livescore():
                  'home_redcards_string': home_redcards_string[:-2],
                  'away_redcards_string': away_redcards_string[:-2],
                  'home_bonus': home_bonus[:-2],
-                 'away_bonus': away_bonus[:-2]
+                 'away_bonus': away_bonus[:-2],
+                 'twitter_handle': '#'+twitter_handle,
+                 'twitter_link': twitter_link
 
                 }
         #If the game has not been played yet
@@ -383,6 +418,9 @@ def get_livescore():
             mins = gw[p]['minutes'] #Current minute in the game
             finished =  gw[p]['finished'] # Has the game finished
             started = gw[p]['started'] #Has the game started
+
+            twitter_handle = get_twitter_handle(gw[p]['team_h']) +get_twitter_handle(gw[p]['team_a'])
+            twitter_link = 'https://twitter.com/search?q=%23'+twitter_handle
             
             game_info = {
                 'kick_off_time':full_date,
@@ -397,7 +435,9 @@ def get_livescore():
                  'team_a_score':gw[p]['team_a_score'],
                  'team_h_badge':get_team_badge(gw[p]['team_h']),
                  'team_a_badge':get_team_badge(gw[p]['team_a']),
-                 'events':total_events
+                 'events':total_events,
+                 'twitter_handle': '#'+twitter_handle,
+                 'twitter_link': twitter_link
 
                 }
         total_info.append(game_info)

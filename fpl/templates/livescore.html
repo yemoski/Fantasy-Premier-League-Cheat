@@ -25,10 +25,15 @@
 				<div  class="match-status">Full Time</div>
 			{% endif %}
 			<div class="match-tournament"><img src="https://assets.codepen.io/285131/pl-logo.svg" />English Premier League</div>
+			
 			<div class="match-actions">
-				<button class="btn-icon"><i class="material-icons-outlined"></i></button>
-				<button class="btn-icon"><i class="material-icons-outlined"></i></button>
+				
+				<a target="_blank" href="{{livescore['Game_results'][x]['twitter_link']}}" class="btn-icon fa fa-twitter">{{livescore['Game_results'][x]['twitter_handle']}}</a>
+				
+				
 			</div>
+			
+			
 		</div>
 		<div class="match-content">
 			<div class="column">
@@ -40,24 +45,7 @@
 					
 					<h2 class="team-name">{{livescore['Game_results'][x]['team_h']}}</h2>
 
-					<!---
-
-					{% if  livescore['Game_results'][x]['events']!=None %}
-					
-					{% for p in livescore['Game_results'][x]['events'] %}
-					{% if p['team']=='h' and p['event_name']=='goal_scored' %}
-						<p>(Goal) {{p['player_name']}}</p>
-					{% elif p['team']=='h' and p['event_name']=='assist' %}
-						<p>(Assist) {{p['player_name']}}</p>
-					{% elif p['team']=='a' and p['event_name']=='own_goal' %}
-						<p>(OG) {{p['player_name']}}</p>
-					{% elif p['team']=='h' and p['event_name']=='bonus' %}
-						<p id="{{p['event_name']}}">(Bonus Points) {{p['player_name']}}</p>
-					{% endif %}
-					{% endfor %}
-					{% endif %}
-
-				-->
+				
 			
 				</div>
 			</div>
@@ -92,22 +80,7 @@
 					</div>
 					<h2 class="team-name"> {{livescore['Game_results'][x]['team_a']}}</h2>
 
-					<!--
-					{% if  livescore['Game_results'][x]['events']!=None %}
 					
-					{% for p in livescore['Game_results'][x]['events'] %}
-					{% if p['team']=='a' and p['event_name']=='goal_scored' %}
-						<p>(Goal) {{p['player_name']}}</p>
-					{% elif p['team']=='a' and p['event_name']=='assist' %}
-						<p>(Assist) {{p['player_name']}}</p>
-					{% elif p['team']=='h' and p['event_name']=='own_goal' %}
-						<p>(OG) {{p['player_name']}}</p>
-					{% elif p['team']=='a' and p['event_name']=='bonus' %}
-						<p id="{{p['event_name']}}">(Bonus Points) {{p['player_name']}}</p>
-					{% endif %}
-					{% endfor %}
-					{% endif %}
-				-->
 				</div>
 			</div>
 		</div>

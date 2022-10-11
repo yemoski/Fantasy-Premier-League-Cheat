@@ -667,6 +667,8 @@ strong {
 }
 
 
+
+
 #match-status_ongoing{
     background-color: lightgreen;
 }
@@ -689,8 +691,8 @@ strong {
 
 .btn-icon {
     border: none;
-    background-color: transparent;
-    color: var(--color-text-icon);
+    background-color: skyblue;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -841,8 +843,25 @@ strong {
 .game_details{
     background-color: lightgrey;
 }
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 85px;
+  height: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
 
+.fa:hover {
+  opacity: 0.7;
+}
 
+.fa-twitter {
+  background: #55ACEE;
+  color: black;
+  font-weight: bold;
+}
 
 /***************************Footer************************************/
 .footer-div{
