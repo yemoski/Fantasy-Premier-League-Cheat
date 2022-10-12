@@ -863,6 +863,10 @@ strong {
   font-weight: bold;
 }
 
+.home_stadium{
+    color: darkred;
+}
+
 /***************************Footer************************************/
 .footer-div{
     margin-top: 50px;

@@ -59,9 +59,39 @@ def get_player_name(player_code):
            return i['name']
 
 
-def get_twitter_handle(team_code):
+def get_home_stadium(team_code):
     team = str(team_code)
     if len(team) == 1:
+        team = team.replace('1', 'Emirates Stadium, London')
+        team = team.replace('2', 'Villa Park, Birmingham')
+        team = team.replace('3', 'Vitality Stadium, Bournemouth')
+        team = team.replace('4', 'Gtech Community Stadium, Leicester')
+        team = team.replace('5', 'Amex Stadium, Falmer')
+        team = team.replace('6', 'Stamford Bridge, London')
+        team = team.replace('7', 'Selhurst Park, London')
+        team = team.replace('8', 'Goodison Park, Liverpool')
+        team = team.replace('9', 'Craven Cottage, London')
+
+
+    elif len(team) == 2:
+        team = team.replace('10', 'King Power Stadium, Leicester')
+        team = team.replace('11', 'Elland Road, Leeds')
+        team = team.replace('12', 'Anfield, Liverpool')
+        team = team.replace('13', 'Etihad, Manchester')
+        team = team.replace('14', 'Old Trafford, Manchester')
+        team = team.replace('15', 'St. Jame\'s Park, Newcastle')
+        team = team.replace('16', 'The City Ground, Nottingham')
+        team = team.replace('17', 'St. Mary\'s Stadium, Southampton ')
+        team = team.replace('18', 'Tottenham Hotspur Stadium, London')
+        team = team.replace('19', 'London Stadium, London')
+        team = team.replace('20', 'Molineux Stadium, Wolverhampton')
+
+    return team
+
+
+def get_twitter_handle(team_code): 
+    team = str(team_code)
+    if len(team)==1:
         team = team.replace('1', 'ARS')
         team = team.replace('2', 'AVL')
         team = team.replace('3', 'BOU')
@@ -378,6 +408,8 @@ def get_livescore():
 
             twitter_handle = get_twitter_handle(gw[p]['team_h']) +get_twitter_handle(gw[p]['team_a'])
             twitter_link = 'https://twitter.com/search?q=%23'+twitter_handle
+
+            home_stadium = get_home_stadium(gw[p]['team_h'])
         
 
 
@@ -409,7 +441,8 @@ def get_livescore():
                  'home_bonus': home_bonus[:-2],
                  'away_bonus': away_bonus[:-2],
                  'twitter_handle': '#'+twitter_handle,
-                 'twitter_link': twitter_link
+                 'twitter_link': twitter_link,
+                 'home_stadium': home_stadium
 
                 }
         #If the game has not been played yet
@@ -421,6 +454,7 @@ def get_livescore():
 
             twitter_handle = get_twitter_handle(gw[p]['team_h']) +get_twitter_handle(gw[p]['team_a'])
             twitter_link = 'https://twitter.com/search?q=%23'+twitter_handle
+            home_stadium = get_home_stadium(gw[p]['team_h'])
             
             game_info = {
                 'kick_off_time':full_date,
@@ -437,7 +471,8 @@ def get_livescore():
                  'team_a_badge':get_team_badge(gw[p]['team_a']),
                  'events':total_events,
                  'twitter_handle': '#'+twitter_handle,
-                 'twitter_link': twitter_link
+                 'twitter_link': twitter_link,
+                 'home_stadium': home_stadium
 
                 }
         total_info.append(game_info)

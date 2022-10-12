@@ -40,12 +40,13 @@
 </div>
 
 			<hr>
+			
 <div class="table">
 		<h3 class="table_head_info">FIXTURE DIFFICULTY</h3>
 		<div class="table-header">
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team Name</a></div>
-			{% for x in range(0,5) %}
-			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Next Opponent</a></div>
+			{% for x in headers %}
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >GW {{x}}</a></div>
 			{% endfor %}
 	
 			
@@ -55,19 +56,14 @@
 		{% for x in fixtures %}
 			<div class="table-row">
 				
-				<div class="table-data">{{x['team_id']}}</div>
-				{% for y in range(0,5) %}
-				{% if x['is_home'][y] %}
-				<div class="table-data" id='difficulty{{x['difficulty'][y]}}'>{{x['fixtures'][y]}}(H)</div>
-				{% else %}
-				<div class="table-data" id='difficulty{{x['difficulty'][y]}}'>{{x['fixtures'][y]}}(A)</div>
-				{% endif %}
+				<div class="table-data">{{x['team']}}</div>
+				{% for y in range(0,5) %}		
+				<div class="table-data" id='difficulty{{x['next_5'][y]['difficulty']}}'>{{x['next_5'][y]['team']}}</div>
 				{% endfor %}
 			</div>
 			{% endfor %}
 		</div>	
 	</div>
-
 
 
 
