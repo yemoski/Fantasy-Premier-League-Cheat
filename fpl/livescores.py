@@ -254,12 +254,29 @@ def get_livescore():
         year = str(time.strftime('%Y'))
         day = str(time.strftime('%d'))
 
+
+
+        temp_time = pd.Timestamp(time_2[0])
+        hour = str(temp_time.hour+1)
+        minutes = str(temp_time.minute)
+        if minutes== '0':
+            minutes = '00'
+        
+        full_time = hour +':'+minutes
+
         day_name = pd.Timestamp(time)
         day_name = day_name.day_name() 
         full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
         display_date = day+ ' '+ month_name + ' ' + year + ' at '+ time_2[0] +  ' UK Time'
-        display_time = time_2[0] +  ' UK Time'
+        display_time = full_time +  ' UK Time'
         date_name = day_name + ', '+day+ ' '+ month_name + ' ' + year
+
+
+
+
+
+       
+
 
         if day_name not in distinct_days :
             distinct_days.append(day_name)

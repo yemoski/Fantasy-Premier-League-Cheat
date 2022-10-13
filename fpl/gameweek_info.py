@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pandas as pd
 import datetime
+from datetime import datetime
 from pprint import  pprint
 import livescores as ls
 
@@ -23,6 +24,21 @@ def get_info():
     events_df['deadline_time'] = events_df['deadline_time'].dt.tz_localize(None)
     events_df = events_df.replace({np.nan: None})
 
+
+    
+
+
+    '''
+    month_name = str(time.strftime('%B'))
+    year = str(time.strftime('%Y'))
+    day = str(time.strftime('%d'))
+    time2 = time.strftime('%H:%M:%S')
+    day_name = pd.Timestamp(time)
+    day_name = day_name.day_name() 
+    full_date = day_name + ', '+day+ ' '+ month_name + ' ' + year
+
+    print(full_date)
+    '''
     #events_df.to_csv(index=False, path_or_buf='data2.csv')
 
     current_gameweek = {'Gameweek': '',
@@ -36,11 +52,18 @@ def get_info():
     for index,row in events_df.iterrows():
         if str(row['finished']).lower()=='false':
             current_gameweek['Gameweek'] = row['name']
+            
             current_gameweek['deadline_time'] =  str(row['deadline_time']).strip('Timestamp')
             day = pd.Timestamp(current_gameweek['deadline_time'])
-            current_gameweek['deadline_time'] = day.day_name() + ' ' +current_gameweek['deadline_time'] 
+            hour = str(day.hour+1)
+            minutes = str(day.minute)
+            full_date = str(pd.to_datetime(current_gameweek['deadline_time']).date())
+            #print(full_date)
+            #print(hour + ':'+minutes)
+            #print(current_gameweek['deadline_time'])
+            current_gameweek['deadline_time'] = day.day_name() + ' ' + full_date + ' '+hour+':'+minutes
             current_gameweek['chip_plays'] = row['chip_plays']
-            
+
             if row['most_captained']!=None:
                 current_gameweek['most_captained'] = ls.get_player_name(int(row['most_captained']))
                 current_gameweek['most_vice_captained'] = ls.get_player_name(int(row['most_vice_captained']))
