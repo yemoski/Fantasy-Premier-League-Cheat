@@ -65,7 +65,7 @@ def get_home_stadium(team_code):
         team = team.replace('1', 'Emirates Stadium, London')
         team = team.replace('2', 'Villa Park, Birmingham')
         team = team.replace('3', 'Vitality Stadium, Bournemouth')
-        team = team.replace('4', 'Gtech Community Stadium, Leicester')
+        team = team.replace('4', 'Gtech Community Stadium, London')
         team = team.replace('5', 'Amex Stadium, Falmer')
         team = team.replace('6', 'Stamford Bridge, London')
         team = team.replace('7', 'Selhurst Park, London')
