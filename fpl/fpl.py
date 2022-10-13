@@ -449,7 +449,7 @@ def get_442():
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -471,7 +471,7 @@ def get_442():
                 teams.append(row['team'])
 
                 FOW = FOW +1
-            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -509,7 +509,7 @@ def get_442():
                 ict_form += row['form_ict_index']
                 teams.append(row['team'])
                 GK = GK +1
-            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -553,7 +553,7 @@ def get_532():
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -572,7 +572,7 @@ def get_532():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 FOW = FOW +1
-            if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -610,7 +610,7 @@ def get_532():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 GK = GK +1
-            if row['position']=='DEF' and DEF<=4 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='DEF' and DEF<=4 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -657,7 +657,7 @@ def get_451():
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=0 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='FOW' and FOW<=0 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -676,7 +676,7 @@ def get_451():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 FOW = FOW +1
-            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -714,7 +714,7 @@ def get_451():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 GK = GK +1
-            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -758,7 +758,7 @@ def get_433():
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -777,7 +777,7 @@ def get_433():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 FOW = FOW +1
-            if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -815,7 +815,7 @@ def get_433():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 GK = GK +1
-            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -861,7 +861,7 @@ def get_352():
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -880,7 +880,7 @@ def get_352():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 FOW = FOW +1
-            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -918,7 +918,7 @@ def get_352():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 GK = GK +1
-            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -963,7 +963,7 @@ def get_343():
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -982,7 +982,7 @@ def get_343():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 FOW = FOW +1
-            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
@@ -1020,7 +1020,7 @@ def get_343():
                 teams.append(row['team'])
                 ict_form += row['form_ict_index']
                 GK = GK +1
-            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost']:
+            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost'] and float(row['points_per_game']) > 4.5:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
                     captain['name'] = row['name']
