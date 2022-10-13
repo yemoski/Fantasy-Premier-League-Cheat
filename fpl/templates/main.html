@@ -32,8 +32,21 @@
 			<p>{{x['chip_name']}} played by {{x['num_played']}} of our Managers</p>
 		</div>
 		{% endfor %}
+
+		
 	</div>
-	
+	<div class="gameweek_info">
+		<div class="chips" >
+			<p> Most Captained player: {{gameweek_info['most_captained']}} </p>
+		</div>
+		<div class="chips" >
+			<p> Most Vice captained player: {{gameweek_info['most_vice_captained']}} </p>
+		</div>
+
+		<div class="chips" >
+			<p> Highest Points: {{gameweek_info['top_element']}} </p>
+		</div>
+	</div>
 	<hr>
 
 		

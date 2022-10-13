@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import datetime
 from pprint import  pprint
+import livescores as ls
 
 def get_info():
     # Make a get request to get the latest player data from the FPL API
@@ -26,23 +27,21 @@ def get_info():
     current_gameweek = {'Gameweek': '',
                         'deadline_time': '',
                         'chip_plays': '',
-                        'most_selected':'',
-                        'most_transferred_in':'',
                         'most_captained':'',
                         'most_vice_captained':'',
+                        'top_element': ''
     }
 
     for index,row in events_df.iterrows():
-        if str(row['finished']).lower()=='false':
+        if str(row['is_current']).lower()=='true':
             current_gameweek['Gameweek'] = row['name']
             current_gameweek['deadline_time'] =  str(row['deadline_time']).strip('Timestamp')
             day = pd.Timestamp(current_gameweek['deadline_time'])
             current_gameweek['deadline_time'] = day.day_name() + ' ' +current_gameweek['deadline_time'] 
             current_gameweek['chip_plays'] = row['chip_plays']
-            #current_gameweek['most_selected'] = row['most_selected']
-            #current_gameweek['most_transferred_in'] = row['most_transferred_in']
-            #current_gameweek['most_captained'] = row['most_captained']
-            #current_gameweek['most_vice_captained'] = row['most_vice_captained']
+            current_gameweek['most_captained'] = ls.get_player_name(int(row['most_captained']))
+            current_gameweek['most_vice_captained'] = ls.get_player_name(int(row['most_vice_captained']))
+            current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
             break
     for x in current_gameweek['chip_plays']:
         x['num_played'] = '{:,}'.format(int(x['num_played']))
