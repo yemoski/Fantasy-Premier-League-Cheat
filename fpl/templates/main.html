@@ -35,6 +35,7 @@
 
 		
 	</div>
+	{% if gameweek_info['most_captained']!='' %}
 	<div class="gameweek_info">
 		<div class="chips" >
 			<p> Most Captained player: {{gameweek_info['most_captained']}} </p>
@@ -47,6 +48,7 @@
 			<p> Highest Points: {{gameweek_info['top_element']}} </p>
 		</div>
 	</div>
+	{% endif %}
 	<hr>
 
 		

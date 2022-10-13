@@ -25,7 +25,7 @@ def home():
 	#pprint(fpl.get_differentials())
 
 	#pprint(fd.get_fixtures_header())
-	#pprint(gameweek_info.get_info())
+	pprint(gameweek_info.get_info())
 	
 
 	return render_template("main.html", verse=verse,differentials=fpl.get_differentials(), gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header(), transfer_in= fpl.get_most_transferred_in(), transfer_out = fpl.get_most_transferred_out(), selected= fpl.get_most_selected())

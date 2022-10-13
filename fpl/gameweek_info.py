@@ -21,6 +21,7 @@ def get_info():
 
     events_df['deadline_time'] = pd.to_datetime(events_df['deadline_time'])
     events_df['deadline_time'] = events_df['deadline_time'].dt.tz_localize(None)
+    events_df = events_df.replace({np.nan: None})
 
     #events_df.to_csv(index=False, path_or_buf='data2.csv')
 
@@ -33,15 +34,17 @@ def get_info():
     }
 
     for index,row in events_df.iterrows():
-        if str(row['is_current']).lower()=='true':
+        if str(row['finished']).lower()=='false':
             current_gameweek['Gameweek'] = row['name']
             current_gameweek['deadline_time'] =  str(row['deadline_time']).strip('Timestamp')
             day = pd.Timestamp(current_gameweek['deadline_time'])
             current_gameweek['deadline_time'] = day.day_name() + ' ' +current_gameweek['deadline_time'] 
             current_gameweek['chip_plays'] = row['chip_plays']
-            current_gameweek['most_captained'] = ls.get_player_name(int(row['most_captained']))
-            current_gameweek['most_vice_captained'] = ls.get_player_name(int(row['most_vice_captained']))
-            current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
+            
+            if row['most_captained']!=None:
+                current_gameweek['most_captained'] = ls.get_player_name(int(row['most_captained']))
+                current_gameweek['most_vice_captained'] = ls.get_player_name(int(row['most_vice_captained']))
+                current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
             break
     for x in current_gameweek['chip_plays']:
         x['num_played'] = '{:,}'.format(int(x['num_played']))
