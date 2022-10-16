@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 from pprint import pprint
+import fixture_difficulty as fd
 
 
 # Make a get request to get the latest player data from the FPL API
@@ -93,7 +94,8 @@ for i in data['elements']:
         team_shirt = team_shirt.replace('Wolves','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_39-66.webp')
 
 
-    postponed_games = []
+    postponed_games = fd.get_postponed_games()
+    
     #for game week 8 alone the teams in the above array have their games postponed
     if team in postponed_games:
         postponed = 'Yes'

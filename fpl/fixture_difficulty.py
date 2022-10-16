@@ -7,6 +7,7 @@ import re
 from pprint import  pprint
 
 
+
 # Make a get request to get the latest player data from the FPL API
 link = "https://fantasy.premierleague.com/api/bootstrap-static/"
 response = requests.get(link)
@@ -184,4 +185,26 @@ def get_fixtures_header():
     return headers
 
 
+def get_postponed_games():
 
+    all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Leicester','Leeds','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
+    link2 = 'https://fantasy.premierleague.com/api/fixtures/'
+    response = requests.get(link2)
+
+    # Convert JSON data to a python object
+    data = json.loads(response.text)
+    teams_playing = []
+    postponed = []
+    for x in data:
+        if x['event'] == current_gw:
+            teams_playing.append(get_team_name(x['team_h']))
+            teams_playing.append(get_team_name(x['team_a']))
+
+
+    for team in all_distict_teams:
+        if team not in teams_playing:
+            postponed.append(team)
+
+
+
+    return postponed
