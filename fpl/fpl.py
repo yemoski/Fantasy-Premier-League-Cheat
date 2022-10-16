@@ -13,7 +13,7 @@ response = requests.get(link)
 
 # Convert JSON data to a python object
 data = json.loads(response.text)
-
+postponed_games = fd.get_postponed_games()
 #print(data)
 all_players = []
 for i in data['elements']:
@@ -94,7 +94,7 @@ for i in data['elements']:
         team_shirt = team_shirt.replace('Wolves','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_39-66.webp')
 
 
-    postponed_games = fd.get_postponed_games()
+    
     
     #for game week 8 alone the teams in the above array have their games postponed
     if team in postponed_games:
