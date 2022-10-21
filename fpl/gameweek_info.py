@@ -57,6 +57,8 @@ def get_info():
             day = pd.Timestamp(current_gameweek['deadline_time'])
             hour = str(day.hour+1)
             minutes = str(day.minute)
+            if minutes== '0':
+                minutes = '00'
             full_date = str(pd.to_datetime(current_gameweek['deadline_time']).date())
             #print(full_date)
             #print(hour + ':'+minutes)
