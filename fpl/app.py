@@ -28,7 +28,7 @@ def home():
 	#pprint(gameweek_info.get_info())
 	
 
-	return render_template("main.html", verse=verse,differentials=fpl.get_differentials(), gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header(), transfer_in= fpl.get_most_transferred_in(), transfer_out = fpl.get_most_transferred_out(), selected= fpl.get_most_selected())
+	return render_template("main.html", verse=verse,differentials=fpl.get_differentials(), gameweek_info =gameweek_info.get_info(), fixtures = fd.get_fixtures(), headers = fd.get_fixtures_header(), transfer_in= fpl.get_most_transferred_in(), transfer_out = fpl.get_most_transferred_out(), selected= fpl.get_most_selected(), players_to_watch = fd.players_to_watch())
 
 
 
@@ -55,6 +55,8 @@ def formations():
 
 	dream = fpl.get_dream_team()
 	#pprint(dream)
+
+
 
 	
 	

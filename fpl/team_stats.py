@@ -125,7 +125,7 @@ def get_expected_ga():
 
 
     all_teams = pd.DataFrame(all_teams)
-    pprint(all_teams)
+    #pprint(all_teams)
 
     all_teams = all_teams.sort_values(by=['xga'], ascending=True)
 

@@ -200,5 +200,32 @@
 	</div>
 
 
+<div class="table">
+		<h3 class="table_head_info">PLAYERS TO WATCH THIS GW</h3>
+		<div class="table-header ">
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Fixture</a></div>
+			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Player 1</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player 2</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player 3</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player 4</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Player 5</a></div>
+		
+		</div>
+
+		<div class="table-content">	
+		{% for x in players_to_watch %}
+			<div class="table-row line_padding">
+			
+				<div class="table-data">{{x['teams']}}</div>
+				{%for y in x['players_to_watch'] %}
+					<div class="table-data">{{y}}</div>
+				{% endfor %}
+		
+				
+			</div>
+			{% endfor %}
+		</div>	
+	</div>
+
 
 {% endblock %}
