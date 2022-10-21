@@ -6,7 +6,7 @@ import datetime
 from datetime import datetime
 from pprint import  pprint
 import livescores as ls
-
+import fpl 
 def get_info():
     # Make a get request to get the latest player data from the FPL API
     link = "https://fantasy.premierleague.com/api/bootstrap-static/"
@@ -72,6 +72,7 @@ def get_info():
                 current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
             break
     for x in current_gameweek['chip_plays']:
+        x['percentage'] = fpl.get_percentage_of_manager(x['num_played'])
         x['num_played'] = '{:,}'.format(int(x['num_played']))
         if x['chip_name'] =='bboost':     
             x['chip_name'] = 'Bench Boost'
@@ -81,5 +82,5 @@ def get_info():
             x['chip_name'] = 'Wildcard'
         elif x['chip_name']=='3xc':
             x['chip_name'] = 'Triple Captain'
-
+   
     return current_gameweek

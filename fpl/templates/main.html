@@ -29,7 +29,7 @@
 		</div>
 		{% for x in gameweek_info['chip_plays']%}
 		<div class="chips" id={{x['chip_name']}}>
-			<p>{{x['chip_name']}} played by {{x['num_played']}} of our Managers</p>
+			<p>{{x['chip_name']}} played by {{x['num_played']}} ({{x['percentage']}}%) of our Managers</p>
 		</div>
 		{% endfor %}
 

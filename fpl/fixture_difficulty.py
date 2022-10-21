@@ -218,6 +218,7 @@ def get_dataset():
     all_players = []
     for i in data5['elements']:
         name = i['first_name'] + " " + i['second_name']
+        webname = i['web_name']
         team = str(i['team'])
         form_ict_index = float(i['form']) * float(i['ict_index'])
 
@@ -252,7 +253,7 @@ def get_dataset():
 
 
 
-        stats = [name,form_ict_index,team]
+        stats = [name,form_ict_index,team,webname]
         all_players.append(stats)
 
 
@@ -261,6 +262,7 @@ def get_dataset():
         'name': all_players[:, 0],
         'form_ict_index': all_players[:,1].astype(float),
         'team': all_players[:,2],
+        'webname': all_players[:,3]
         
      
 
@@ -291,10 +293,10 @@ def players_to_watch():
                 if counter ==5:
                     break
                 elif row['team']==get_team_name(x['team_h']):
-                    player_list.append(row['name'])
+                    player_list.append(row['webname'])
                     counter = counter +1
                 elif row['team']==get_team_name(x['team_a']):
-                    player_list.append(row['name'])
+                    player_list.append(row['webname'])
                     counter = counter +1
         
             fixtures = {

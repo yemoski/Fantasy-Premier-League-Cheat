@@ -154,9 +154,21 @@ def get_current_time():
     return full_date
 
 
+def get_percentage_of_manager(x):
+    #GETTING GAME WEEK DEADLINE AND CHIP PLAYS
+    # Make a get request to get the latest player data from the FPL API
+    link = "https://fantasy.premierleague.com/api/bootstrap-static/"
+    response = requests.get(link)
+
+    # Convert JSON data to a python object
+    data = json.loads(response.text)
+
+    total = int(data['total_players'])
+
+    percentage = int((x/total)*100)
 
 
-
+    return percentage
 
 
 
