@@ -64,6 +64,23 @@ body{
     
 }
 
+
+.notes_container{
+    background: grey;
+    margin: 25px;
+
+
+}
+
+.each_team_notes{
+    margin: 10px;
+    background-color: dimgray;
+}
+
+
+.notes_team_name{
+    font-size: 30px;
+}
 .header{
    display: block;
    align-items: center;

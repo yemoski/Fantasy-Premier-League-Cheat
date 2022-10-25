@@ -51,7 +51,7 @@ def get_league_table():
         row_headings['d'] = all_rows_data[4]
         row_headings['l'] = all_rows_data[5]
         row_headings['points'] = int(all_rows_data[9])
-        row_headings['xga'] = float(all_rows_data[12])
+        #row_headings['xga'] = float(all_rows_data[12])
         row_headings['goal_keeper'] = all_rows_data[18]
         all_teams.append(row_headings)
 
@@ -127,7 +127,7 @@ def get_expected_ga():
     all_teams = pd.DataFrame(all_teams)
     #pprint(all_teams)
 
-    all_teams = all_teams.sort_values(by=['xga'], ascending=True)
+    #all_teams = all_teams.sort_values(by=['xga'], ascending=True)
 
 
     return all_teams

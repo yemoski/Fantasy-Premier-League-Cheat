@@ -227,5 +227,30 @@
 		</div>	
 	</div>
 
+	<div class="notes_container">
+		<div class="gameweek_info_header">
+			<h3>SET PIECE INFORMATION</h3>
+		</div>
+		{% for x in notes %}
+		<div class="each_team_notes">
+			
+			<div class="team-logo">
+						
+						<img src="{{x['team_logo']}}" />
+
+					</div>
+					<h4 class="notes_team_name">{{x['team_name']}}</h4>
+			<div class="each_notes">
+				{%for y in x['notes']%}
+				<p>{{y}}</p>
+				{% endfor %}
+
+			</div>
+		</div>
+		{% endfor %}
+
+		
+	</div>
+
 
 {% endblock %}
