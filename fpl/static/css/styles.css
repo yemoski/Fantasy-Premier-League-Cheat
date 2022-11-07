@@ -906,6 +906,7 @@ strong {
 .login_info{
     margin-right: 50px;
     margin-left: 50px;
+    font-size: 25px;
 }
 .submit_button{
     border-radius: 10px;
@@ -928,7 +929,7 @@ strong {
 
 .w3-col{
     float: left;
-    font-size: 15px;
+    font-size: 40px;
     line-height: 1.5px;
 }
 .w3-col.m3{
@@ -951,7 +952,10 @@ strong {
     text-align: center;
 
 }
-
+.each_data{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
 .w3-container{
      padding: 0.01em 16px;
 }
