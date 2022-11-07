@@ -5,6 +5,7 @@ import pandas as pd
 from datetime import datetime
 from pprint import pprint
 import fixture_difficulty as fd
+import manager_info as mi
 
 
 # Make a get request to get the latest player data from the FPL API

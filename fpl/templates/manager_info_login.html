@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% block maincontent %}
+<div class="login_panel">
+	<div class="enter_pin">
+		{% with messages= get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+            <div class="manager_login_error">
+              <p>{{msg}}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+      {% endwith %}
+		<form method="POST">
+			<input class="pin_panel" type="text" name="pin" placeholder="Enter your manager pin...">
+			<input class="submit_button" type="submit" name="" value="Submit">
+		</form>
+		
+	</div>
+
+	<div class="login_info">
+		<p>You might be wondering: how to get the manager id? The answer is simple. Just go to <a href="https://fantasy.premierleague.com">the FPL Website</a>, sign in with your account, go to ‘Pick Team’ then ‘View Gameweek history’. You can find your id in the URL, right before the ‘/history’. </p>
+		
+	</div>
+
+	
+</div>
+
+{% endblock %}

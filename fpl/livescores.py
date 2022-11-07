@@ -287,6 +287,7 @@ def get_livescore():
 
         #If the game has been played or is being played
         if gw[p]['stats'] != []:
+            
             goal_scored =  gw[p]['stats'][0]
             assist = gw[p]['stats'][1]
             own_goals = gw[p]['stats'][2]
@@ -297,6 +298,7 @@ def get_livescore():
             yellow_cards = gw[p]['stats'][5]
             red_cards = gw[p]['stats'][6]
             bonus = gw[p]['stats'][8]
+            
             #Getting all the stats (goal scored, assist, own goal and bonus ) for away team
             for z in goal_scored['a']:
                 events_dict = {
@@ -422,6 +424,8 @@ def get_livescore():
             for z in bonus['h']:
                 home_bonus = get_player_name(z['element'])+' ='+str(z['value']) + ', ' + home_bonus 
 
+
+            
 
             twitter_handle = get_twitter_handle(gw[p]['team_h']) +get_twitter_handle(gw[p]['team_a'])
             twitter_link = 'https://twitter.com/search?q=%23'+twitter_handle

@@ -884,7 +884,77 @@ strong {
 .home_stadium{
     color: darkred;
 }
+/***************************Manager_login************************************/
+.login_panel{
+    margin: 50px;
+    height: 550px;
+    background-color: dimgray;
+    
+}
+.pin_panel{
+    margin-left: 120px;
+    margin-right: 30px;
+    width: 500px;
+    height: 50px;
+    border-radius: 15px;
+    padding: 6px;
+    border:  none;
+    margin-top: 150px;
+    font-size: 17px;
+}
 
+.login_info{
+    margin-right: 50px;
+    margin-left: 50px;
+}
+.submit_button{
+    border-radius: 10px;
+    background-color: aqua;
+}
+.manager_login_error{
+    background:lightcoral;
+    margin-top: -30px;
+    margin-bottom: 10px;
+}
+
+.manager_login_error p{
+    text-align: center;
+}
+/***************************Manager_info************************************/
+.manager_info_container {
+    background-color: dimgray;
+    display: block;
+}
+
+.w3-col{
+    float: left;
+    font-size: 15px;
+    line-height: 1.5px;
+}
+.w3-col.m3{
+    width: 70%;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.w3-circle{
+    border-radius: 50%;
+}
+.w3-white{
+    color: #000;
+    background-color: dimgray;
+
+}
+.w3-round{
+    border-radius: 4px;
+}
+.w3-center {
+    text-align: center;
+
+}
+
+.w3-container{
+     padding: 0.01em 16px;
+}
 /***************************Footer************************************/
 .footer-div{
     margin-top: 50px;

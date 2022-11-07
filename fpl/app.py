@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for,flash,jsonify
+from flask import Flask, render_template, request, url_for,flash,jsonify, redirect
 import fpl
 from pprint import pprint
 import bible
@@ -7,6 +7,7 @@ import gameweek_info
 import livescores as ls
 import fixture_difficulty as fd
 import setpieceinfo as spi
+import manager_info as mi
 
 app = Flask(__name__)
 app.secret_key = 'fpl'
@@ -131,6 +132,26 @@ def help():
 
 	return render_template("help.html")
 
+
+@app.route("/manager_info", methods = ["GET", "POST"])
+def manager_info():
+	#pprint()
+	result = {}
+
+	if request.method =='POST':
+		pin = request.form['pin']
+		result = mi.get_manager_info(pin)
+
+
+		if result=={}:
+			print('Empty')
+			flash('The Pin is incorrect, Please try again!')
+			return render_template('manager_info_login.html')
+		else:
+			return render_template('manager_info.html',m_info = result )
+
+
+	return render_template("manager_info_login.html", m_info = result)
 
 @app.route("/stats", methods = ["GET", "POST"])
 def stats():
