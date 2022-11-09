@@ -12,7 +12,7 @@ import manager_info as mi
 app = Flask(__name__)
 app.secret_key = 'fpl'
 
-
+#diff
 
 
 @app.route("/", methods = ["GET", "POST"])
