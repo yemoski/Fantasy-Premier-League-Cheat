@@ -220,6 +220,7 @@ def get_dataset():
         name = i['first_name'] + " " + i['second_name']
         webname = i['web_name']
         team = str(i['team'])
+        status = i['status']
         form_ict_index = float(i['form']) * float(i['ict_index'])
 
 
@@ -253,7 +254,7 @@ def get_dataset():
 
 
 
-        stats = [name,form_ict_index,team,webname]
+        stats = [name,form_ict_index,team,webname,status]
         all_players.append(stats)
 
 
@@ -262,7 +263,8 @@ def get_dataset():
         'name': all_players[:, 0],
         'form_ict_index': all_players[:,1].astype(float),
         'team': all_players[:,2],
-        'webname': all_players[:,3]
+        'webname': all_players[:,3],
+        'status': all_players[:,4]
         
      
 
@@ -292,10 +294,10 @@ def players_to_watch():
             for index,row in dataset.iterrows():
                 if counter ==5:
                     break
-                elif row['team']==get_team_name(x['team_h']):
+                elif row['team']==get_team_name(x['team_h']) and row['status']=='a':
                     player_list.append(row['webname'])
                     counter = counter +1
-                elif row['team']==get_team_name(x['team_a']):
+                elif row['team']==get_team_name(x['team_a']) and row['status']=='a':
                     player_list.append(row['webname'])
                     counter = counter +1
         
