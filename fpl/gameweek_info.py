@@ -72,9 +72,11 @@ def get_info():
                 current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
             break
     for x in current_gameweek['chip_plays']:
+        pprint(x)
+        #percentage = x['percentage']
         if fpl.get_percentage_of_manager(x['num_played']) ==0:
             percentage = '<1'
-        x['percentage'] = percentage
+        #x['percentage'] = percentage
         x['num_played'] = '{:,}'.format(int(x['num_played']))
         if x['chip_name'] =='bboost':     
             x['chip_name'] = 'Bench Boost'
