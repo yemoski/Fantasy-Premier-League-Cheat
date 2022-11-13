@@ -15,7 +15,7 @@ response = requests.get(link)
 # Convert JSON data to a python object
 data = json.loads(response.text)
 postponed_games = fd.get_postponed_games()
-#print(data)
+
 all_players = []
 for i in data['elements']:
     name = i['first_name'] + " " + i['second_name']
