@@ -125,7 +125,7 @@ def manager_info():
         result = mi.get_manager_info(pin)
 
         if result == {}:
-            print('Empty')
+            #print('Empty')
             flash('The Pin is incorrect, Please try again!')
             return render_template('manager_info_login.html')
         else:
