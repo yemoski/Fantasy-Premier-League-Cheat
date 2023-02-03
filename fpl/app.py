@@ -48,7 +48,7 @@ def formations():
     f343 = fpl.get_343()
 
     dream = fpl.get_dream_team()
-    # pprint(dream)
+   
 
     verse = bible.get_verse()
     formations = []
