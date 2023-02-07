@@ -714,44 +714,60 @@ strong {
 }
 
 /*************small screen **********************/
-@media(max-width: 700px){
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait){
 
-	body{
+	.main_main_container{
 		margin: 0;
 		padding: 0;
-		width:100%;
+		width:851px;
 	}
 	.text-box h1{
 		font-size: 20px;
 	}
 
-	.nav-links ul li{
-		display: block;
-	}
-	.nav-links{
-		position: absolute;
-		background: #f44336;
-		height: 100vh;
-		width: 200px;
-		top: 0;
-		right: -200px;
-		text-align: left;
-		z-index: 2;
-		transition: 1s;
 
-	}
+    	
+    .nav-links{
+        position: absolute;
+        top: 50px;
+        left: 0;
+        flex: 1;
+        text-align: right;
 
-	nav .fa{
-		display: block;
-		color: #fff;
-		margin: 10px;
-		font-size: 22px;
-		cursor: pointer;
+    }
 
-	}
-	.nav-links ul{
-		padding: 30px;
-	}
+    .nav-links ul li{
+        list-style: none;
+        display: inline-block;
+        padding: 8px 12px;
+        position: relative;
+    }
+    .nav-links ul li::after{
+        content: '';
+        width: 0%;
+        height: 2px;
+        background: #f44336;
+        display: block;
+        margin: auto;
+        transition: 0.5s;
+        
+    }
+
+    .nav-links ul li:hover::after{
+        width: 100%;
+        
+    }
+    .nav-links ul li a{
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+
+    }
+    	
 
 	.row{
 		flex-direction: column;
