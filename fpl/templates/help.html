@@ -1,11 +1,42 @@
 {% extends 'index.html' %}
 {% block maincontent %}
-<div class="webpage_header">
-					<h2>HOW DOES IT WORK?</h2>
+<section class="header">
+		
+			<nav>
+				<a class="logo" href="{{url_for('home')}}">FPL<span>CHEATBOT</span></a>
+				<div class="nav-links" id='navLinks'>
+				<i class="fa fa-times" onclick="hideMenu()"></i>
+
+				<ul>
+					<li><a href="{{url_for('home')}}">Home</a></li>
+					<li><a href="{{url_for('livescore')}}">Livescore</a></li>
+					<li><a href="{{url_for('formations')}}">Formation Drafts</a></li>
+					<li><a href="{{url_for('news')}}">News</a></li>
+					<!--<li><a href="{{url_for('stats')}}">Stats</a></li>
+					<li><a href="{{url_for('manager_info')}}">Manager info</a></li> -->
+					<li><a href="{{url_for('help')}}">How It Works</a></li>
+					<li><a href="https://yemisi-portfolio.herokuapp.com/" target="_blank"  >Contact Me</a></li>
+					
+				</ul>
+				
+				</div>
+				<i class="fa fa-bars" onclick="showMenu()"></i>
+				
+			</nav>
+			
+	
+
+		<div class="text-box">
+			<h1>HOW DOES IT WORK?</h1>
+		
 		</div>
-		<hr>
+	
+
+
+	</section>
+
 <div class="main_help_info">
-	<img src="../static/images/img2.jpg">
+	<!--<img src="../static/images/img2.jpg"> -->
 	<div class="help_main_info">
 			<p >
 		The ICT Index is a feature in <a href="https://fantasy.premierleague.com/">Fantasy Premier League </a> that offers managers insight to help guide strategies and selections.

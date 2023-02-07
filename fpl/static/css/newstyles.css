@@ -1,0 +1,793 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+
+}
+
+.header {
+	min-height: 100vh;
+	width: 100%;
+	background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4,9,30,0.7)),
+	 url(https://www.fanabc.com/english/wp-content/uploads/2022/12/321105434_883868013027395_2576485099436938498_n.jpg);
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+
+nav{
+	display: flex;
+	padding: 2% 6%;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+
+.logo{
+	width: 150px;
+	color: white;
+	text-decoration: none;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+
+.nav-links{
+	flex: 1;
+	text-align: right;
+
+}
+
+.nav-links ul li{
+	list-style: none;
+	display: inline-block;
+	padding: 8px 12px;
+	position: relative;
+}
+.nav-links ul li::after{
+	content: '';
+	width: 0%;
+	height: 2px;
+	background: #f44336;
+	display: block;
+	margin: auto;
+	transition: 0.5s;
+	
+}
+
+.nav-links ul li:hover::after{
+	width: 100%;
+	
+}
+.nav-links ul li a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 13px;
+
+}
+
+.text-box{
+	
+	width: 90%;
+	color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+}
+
+.text-box h1{
+
+	font-size: 62px;
+}
+.text-box p{
+
+	font-size: 25px;
+	color: white;
+}
+nav .fa{
+	display: none;
+}
+
+
+
+/*--------- game week information ----> */
+
+.course{
+	width: 80%;
+	margin: auto;
+	text-align: center;
+	padding-top: 100px;
+}
+
+
+h1{
+	font-size: 36px;
+	font-weight: 600;
+
+}
+
+p{
+	color: #777;
+	font-size: 14px;
+	font-weight: 14px;
+	line-height: 22px;
+	padding: 10px;
+}
+
+.chips{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	margin-top: 5%;
+
+}
+
+.deadline p{
+   
+    color: darkred;
+    
+}
+.course-col{
+	flex-basis: 31%;
+	background: #fff3f3;
+	border-radius: 10px;
+	padding: 20px 12px;
+	box-sizing: border-box;
+	transition: 0.5s;
+	margin: 10px;
+}
+
+.course-col:hover{
+	box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+h3{
+	text-align: center;
+	font-weight:600 ;
+	margin: 10px 0;
+}
+
+.table_infos{
+	width: 80%;
+	margin: auto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.stat_tables{
+	margin: 10px;
+}
+
+#difficulty1{
+    background-color: green;
+    margin: 2.5px;
+}
+
+#difficulty2{
+    background-color: lightgreen;
+    margin: 2.5px;
+}
+
+#difficulty3{
+    background-color: palevioletred;
+    margin: 2.5px;
+}
+
+#difficulty4{
+    background-color: indianred;
+    margin: 2.5px;
+}
+
+#difficulty5{
+    background-color: red;
+    margin: 2.5px;
+}
+
+table{
+	
+	z-index: 2;
+	left: 50%;
+	top: 50%;
+	
+	width: 60%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-radius: 12px 12px 0 0;
+	overflow: hidden;
+	box-shadow: 0 2px 12px rgba(32, 32, 32, 0.3);
+	background: #fff3f3;
+	text-align: center;
+
+}
+
+th,td{
+	padding: 12px 15px;
+}
+
+
+th{
+	background: #ba68c8;
+	text-transform: uppercase;
+}
+
+
+/************************************   Livescore ******************************************/
+
+
+img {
+    display: block;
+    
+}
+
+strong {
+    font-weight: 600;
+}
+
+.game_days{
+    text-align: center;
+    background-color: #ba68c8;
+    
+}
+
+
+.match {
+    background-color: lavender;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    margin: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(#303030, 0.1), 0 4px 4px 0 rgba(#303030, 0.1);
+    
+}
+
+.match-header {
+    display: flex;
+    padding: 16px;
+    border-bottom: 2px solid rgba(#303030, 0.1);
+}
+
+.match-status {
+    background-color: var(--color-bg-alert);
+    color: black;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin-right: auto;
+    &:before {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background-color: currentcolor;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+    
+}
+
+
+
+
+#match-status_ongoing{
+    background-color: lightgreen;
+}
+
+.match-tournament {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    img {
+        width: 20px;
+        margin-right: 12px;
+    }
+    
+}
+
+.match-actions {
+    display: flex;
+    margin-left: auto;
+}
+
+.btn-icon {
+    border: none;
+    background-color: skyblue;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.match-content {
+    display: flex;
+    position: relative;
+}
+
+.column {
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100%/3);
+}
+
+
+.team {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    
+}
+
+.team-logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 4px 4px 0 rgba(#303030, 0.15),
+        0 0 0 15px var(--color-bg-secondary);
+   
+
+}
+
+.team-name {
+    text-align:center;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.match-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.match-date, .match-referee {
+    font-size: 14px;
+    color: black;
+   
+}
+
+.match-score {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.match-score-number {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    &--leading {
+        color: var(--color-theme-primary);
+    }
+}
+
+.match-score-divider {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    color: var (--color-text-icon);
+    margin-left: 10px;
+    margin-right: 10px;
+    
+}
+
+.match-time-lapsed {
+    color: #DF9443;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.match-referee {
+    margin-top: 12px;
+}
+
+.match-bet-options {
+    display: flex;
+    margin-top: 8px;
+    padding-bottom: 12px;
+}
+
+
+.match-bet-option {
+    margin-left: 4px;
+    margin-right: 4px;
+    border: 1px solid var(--color-text-icon);
+    background-color: #F9F9F9;
+    border-radius: 2px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 8px;
+}
+
+.match-bet-place {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    background-color: var(--color-theme-primary);
+    border-radius: 6px;
+    padding: 10px 48px;
+    color: rgba(#fff, 0.9);
+    font-size: 14px;
+    box-shadow: 0 4px 8px 0 rgba(#303030, 0.25);
+}
+
+
+.livescore_container {
+    margin: 30px;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff3f3;
+}
+.gameweek_header{
+    font-size: 35px;
+    text-align: center;
+}
+
+
+#bonus{
+    color: darkred;
+}
+
+.game_details{
+    background-color: white;
+}
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 85px;
+  height: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: black;
+  font-weight: bold;
+}
+
+.home_stadium{
+    color: darkred;
+}
+
+
+
+/********** formation ***************************/
+.formation_name_info, .team_value_info, .ict_form_info, .budget_info{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    white-space: nowrap;
+    border-radius: 7px;
+    padding: 10px 15px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+}
+
+
+.ict_form_info{
+    white-space: normal;
+}
+
+
+.formation_name_info::before, .team_value_info::before, .ict_form_info::before, .budget_info::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 15px solid;
+    border-color: #000 #0000 #0000 #0000;
+
+}
+
+
+
+
+
+.results{
+    margin-top: 2rem;
+    background-color: #fff3f3;
+    margin: 10px;
+    border-radius: 10px;
+    
+}
+.player{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+
+}
+.pos{
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    background-color: lavender;
+    border-radius: 5px;
+}
+.price{
+    color: red;
+}
+.pos b p{
+	color: black;
+}
+
+.pos img{
+    width: 150px;
+    display: inline-block;
+
+
+}
+.gk img{
+    width: 150px;
+}
+.formation_name{
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    margin: 15px;
+    background-color: #ba68c8;
+}
+
+.captain_name{
+    text-align: center;
+    color: black;
+    background-color: #ba68c8;
+    margin-left: 40px;
+    margin-right: 40px;
+
+}
+
+
+
+.help{
+    display: inline-block;
+}
+
+
+
+
+/********************************news **********************************************/
+
+.news_container{
+    display: inline-block;
+    margin: 20px;
+    border-radius: 20px;
+   
+    padding: 20px;
+}
+
+.each_news{
+    float: left;
+    display: inline-block;
+    margin: 70px;
+    height: 280px;
+    width: 280px;
+}
+
+#risen{
+    color: black;
+}
+#fallen{
+    color: darkred;
+}
+
+/*********************************Help page******************************************/
+.main_help_info img{
+    max-width: 100%;
+    height: 500px;
+    margin: 20px;
+
+}
+.help_main_info p{
+    line-height: 2.5;
+    font-size: 20px;
+    color: black;
+
+}
+
+.help_main_info {
+    
+    margin: 20px;
+    padding: 20px;
+}
+.help_main_info a{
+    color: darkmagenta;
+    text-decoration: none;
+
+}
+
+.help_main_info a:hover{
+    text-decoration: underline;
+}
+
+
+.influence {
+   
+    margin: 20px;
+     padding: 20px;
+
+}
+
+
+.influence h2{
+    font-size: 33px ;
+    color: black;
+}
+
+.influence p{
+    line-height: 2.5;
+    font-size: 20px;
+    color: black;
+}
+
+.creativity {
+    
+    margin: 20px;
+     padding: 20px;
+}
+.creativity h2{
+    font-size: 33px ;
+    color: black;
+}
+
+.creativity p{
+    line-height: 2.5;
+    font-size: 20px;
+    color: black;
+}
+
+.threat {
+   
+    margin: 20px;
+     padding: 20px;
+}
+.threat h2{
+    font-size: 33px ;
+    color: black;
+}
+
+.threat p{
+    line-height: 2.5;
+    font-size: 20px;
+    color: black;
+}
+
+.overall {
+    
+    margin: 20px;
+     padding: 20px;
+}
+
+.overall h2{
+    font-size: 33px ;
+    color: black;
+}
+
+.overall p{
+    line-height: 2.5;
+    font-size: 20px;
+    color: black;
+}
+.main_help_info{
+
+    display: inline-block;
+    width: auto;
+   
+    border-radius: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+
+}
+
+/*************small screen **********************/
+@media(max-width: 700px){
+
+	body{
+		margin: 0;
+		padding: 0;
+		width:100%;
+	}
+	.text-box h1{
+		font-size: 20px;
+	}
+
+	.nav-links ul li{
+		display: block;
+	}
+	.nav-links{
+		position: absolute;
+		background: #f44336;
+		height: 100vh;
+		width: 200px;
+		top: 0;
+		right: -200px;
+		text-align: left;
+		z-index: 2;
+		transition: 1s;
+
+	}
+
+	nav .fa{
+		display: block;
+		color: #fff;
+		margin: 10px;
+		font-size: 22px;
+		cursor: pointer;
+
+	}
+	.nav-links ul{
+		padding: 30px;
+	}
+
+	.row{
+		flex-direction: column;
+	}
+
+	.course{
+		width: 100%;
+		padding-top: 20px;
+	}
+
+	.table_infos{
+		display: block;
+	}
+
+	.livescore_container{
+		margin: 0;
+		padding: 0;
+		width: fit-content;
+	}
+
+	.each_news {
+		margin: 10px;
+		width: 200px;
+
+	}
+
+
+}
+/* ******************************foooter ***************************/
+.footer-div{
+    margin-top: 50px;
+}
+.footer{
+    text-align: center;
+    color: darkmagenta;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+}

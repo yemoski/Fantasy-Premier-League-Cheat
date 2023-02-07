@@ -1,10 +1,41 @@
 {% extends 'index.html' %}
 {% block maincontent %}
 
-<div class="webpage_header">
-					<h2>FORMATION DRAFTS</h2>
+<section class="header">
+		
+			<nav>
+				<a class="logo" href="{{url_for('home')}}">FPL<span>CHEATBOT</span></a>
+				<div class="nav-links" id='navLinks'>
+				<i class="fa fa-times" onclick="hideMenu()"></i>
+
+				<ul>
+					<li><a href="{{url_for('home')}}">Home</a></li>
+					<li><a href="{{url_for('livescore')}}">Livescore</a></li>
+					<li><a href="{{url_for('formations')}}">Formation Drafts</a></li>
+					<li><a href="{{url_for('news')}}">News</a></li>
+					<!--<li><a href="{{url_for('stats')}}">Stats</a></li>
+					<li><a href="{{url_for('manager_info')}}">Manager info</a></li> -->
+					<li><a href="{{url_for('help')}}">How It Works</a></li>
+					<li><a href="https://yemisi-portfolio.herokuapp.com/" target="_blank"  >Contact Me</a></li>
+					
+				</ul>
+				
+				</div>
+				<i class="fa fa-bars" onclick="showMenu()"></i>
+				
+			</nav>
+			
+	
+
+		<div class="text-box">
+			<h1>FORMATION DRAFTS</h1>
 		</div>
-		<hr>
+
+	</section>
+
+
+
+	
 		<div class="info">
 			
 
@@ -14,29 +45,36 @@
 		</div>
 		</div>
 
-	
-	<div class="table">
-		<h3 class="table_head_info">FORMATION SUMMARY</h3>
-		<div class="table-header">
-			<div class="header__item"><a id="wins" class="filter__link filter__link--number" >Formation name<div id='help1'class="help"><span class="formation_name_info">The name of the Formation</span><span class="material-symbols-outlined">help</span></div></a></div>
-			<div class="header__item"><a id="draws" class="filter__link filter__link--number" >Team value<div id='help2' class="help"><span class="team_value_info">The monetary value of the Team  from the live transfer market in £</span><span class="material-symbols-outlined">help</span></div></a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number" >Ict form<div id="help3" class="help"><span class="ict_form_info">Statistical index developed specifically to assess a player as an FPL asset, combining Influence, Creativity and Threat scores and Form is a player’s average score per match, calculated from all matches played by his club in the last 30 days.</span><span class="material-symbols-outlined">help</span> </div></a></div>
-			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Remaining Budget<div id="help4" class="help"><span class="budget_info">The money to spend on your bench players</span><span class="material-symbols-outlined">help</span></div></a></div>
-			
-			
-		</div>
-		<div class="table-content">	
-		{% for x in formations%}
-			<div class="table-row">
-				<div class="table-data">{{x['name']}}</div>
-				<div id='{{x['p']}}' class="table-data">{{x['value']}}</div>
-				<div class="table-data">{{x['ict_form']}}</div>
-				<div class="table-data">{{x['budget']}}</div>
-			
-			</div>
-			{% endfor %}
-		</div>	
-	</div>
+	<section class="stat_tables">
+ 	<h3>FORMATION SUMMARY</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Formation name</th>
+ 			<th>Team Value</th>
+ 			<th>ICT FORM</th>
+ 			<th>Remaining Budget</th>
+ 			
+ 			
+ 		</tr>
+ 		{% for x in formations%}
+ 		<tr>
+ 			<td>{{x['name']}}</td>
+ 			<td>{{x['value']}}</td>
+ 			<td>{{x['ict_form']}}</td>
+ 			<td>{{x['budget']}}</td>
+ 			
+ 			
+ 		</tr>
+ 		{% endfor %}
+
+ 			
+
+ 	</table>
+	</div> 	
+		
+ </section>
 	
 		
 <div class="results">
@@ -125,7 +163,7 @@
 				
 			</div>
 			</div>
-<hr>
+
 <!------------------------------------------  Formation 1 ------------------------------------------------------------------->
 
 			<div class="formation">

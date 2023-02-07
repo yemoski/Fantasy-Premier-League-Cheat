@@ -1,10 +1,43 @@
 {% extends 'index.html' %}
 {% block maincontent %}
-	<div class="webpage_header ">
-			<h2>Gameweek {{livescore['game_week']}}</h3>
+
+	<section class="header">
+		
+			<nav>
+				<a class="logo" href="{{url_for('home')}}">FPL<span>CHEATBOT</span></a>
+				<div class="nav-links" id='navLinks'>
+				<i class="fa fa-times" onclick="hideMenu()"></i>
+
+				<ul>
+					<li><a href="{{url_for('home')}}">Home</a></li>
+					<li><a href="{{url_for('livescore')}}">Livescore</a></li>
+					<li><a href="{{url_for('formations')}}">Formation Drafts</a></li>
+					<li><a href="{{url_for('news')}}">News</a></li>
+					<!--<li><a href="{{url_for('stats')}}">Stats</a></li>
+					<li><a href="{{url_for('manager_info')}}">Manager info</a></li> -->
+					<li><a href="{{url_for('help')}}">How It Works</a></li>
+					<li><a href="https://yemisi-portfolio.herokuapp.com/" target="_blank"  >Contact Me</a></li>
+					
+				</ul>
+				
+				</div>
+				<i class="fa fa-bars" onclick="showMenu()"></i>
+				
+			</nav>
+			
+	
+
+		<div class="text-box">
+			<h1>Gameweek {{livescore['game_week']}}</h1>
 			<p>Data automatically refreshes!</p>
 		</div>
-	<hr>
+	
+
+
+	</section>
+
+
+
 <div class="livescore_container">
 		{%for date in livescore['date'] %}
 		<div class="game_days">
@@ -91,68 +124,54 @@
 			</div>
 		</div>
 		{% if  livescore['Game_results'][x]['events']!=None %}
-		<div class="table game_details">
-		<h3 class="table_head_info">GAME DETAILS</h3>
-		<div class="table-header ">
-			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Home </a></div>
-			<div class="header__item"><a id="total" class="filter__link filter__link--number" >EVENT </a></div>
-			<div class="header__item"><a id="total" class="filter__link filter__link--number" >Away </a></div>
-		</div>
+		<section class="stat_tables">
+		 	<h3>GAME DETAILS</h3>
+		 	<div class="table_infos">
+		 	<table>
 
-		<div class="table-content">	
+		 		<tr>
+		 			<th>HOME</th>
+		 			<th>EVENT</th>
+		 			<th>AWAY</th>		
+		 		</tr>
+
+		 		
+		 		<tr>
+		 			<td>{{livescore['Game_results'][x]['home_goals_string']}}</td>
+		 			<td>GOALS</td>
+		 			<td>{{livescore['Game_results'][x]['away_goals_string']}}</td>	
+		 		</tr>
+		 	
+		 		<tr>
+		 			<td>{{livescore['Game_results'][x]['home_assists_string']}}</td>
+		 			<td>ASSISTS</td>
+		 			<td>{{livescore['Game_results'][x]['away_assists_string']}}</td>	
+		 		</tr>
+
+		 		<tr>
+		 			<td>{{livescore['Game_results'][x]['home_yellowcards_string']}} </td>
+		 			<td>YELLOW CARDS</td>
+		 			<td>{{livescore['Game_results'][x]['away_yellowcards_string']}} </td>	
+		 		</tr>
+
+		 		<tr>
+		 			<td>{{livescore['Game_results'][x]['home_redcards_string']}}</td>
+		 			<td>RED CARDS</td>
+		 			<td>{{livescore['Game_results'][x]['away_redcards_string']}}</td>	
+		 		</tr>
+
+		 		<tr>
+		 			<td id="bonus">{{livescore['Game_results'][x]['home_bonus']}}</td>
+		 			<td>BONUS POINTS</td>
+		 			<td id="bonus">{{livescore['Game_results'][x]['away_bonus']}}</td>	
+		 		</tr>
+		 			
+
+		 	</table>
+			</div> 	
 		
+ </section>
 		
-			<div class="table-row">
-				
-			<div class="table-data ">{{livescore['Game_results'][x]['home_goals_string']}} </div>
-			<div class="table-data ">GOALS </div>
-			<div class="table-data ">{{livescore['Game_results'][x]['away_goals_string']}} </div>
-			
-				
-			</div>
-
-			<div class="table-row">
-				
-			<div class="table-data ">{{livescore['Game_results'][x]['home_assists_string']}} </div>
-			<div class="table-data ">ASSISTS </div>
-			<div class="table-data ">{{livescore['Game_results'][x]['away_assists_string']}} </div>
-			
-				
-			</div>
-
-			<div class="table-row">
-				
-			<div class="table-data ">{{livescore['Game_results'][x]['home_yellowcards_string']}} </div>
-			<div class="table-data ">YELLOW CARDS </div>
-			<div class="table-data ">{{livescore['Game_results'][x]['away_yellowcards_string']}} </div>
-			
-				
-			</div>
-
-
-			<div class="table-row">
-				
-			<div class="table-data ">{{livescore['Game_results'][x]['home_redcards_string']}} </div>
-			<div class="table-data ">RED CARDS </div>
-			<div class="table-data ">{{livescore['Game_results'][x]['away_redcards_string']}} </div>
-			
-				
-			</div>
-
-
-			<div class="table-row">
-				
-			<div class="table-data  " id="bonus">{{livescore['Game_results'][x]['home_bonus']}} </div>
-			<div class="table-data ">BONUS POINTS </div>
-			<div class="table-data " id="bonus">{{livescore['Game_results'][x]['away_bonus']}} </div>
-			
-				
-			</div>
-			
-			
-			
-		</div>	
-	</div>
 
 
 

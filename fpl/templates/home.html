@@ -1,0 +1,266 @@
+{% extends 'index.html' %}
+{% block maincontent %}
+
+	<section class="header">
+		
+			<nav>
+				<a class="logo" href="{{url_for('home')}}">FPL<span>CHEATBOT</span></a>
+				<div class="nav-links" id='navLinks'>
+				<i class="fa fa-times" onclick="hideMenu()"></i>
+
+				<ul>
+					<li><a href="{{url_for('home')}}">Home</a></li>
+					<li><a href="{{url_for('livescore')}}">Livescore</a></li>
+					<li><a href="{{url_for('formations')}}">Formation Drafts</a></li>
+					<li><a href="{{url_for('news')}}">News</a></li>
+					<!--<li><a href="{{url_for('stats')}}">Stats</a></li>
+					<li><a href="{{url_for('manager_info')}}">Manager info</a></li> -->
+					<li><a href="{{url_for('help')}}">How It Works</a></li>
+					<li><a href="https://yemisi-portfolio.herokuapp.com/" target="_blank"  >Contact Me</a></li>
+					
+				</ul>
+				
+				</div>
+				<i class="fa fa-bars" onclick="showMenu()"></i>
+				
+			</nav>
+			
+	
+
+		<div class="text-box">
+			<h1>Worlds Best Fantasy Premier League Cheat Bot</h1>
+		</div>
+	
+
+
+	</section>
+<section class="course">
+	
+	<p>{{verse}}</p>
+		<h1>{{gameweek_info['Gameweek']}}: What FPL managers need to know!</h1>
+		
+
+		<div class="chips">
+			<div class="course-col deadline">
+				<h3>Deadline</h3>
+			<p>The Deadline is {{gameweek_info['deadline_time']}} UK time</h3>
+		</div>
+		{% for x in gameweek_info['chip_plays']%}
+		
+			<div class="course-col" id={{x['chip_name']}}>
+				<h3>{{x['chip_name']}}</h3>
+				<p>{{x['chip_name']}} played by {{x['num_played']}} ({{x['percentage']}}%) of our Managers</p>
+			</div>
+		{% endfor %}
+		</div>
+		{% if gameweek_info['most_captained']!='' %}
+			<div class="chips">
+				<div class="course-col" >
+					<p> Most Captained player: {{gameweek_info['most_captained']}} </p>
+				</div>
+				<div class="course-col" >
+					<p> Most Vice captained player: {{gameweek_info['most_vice_captained']}} </p>
+				</div>
+
+				<div class="course-col" >
+					<p> Highest Points: {{gameweek_info['top_element']}} </p>
+				</div>
+			</div>
+	{% endif %}
+
+ </section>
+ <section class="stat_tables">
+ 	<h3>FIXTURE DIFFICULTY</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Team Name</th>
+ 			{% for x in headers %}
+ 				<th>GW {{x}}</th>
+ 			{% endfor %}
+ 		</tr>
+
+ 		{% for x in fixtures %}
+ 		<tr>
+ 			<td>{{x['team']}}</td>
+ 			{% for y in range(0,5) %}
+ 			<td id='difficulty{{x['next_5'][y]['difficulty']}}'>{{x['next_5'][y]['team']}}</td>
+ 			{% endfor %}
+ 			
+ 		</tr>
+ 		{% endfor %}
+
+ 			
+
+ 	</table>
+	</div> 	
+		
+ </section>	
+ <section class="stat_tables">
+ 	<h3>MOST TRANSFERRED IN PLAYERS</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Ranking</th>
+ 			<th>Player name</th>
+ 			<th>Team</th>
+ 			<th>Position</th>
+ 			<th>Points per game</th>
+ 			<th>price</th>
+ 			<th>transferred in By</th>
+ 		</tr>
+ 		{% for index,x in transfer_in.iterrows() %}
+ 		<tr>
+ 			<td>{{index+1}}</td>
+ 			<td>{{x['name']}}</td>
+ 			<td>{{x['team']}}</td>
+ 			<td>{{x['position']}}</td>
+ 			<td>{{x['points_per_game']}}</td>
+ 			<td>£{{x['price']}}</td>
+ 			<td>{{x['count']}} Managers</td>
+ 		</tr>
+ 		{% endfor %}
+
+ 		
+
+ 	</table>
+	</div> 	
+		
+ </section>
+
+
+ <section class="stat_tables">
+ 	<h3>MOST TRANSFERRED OUT PLAYERS</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Ranking</th>
+ 			<th>Player name</th>
+ 			<th>Team</th>
+ 			<th>Position</th>
+ 			<th>Points per game</th>
+ 			<th>price</th>
+ 			<th>transferred in By</th>
+ 		</tr>
+ 		{% for index,x in transfer_out.iterrows() %}
+ 		<tr>
+ 			<td>{{index+1}}</td>
+ 			<td>{{x['name']}}</td>
+ 			<td>{{x['team']}}</td>
+ 			<td>{{x['position']}}</td>
+ 			<td>{{x['points_per_game']}}</td>
+ 			<td>£{{x['price']}}</td>
+ 			<td>{{x['count']}} Managers</td>
+ 		</tr>
+ 		{% endfor %}
+
+ 		
+
+ 	</table>
+	</div> 	
+		
+ </section>
+
+
+ <section class="stat_tables">
+ 	<h3>MOST SELECTED PLAYERS</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Ranking</th>
+ 			<th>Player name</th>
+ 			<th>Team</th>
+ 			<th>Position</th>
+ 			<th>Points per game</th>
+ 			<th>price</th>
+ 			<th>Owned By</th>
+ 		</tr>
+ 		{% for index,x in selected.iterrows() %}
+ 		<tr>
+ 			<td>{{index+1}}</td>
+ 			<td>{{x['name']}}</td>
+ 			<td>{{x['team']}}</td>
+ 			<td>{{x['position']}}</td>
+ 			<td>{{x['points_per_game']}}</td>
+ 			<td>£{{x['price']}}</td>
+ 			<td>{{x['percent']}}% of Managers</td>
+ 		</tr>
+ 		{% endfor %}
+
+ 		
+
+ 	</table>
+	</div> 	
+		
+ </section>
+
+
+  <section class="stat_tables">
+ 	<h3>Differentials</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Ranking</th>
+ 			<th>Player name</th>
+ 			<th>Team</th>
+ 			<th>Position</th>
+ 			<th>Points per game</th>
+ 			<th>price</th>
+ 			<th>Owned By</th>
+ 		</tr>
+ 		{% for index,x in differentials.iterrows() %}
+ 		<tr>
+ 			<td>{{index+1}}</td>
+ 			<td>{{x['name']}}</td>
+ 			<td>{{x['team']}}</td>
+ 			<td>{{x['position']}}</td>
+ 			<td>{{x['points_per_game']}}</td>
+ 			<td>£{{x['price']}}</td>
+ 			<td>{{x['selected']}}% of Managers</td>
+ 		</tr>
+ 		{% endfor %}
+
+ 		
+
+ 	</table>
+	</div> 	
+		
+ </section>
+
+
+  <section class="stat_tables">
+ 	<h3>PLAYERS TO WATCH THIS GW</h3>
+ 	<div class="table_infos">
+ 	<table>
+
+ 		<tr>
+ 			<th>Fixture</th>
+ 			<th>Player 1</th>
+ 			<th>Player 2</th>
+ 			<th>Player 3</th>
+ 			<th>Player 4</th>
+ 			<th>Player 5</th>
+ 			
+ 		</tr>
+ 		{% for x in players_to_watch %}
+ 		<tr>
+ 			<td>{{x['teams']}}</td>
+ 			{%for y in x['players_to_watch'] %}
+ 			<td>{{y}}</td>
+ 			{% endfor %}
+ 			
+ 		</tr>
+ 		{% endfor %}
+
+ 			
+
+ 	</table>
+	</div> 	
+		
+ </section>
+{% endblock %}

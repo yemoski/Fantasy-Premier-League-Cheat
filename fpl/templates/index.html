@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<title>FPL CHEAT</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/newstyles.css') }}">
 	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D2PR0K08RF"></script>
 <script>
@@ -15,6 +16,10 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;0,900;1,500&display=swap" rel="stylesheet">
+
 
 
 <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon_io/apple-touch-icon.png">
@@ -26,49 +31,26 @@
 <body>	
 
 
-	<div class="main">
-		<div class="header">
-			<nav>
-				
-				
-				<ul>
-					<li><a href="{{url_for('home')}}">Home</a></li>
-					<li><a href="{{url_for('livescore')}}">Livescore</a></li>
-					<li><a href="{{url_for('formations')}}">Formation Drafts</a></li>
-					<li><a href="{{url_for('news')}}">News</a></li>
-					<li><a href="{{url_for('stats')}}">Stats</a></li>
-					<li><a href="{{url_for('manager_info')}}">Manager info</a></li>
-					<li><a href="{{url_for('help')}}">How It Works</a></li>
-					<li><a href="https://yemisi-portfolio.herokuapp.com/" target="_blank"  >Contact Me</a></li>
-					
-				</ul>
-				
-				
-				
-			</nav>
-			
-		</div>
-		<hr>
-		
+
 		{% block maincontent %}
 		{% endblock %}
-
-
-
-
 		
-			
-		
-
-				
 	<div class="footer-div">
 		
-<p class="footer">Created by Yemisi. © 2022 SEPTEMBER</p>
+		<p class="footer">Created by Yemisi. © 2022 SEPTEMBER</p>
 	</div>
+	<!--- javascript for toggle menu --->
+	<script type="text/javascript">
+		var navLinks = document.getElementById('navLinks');
 
+		function showMenu(){
+			navLinks.style.right = '0';
+		}
 
-	</div>
-
+		function hideMenu(){
+			navLinks.style.right = '-200px';
+		}
+	</script>
 
 </body>
 </html>
