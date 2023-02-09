@@ -82,8 +82,9 @@
 	<div class="formation">
 				<h2 class="formation_name">Dream Team</h2>
 				<h3 class="captain_name"> CAPTAIN: {{dream['captain']['name']}} </h3>
-			<div class="player">
 				<h3>GOALKEEPER</h3>
+			<div class="player">
+				
 				{% for x in dream['GK'] %}
 				<div class="pos">
 				<div class="gk">
@@ -104,8 +105,9 @@
 
 				
 			</div>
+			<h3>DEFENDERS</h3>
 				<div class="player">
-				<h3>DEFENDERS</h3>
+				
 				{% for x in dream['DEF'] %}
 				<div class="pos">
 					<div class="dream_team_img">
@@ -123,8 +125,9 @@
 
 				
 			</div>
+			<h3>MIDFIELDERS</h3>
 			<div class="player">
-				<h3>MIDFIELDERS</h3>
+				
 				{% for x in dream['MID'] %}
 				<div class="pos">
 					<div class="dream_team_img">
@@ -142,9 +145,9 @@
 
 				
 			</div>
-
+			<h3>FORWARDS</h3>
 			<div class="player">
-				<h3>FORWARDS</h3>
+				
 				{% for x in dream['FOW'] %}
 				<div class="pos">
 					<div class="dream_team_img">
@@ -169,8 +172,9 @@
 			<div class="formation">
 				<h2 class="formation_name">FORMATION:442</h2>
 				<h3 class="captain_name"> CAPTAIN: {{f442['captain']['name']}} </h3>
-			<div class="player">
 				<h3>GOALKEEPER</h3>
+			<div class="player">
+				
 				{% for x in f442['GK'] %}
 				<div class="pos">
 				<div class="gk">
@@ -187,8 +191,9 @@
 
 				
 			</div>
+			<h3>DEFENDER</h3>
 				<div class="player">
-				<h3>DEFENDER</h3>
+				
 				{% for x in f442['DEF'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -203,8 +208,9 @@
 
 				
 			</div>
+			<h3>MIDFIELDER</h3>
 			<div class="player">
-				<h3>MIDFIELDER</h3>
+				
 				{% for x in f442['MID'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -219,9 +225,9 @@
 
 				
 			</div>
-
+			<h3>FORWARDS</h3>
 			<div class="player">
-				<h3>FORWARDS</h3>
+				
 				{% for x in f442['FOW'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -244,8 +250,10 @@
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:451</h2>
 				<h3 class="captain_name"> CAPTAIN: {{f451['captain']['name']}} </h3>
-			<div class="player">
+
 				<h3>GOALKEEPER</h3>
+			<div class="player">
+				
 				{% for x in f451['GK'] %}
 				<div class="pos">
 				<div class="gk">
@@ -262,8 +270,9 @@
 
 				
 			</div>
+			<h3>DEFENDERS</h3>
 				<div class="player">
-				<h3>DEFENDERS</h3>
+				
 				{% for x in f451['DEF'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -278,8 +287,9 @@
 
 				
 			</div>
+			<h3>MIDFIELDERS</h3>
 			<div class="player">
-				<h3>MIDFIELDERS</h3>
+				
 				{% for x in f451['MID'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -294,9 +304,9 @@
 
 				
 			</div>
-
+			<h3>FORWARDS</h3>
 			<div class="player">
-				<h3>FORWARDS</h3>
+				
 				{% for x in f451['FOW'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -317,8 +327,10 @@
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:433</h2>
 				<h3 class="captain_name"> CAPTAIN: {{f451['captain']['name']}} </h3>
+
+			<h3>GOALKEEPER</h3>	
 			<div class="player">
-				<h3>GOALKEEPER</h3>
+				
 				{% for x in f433['GK'] %}
 				<div class="pos">
 				<div class="gk">
@@ -335,8 +347,9 @@
 
 				
 			</div>
+			<h3>DEFENDERS</h3>
 				<div class="player">
-				<h3>DEFENDERS</h3>
+				
 				{% for x in f433['DEF'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -351,8 +364,9 @@
 
 				
 			</div>
+			<h3>MIDFIELDERS</h3>
 			<div class="player">
-				<h3>MIDFIELDERS</h3>
+				
 				{% for x in f433['MID'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -367,9 +381,9 @@
 
 				
 			</div>
-
-			<div class="player">
 				<h3>FORWARDS</h3>
+			<div class="player">
+				
 				{% for x in f433['FOW'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -391,8 +405,9 @@
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:532</h2>
 				<h3 class="captain_name"> CAPTAIN: {{f532['captain']['name']}} </h3>
-			<div class="player">
 				<h3>GOALKEEPER</h3>
+			<div class="player">
+				
 				{% for x in f532['GK'] %}
 				<div class="pos">
 				<div class="gk">
@@ -409,8 +424,9 @@
 
 				
 			</div>
+			<h3>DEFENDERS</h3>
 				<div class="player">
-				<h3>DEFENDERS</h3>
+				
 				{% for x in f532['DEF'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -425,8 +441,10 @@
 
 				
 			</div>
+
+			<h3>MIDFIELDERS</h3>
 			<div class="player">
-				<h3>MIDFIELDERS</h3>
+				
 				{% for x in f532['MID'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -441,9 +459,9 @@
 
 				
 			</div>
-
+			<h3>FORWARDS</h3>
 			<div class="player">
-				<h3>FORWARDS</h3>
+				
 				{% for x in f532['FOW'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -464,8 +482,9 @@
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:352</h2>
 				<h3 class="captain_name"> CAPTAIN: {{f352['captain']['name']}} </h3>
-			<div class="player">
 				<h3>GOALKEEPER</h3>
+			<div class="player">
+				
 				{% for x in f352['GK'] %}
 				<div class="pos">
 				<div class="gk">
@@ -482,8 +501,9 @@
 
 				
 			</div>
+			<h3>DEFENDERS</h3>
 				<div class="player">
-				<h3>DEFENDERS</h3>
+				
 				{% for x in f352['DEF'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -498,8 +518,9 @@
 
 				
 			</div>
+			<h3>MIDFIELDERS</h3>
 			<div class="player">
-				<h3>MIDFIELDERS</h3>
+				
 				{% for x in f352['MID'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -514,9 +535,9 @@
 
 				
 			</div>
-
+			<h3>FORWARDS</h3>
 			<div class="player">
-				<h3>FORWARDS</h3>
+				
 				{% for x in f352['FOW'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -540,8 +561,10 @@
 	<div class="formation">
 				<h2 class="formation_name">FORMATION:343</h2>
 				<h3 class="captain_name"> CAPTAIN: {{f343['captain']['name']}} </h3>
-			<div class="player">
+
 				<h3>GOALKEEPER</h3>
+			<div class="player">
+				
 				{% for x in f343['GK'] %}
 				<div class="pos">
 					<div class="gk">
@@ -559,8 +582,9 @@
 
 				
 			</div>
+			<h3>DEFENDERS</h3>
 				<div class="player">
-				<h3>DEFENDERS</h3>
+				
 				{% for x in f343['DEF'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -575,8 +599,9 @@
 
 				
 			</div>
+			<h3>MIDFIELDERS</h3>
 			<div class="player">
-				<h3>MIDFIELDERS</h3>
+				
 				{% for x in f343['MID'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
@@ -591,9 +616,9 @@
 
 				
 			</div>
-
+			<h3>FORWARDS</h3>
 			<div class="player">
-				<h3>FORWARDS</h3>
+				
 				{% for x in f343['FOW'] %}
 				<div class="pos">
 					<img class='img' src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}">
