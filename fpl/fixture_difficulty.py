@@ -103,42 +103,105 @@ def get_fixtures():
     for i in range(0,5):
         gw = []
         for x in data:
-            if x['event'] == current_gw+i:
+            if x['event']==current_gw+i:
                 gw.append(x)
-
         total_info = []
-        for p in range(0,len(gw)):
-            gw_info = {
-                'team': get_team_name(gw[p]['team_h']),
-                'opponent': get_short_team(gw[p]['team_a'])+'(H)',
-                'opponent_difficulty': gw[p]['team_h_difficulty'],
-
+        final_total_info = []
+        for p in gw:
+            gw_info= {
+                'team': get_team_name(p['team_h']),
+                'event': p['event'],
+                'opponent': get_short_team(p['team_a']) + '(H)',
+                'opponent_difficulty': p['team_h_difficulty']
 
             }
 
             gw_info2 = {
-                'team': get_team_name(gw[p]['team_a']),
-                'opponent': get_short_team(gw[p]['team_h'])+'(A)',
-                'opponent_difficulty': gw[p]['team_a_difficulty'],
+                'team': get_team_name(p['team_a']),
+                'event': p['event'],
+                'opponent':get_short_team(p['team_h']) + '(A)',
+                'opponent_difficulty': p['team_a_difficulty']
 
             }
 
 
+            
+
             total_info.append(gw_info)
             total_info.append(gw_info2)
 
-        next_5.append(total_info)
+        all_teams =[]
+        teams_playing_twice =  []
+        teams_playing_once =  []
+        length = len(total_info)
+        for i in range(0, len(total_info)):
+            if total_info[i]['team'] not in all_teams:
+                all_teams.append(total_info[i]['team'])
+
+            else :
+                teams_playing_twice.append(total_info[i]['team'])
+
+
+        for team in all_teams:
+            if team not in teams_playing_twice:
+                teams_playing_once.append(team)
+        teams_playing_twice_indices = []
+        for team in teams_playing_twice:
+            team_dict = {
+                'team': team,
+                'index': []
+            }
+            teams_playing_twice_indices.append(team_dict)
+
+
+
+        for i in range(len(total_info)):
+            for j in range(len(teams_playing_twice_indices)):
+                if total_info[i]['team'] in teams_playing_twice and teams_playing_twice_indices[j]['team']==total_info[i]['team']:
+                    teams_playing_twice_indices[j]['index'].append(i)
+
+
+        for team in teams_playing_twice_indices:
+            dgw_info = {
+                'team': team['team'],
+                'event': total_info[team['index'][0]]['event'],
+                'opponent': total_info[team['index'][0]]['opponent'] +' '+  total_info[team['index'][1]]['opponent'],
+                'opponent_difficulty': 0
+
+            }
+
+            final_total_info.append(dgw_info)
+
+
+        for i in range(len(total_info)):
+            if total_info[i]['team'] in teams_playing_once:
+                final_total_info.append(total_info[i])
 
 
 
 
 
-        #pprint(total_info)
+      
+
+
+
+        next_5.append(final_total_info)
+
+
+
+
+
+    #pprint(next_5);
 
     total_data = []
 
 
-    #pprint(all_distict_teams)
+
+
+
+
+
+
 
 
     for i in all_distict_teams:
@@ -151,13 +214,21 @@ def get_fixtures():
                 if games['team']==i:
                     fixtures_dict = {
                         'team':games['opponent'],
+                        'event':games['event'],
                         'difficulty': games['opponent_difficulty']
                     }
                     fixtures.append(fixtures_dict)
                     found = True
+
             if found == False:
                 fixtures.append('Blank')
-            #print(found)
+            
+
+
+
+           
+
+
 
 
         data_dict = {
@@ -167,10 +238,10 @@ def get_fixtures():
 
         total_data.append(data_dict)
 
+    
 
 
-
-
+  
     return total_data
 
 
