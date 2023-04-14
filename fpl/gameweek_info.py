@@ -7,6 +7,12 @@ from datetime import datetime
 from pprint import  pprint
 import livescores as ls
 import fpl 
+
+
+
+
+
+#This function gets the current game week and its information including deadline time, chips_plays, most captained player, most_vice captained player and the highest scoring playe (top_element)
 def get_info():
     # Make a get request to get the latest player data from the FPL API
     link = "https://fantasy.premierleague.com/api/bootstrap-static/"

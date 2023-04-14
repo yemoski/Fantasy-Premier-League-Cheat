@@ -52,13 +52,13 @@ for i in data2['elements']:
 
     all_players.append(row)
 
-
+# returns the name of the player when you give it the code of the player
 def get_player_name(player_code):
    for i in all_players:
        if player_code==i['id']:
            return i['name']
 
-
+# returns the stadium name when you give it the code of the stadium
 def get_home_stadium(team_code):
     team = str(team_code)
     if len(team) == 1:
@@ -88,7 +88,7 @@ def get_home_stadium(team_code):
 
     return team
 
-
+#get the twitter handle for a team
 def get_twitter_handle(team_code): 
     team = str(team_code)
     if len(team)==1:
@@ -118,7 +118,7 @@ def get_twitter_handle(team_code):
 
     return team
 
-
+#get a teams name when you give it the teams code
 def get_team_name(team_code):
     team = str(team_code)
     if len(team) == 1:
@@ -148,6 +148,8 @@ def get_team_name(team_code):
 
     return team
 
+
+#getting the badge of each team
 
 def get_team_badge(code):
     team = get_team_name(code)
@@ -201,7 +203,7 @@ def get_team_badge(code):
     return team_shirt
 
 
-
+# for all the fixtures this gw, get all the scores, players who scored, bonus points if available, etc.
 
 
 def get_livescore():

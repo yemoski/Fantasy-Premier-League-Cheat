@@ -1,6 +1,6 @@
 import random
 
-
+# This function picks a random bible verse 
 def get_verse():
     quotes = ["John 3:16@For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.",
     "Jer 29:11@For I know the plans I have for you,” declares the LORD, “plans to prosper you and not to harm you, plans to give you hope and a future.",

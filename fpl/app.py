@@ -13,8 +13,9 @@ app = Flask(__name__)
 app.secret_key = 'fpl'
 
 
-#demo
 
+
+#Home page
 @app.route("/", methods=["GET", "POST"])
 def home():
 
@@ -28,7 +29,7 @@ def home():
 
     return render_template("home.html", notes=spi.get_notes(), verse=verse, differentials=fpl.get_differentials(), gameweek_info=gameweek_info.get_info(), fixtures=fd.get_fixtures(), headers=fd.get_fixtures_header(), transfer_in=fpl.get_most_transferred_in(), transfer_out=fpl.get_most_transferred_out(), selected=fpl.get_most_selected(), players_to_watch=fd.players_to_watch())
 
-
+#gets a livescore for the current gw
 @app.route("/livescore", methods=["GET", "POST"])
 def livescore():
     # pprint(ls.get_livescore())
@@ -37,6 +38,9 @@ def livescore():
 
     return render_template("livescore.html", livescore=ls.get_livescore(), length=length_of_games)
 
+
+
+# get the best players with value for money for all formations 
 
 @app.route("/formations", methods=["GET", "POST"])
 def formations():
@@ -108,12 +112,15 @@ def formations():
 
     return render_template('formations.html', f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
 
-
+# shows how to use the app
 @app.route("/help", methods=["GET", "POST"])
 def help():
 
     return render_template("help.html")
 
+
+
+# put in the manager pin and get info about the manager 
 
 @app.route("/manager_info", methods=["GET", "POST"])
 def manager_info():
@@ -147,7 +154,7 @@ def stats():
 
     return render_template("stats.html", xg=team_stats.get_expected_g(), xa=team_stats.get_expected_a(), table=team_stats.get_league_table(), teams_data=team_stats.get_expected_ga())
 
-
+# shows latest player news (injury, price changes)
 @app.route("/news", methods=["GET", "POST"])
 def news():
     # pprint(fpl.get_news())

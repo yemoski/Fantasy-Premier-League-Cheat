@@ -30,7 +30,7 @@ for index, row in events_df.iterrows():
         current_gw= current_gw[0]
         break
 
-
+# function to convert the number to the actual team names
 def get_team_name(team_code):
     team = str(team_code)
     if len(team) == 1:
@@ -59,7 +59,7 @@ def get_team_name(team_code):
         team = team.replace('20', 'Wolves')
 
     return team
-
+#gets the short form of the team name (Arsenal -> ARS)
 def get_short_team(team_code):
     team = str(team_code)
     if len(team) == 1:
@@ -132,7 +132,7 @@ def get_fixtures():
 
         all_teams =[] #stores the team name of  all the teams playing
         teams_playing_twice =  []    # stores all the team name of all the teams playing twice 
-        teams_playing_once =  []   # stores all the team name of all the teams playing twice 
+        teams_playing_once =  []   # stores all the team name of all the teams playing once 
 
 
         #from all the games playing this game week, find all the teams that play twice
@@ -249,7 +249,7 @@ def get_fixtures():
   
     return total_data
 
-
+#gets the name of the next 5 gw's -> [1,2,3,4,5]
 def get_fixtures_header():
     
     headers = [] # Next 5 game week names
@@ -352,6 +352,8 @@ def get_dataset():
 
     return dataset
 
+
+# function that returns a list ofo 5 players from both teams in all fixtures that game week that we should watch (might do well)
 def players_to_watch():
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
     response = requests.get(link2)

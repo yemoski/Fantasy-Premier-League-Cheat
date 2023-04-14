@@ -172,7 +172,7 @@ def get_percentage_of_manager(x):
     return percentage
 
 
-
+# get a list of players not owned by a lot of people and are injury free
 def get_differentials():
     players_list = []
     counter = 0
@@ -197,7 +197,7 @@ def get_differentials():
     return df
 
 
-
+# get the most transferred in players
 def get_most_transferred_in():
     players_list = []
     datasets = dataset.sort_values(by=['transfer_in_event'], ascending=False)
@@ -223,6 +223,7 @@ def get_most_transferred_in():
     df = df.sort_values(by=['fake_count'], ascending=False)
     return df
 
+# get the most transferred out players
 def get_most_transferred_out():
     players_list = []
     datasets = dataset.sort_values(by=['transfer_out_event'], ascending=False)
@@ -270,6 +271,10 @@ def get_most_selected():
 
     df = pd.DataFrame(players_list)
     return df
+
+
+
+# get all the latest injury and price changes news for all players
 
 def get_news():
     #dataset = dataset.sort_values(by=['name'], ascending=False)
@@ -345,7 +350,7 @@ def get_news():
     return news_df
 
 
-
+#Picks a dream team
 def get_dream_team():
     dream = {'GK':[],
             'DEF':[],
