@@ -99,14 +99,14 @@ def get_fixtures():
     data = json.loads(response.text)
 
 
-
+    #getting all the games playing in this game week
     for i in range(0,5):
         gw = []
         for x in data:
             if x['event']==current_gw+i:
                 gw.append(x)
-        total_info = []
-        final_total_info = []
+        total_info = [] #a dummy that stores all the fixtures this game week
+        final_total_info = [] # a structures list that groups double game weeks
         for p in gw:
             gw_info= {
                 'team': get_team_name(p['team_h']),
@@ -130,10 +130,12 @@ def get_fixtures():
             total_info.append(gw_info)
             total_info.append(gw_info2)
 
-        all_teams =[]
-        teams_playing_twice =  []
-        teams_playing_once =  []
-        length = len(total_info)
+        all_teams =[] #stores the team name of  all the teams playing
+        teams_playing_twice =  []    # stores all the team name of all the teams playing twice 
+        teams_playing_once =  []   # stores all the team name of all the teams playing twice 
+
+
+        #from all the games playing this game week, find all the teams that play twice
         for i in range(0, len(total_info)):
             if total_info[i]['team'] not in all_teams:
                 all_teams.append(total_info[i]['team'])
@@ -141,11 +143,14 @@ def get_fixtures():
             else :
                 teams_playing_twice.append(total_info[i]['team'])
 
-
+        #distincting teams that play once from those that play twice
         for team in all_teams:
             if team not in teams_playing_twice:
                 teams_playing_once.append(team)
-        teams_playing_twice_indices = []
+
+
+        teams_playing_twice_indices = [] #stores all the teams that play twice i.e [{'team':'arsenal', index:[1,3]}]
+        #the index is where they occur in the total info array which would make it easier for us to access them
         for team in teams_playing_twice:
             team_dict = {
                 'team': team,
@@ -154,13 +159,13 @@ def get_fixtures():
             teams_playing_twice_indices.append(team_dict)
 
 
-
+        # for all the the teams playing twice, append the indices to the 'teams_playing_twice_indices' and the team name
         for i in range(len(total_info)):
             for j in range(len(teams_playing_twice_indices)):
                 if total_info[i]['team'] in teams_playing_twice and teams_playing_twice_indices[j]['team']==total_info[i]['team']:
                     teams_playing_twice_indices[j]['index'].append(i)
 
-
+        #
         for team in teams_playing_twice_indices:
             dgw_info = {
                 'team': team['team'],
@@ -203,7 +208,7 @@ def get_fixtures():
 
 
 
-
+    # this handles the blank game week (if the team is not found in the list then make the fixture blank )
     for i in all_distict_teams:
         fixtures = []
         fixtures_dict = {}
