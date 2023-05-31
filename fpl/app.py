@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, url_for, flash, jsonify, redirect
-import fpl
+#import fpl
 from pprint import pprint
 import bible
-import team_stats
+'''import team_stats
 import gameweek_info
 import livescores as ls
 import fixture_difficulty as fd
 import setpieceinfo as spi
 import manager_info as mi
+'''
 
 app = Flask(__name__)
 app.secret_key = 'fpl'
@@ -27,8 +28,9 @@ def home():
     # pprint(gameweek_info.get_info())
     # pprint(spi.get_notes())
 
-    return render_template("home.html", notes=spi.get_notes(), verse=verse, differentials=fpl.get_differentials(), gameweek_info=gameweek_info.get_info(), fixtures=fd.get_fixtures(), headers=fd.get_fixtures_header(), transfer_in=fpl.get_most_transferred_in(), transfer_out=fpl.get_most_transferred_out(), selected=fpl.get_most_selected(), players_to_watch=fd.players_to_watch())
 
+    #return render_template("home.html", notes=spi.get_notes(), verse=verse, differentials=fpl.get_differentials(), gameweek_info=gameweek_info.get_info(), fixtures=fd.get_fixtures(), headers=fd.get_fixtures_header(), transfer_in=fpl.get_most_transferred_in(), transfer_out=fpl.get_most_transferred_out(), selected=fpl.get_most_selected(), players_to_watch=fd.players_to_watch())
+    return redirect('/coming_soon')
 #gets a livescore for the current gw
 @app.route("/livescore", methods=["GET", "POST"])
 def livescore():
@@ -153,6 +155,11 @@ def stats():
     #table =  team_stats.get_league_table()
 
     return render_template("stats.html", xg=team_stats.get_expected_g(), xa=team_stats.get_expected_a(), table=team_stats.get_league_table(), teams_data=team_stats.get_expected_ga())
+
+@app.route("/coming_soon", methods=["GET", "POST"])
+def coming_soon():
+  
+    return render_template("coming_soon.html")
 
 # shows latest player news (injury, price changes)
 @app.route("/news", methods=["GET", "POST"])
