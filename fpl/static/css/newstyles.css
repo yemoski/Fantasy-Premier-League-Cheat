@@ -21,7 +21,7 @@
 	min-height: 100vh;
 	width: 100%;
 	background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4,9,30,0.7)),
-	 url(https://www.fanabc.com/english/wp-content/uploads/2022/12/321105434_883868013027395_2576485099436938498_n.jpg);
+	 url(https://www.cricketmatchexpress.com/_next/image?url=%2Fimages%2Fposts%2Ffantasy-premier-league-changes%2Ffantasy-premier-league.jpg&w=3840&q=30);
 	background-position: center;
 	background-size: cover;
 	position: relative;
@@ -223,7 +223,7 @@ th,td{
 
 
 th{
-	background: #ba68c8;
+	background: lightgreen;
 	text-transform: uppercase;
 }
 
@@ -242,7 +242,7 @@ strong {
 
 .game_days{
     text-align: center;
-    background-color: #ba68c8;
+    background-color: lightgreen;
     
 }
 
@@ -570,13 +570,13 @@ strong {
     color: black;
     font-size: 30px;
     margin: 15px;
-    background-color: #ba68c8;
+    background-color: lightgreen;
 }
 
 .captain_name{
     text-align: center;
     color: black;
-    background-color: #ba68c8;
+    background-color: lightgreen;
     margin-left: 40px;
     margin-right: 40px;
 
@@ -636,7 +636,7 @@ strong {
     padding: 20px;
 }
 .help_main_info a{
-    color: darkmagenta;
+    color: lightgreen;
     text-decoration: none;
 
 }
@@ -827,7 +827,7 @@ strong {
 }
 .footer{
     text-align: center;
-    color: darkmagenta;
+    color: lightgreen;
     font-size: 25px;
     font-weight: bold;
     margin-top: 20px;
