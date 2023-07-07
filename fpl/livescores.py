@@ -61,27 +61,30 @@ def get_player_name(player_code):
 # returns the stadium name when you give it the code of the stadium
 def get_home_stadium(team_code):
     team = str(team_code)
+
+  
     if len(team) == 1:
         team = team.replace('1', 'Emirates Stadium, London')
         team = team.replace('2', 'Villa Park, Birmingham')
         team = team.replace('3', 'Vitality Stadium, Bournemouth')
         team = team.replace('4', 'Gtech Community Stadium, London')
         team = team.replace('5', 'Amex Stadium, Falmer')
-        team = team.replace('6', 'Stamford Bridge, London')
-        team = team.replace('7', 'Selhurst Park, London')
-        team = team.replace('8', 'Goodison Park, Liverpool')
-        team = team.replace('9', 'Craven Cottage, London')
+        team = team.replace('6', 'Turf Moor')
+        team = team.replace('7', 'Stamford Bridge, London')
+        team = team.replace('8', 'Selhurst Park, London')
+        team = team.replace('9', 'Goodison Park, Liverpool')
+        
 
 
     elif len(team) == 2:
-        team = team.replace('10', 'King Power Stadium, Leicester')
-        team = team.replace('11', 'Elland Road, Leeds')
+        team = team.replace('10', 'Craven Cottage, London')
+        team = team.replace('11', 'Kenilworth Road , Luton')
         team = team.replace('12', 'Anfield, Liverpool')
         team = team.replace('13', 'Etihad, Manchester')
         team = team.replace('14', 'Old Trafford, Manchester')
         team = team.replace('15', 'St. Jame\'s Park, Newcastle')
         team = team.replace('16', 'The City Ground, Nottingham')
-        team = team.replace('17', 'St. Mary\'s Stadium, Southampton ')
+        team = team.replace('17', 'Brammal Lane ')
         team = team.replace('18', 'Tottenham Hotspur Stadium, London')
         team = team.replace('19', 'London Stadium, London')
         team = team.replace('20', 'Molineux Stadium, Wolverhampton')
@@ -91,27 +94,28 @@ def get_home_stadium(team_code):
 #get the twitter handle for a team
 def get_twitter_handle(team_code): 
     team = str(team_code)
-    if len(team)==1:
+    if len(team) == 1:
         team = team.replace('1', 'ARS')
         team = team.replace('2', 'AVL')
         team = team.replace('3', 'BOU')
         team = team.replace('4', 'BRE')
         team = team.replace('5', 'BHA')
-        team = team.replace('6', 'CHE')
-        team = team.replace('7', 'CRY')
-        team = team.replace('8', 'EVE')
-        team = team.replace('9', 'FUL')
+        team = team.replace('6', 'BUR')
+        team = team.replace('7', 'CHE')
+        team = team.replace('8', 'CRY')
+        team = team.replace('9', 'EVE')
+        
 
 
     elif len(team) == 2:
-        team = team.replace('10', 'LEI')
-        team = team.replace('11', 'LEE')
-        team = team.replace('12', 'LIV')
+        team = team.replace('10', 'FUL')
+        team = team.replace('11', 'LIV')
+        team = team.replace('12', 'LUT')
         team = team.replace('13', 'MCI')
         team = team.replace('14', 'MUN')
         team = team.replace('15', 'NEW')
         team = team.replace('16', 'NFO')
-        team = team.replace('17', 'SOU')
+        team = team.replace('17', 'SHU')
         team = team.replace('18', 'TOT')
         team = team.replace('19', 'WHU')
         team = team.replace('20', 'WOL')
@@ -127,21 +131,22 @@ def get_team_name(team_code):
         team = team.replace('3', 'Bournemouth')
         team = team.replace('4', 'Brentford')
         team = team.replace('5', 'Brighton')
-        team = team.replace('6', 'Chelsea')
-        team = team.replace('7', 'Crystal Palace')
-        team = team.replace('8', 'Everton')
-        team = team.replace('9', 'Fulham')
+        team = team.replace('6', 'Burnley')
+        team = team.replace('7', 'Chelsea')
+        team = team.replace('8', 'Crystal Palace')
+        team = team.replace('9', 'Everton')
+        
 
 
     elif len(team) == 2:
-        team = team.replace('10', 'Leicester')
-        team = team.replace('11', 'Leeds')
-        team = team.replace('12', 'Liverpool')
+        team = team.replace('10', 'Fulham')
+        team = team.replace('11', 'Liverpool')
+        team = team.replace('12', 'Luton')
         team = team.replace('13', 'Man city')
         team = team.replace('14', 'Man United')
         team = team.replace('15', 'Newcastle')
         team = team.replace('16', 'Nottingham Forest')
-        team = team.replace('17', 'Southampton')
+        team = team.replace('17', 'Sheffield United')
         team = team.replace('18', 'Tottenham')
         team = team.replace('19', 'Westham')
         team = team.replace('20', 'Wolves')
@@ -176,10 +181,10 @@ def get_team_badge(code):
                                     'https://resources.premierleague.com/premierleague/badges/70/t54.png')
 
 
-    team_shirt = team_shirt.replace('Leicester',
-                                    'https://resources.premierleague.com/premierleague/badges/70/t13.png')
-    team_shirt = team_shirt.replace('Leeds',
-                                    'https://resources.premierleague.com/premierleague/badges/70/t2.png')
+    team_shirt = team_shirt.replace('Burnley',
+                                    'https://resources.premierleague.com/premierleague/badges/70/t90.png')
+    team_shirt = team_shirt.replace('Luton',
+                                    'https://resources.premierleague.com/premierleague/badges/70/t102.png')
     team_shirt = team_shirt.replace('Liverpool',
                                     'https://resources.premierleague.com/premierleague/badges/70/t14.png')
     team_shirt = team_shirt.replace('Man city',
@@ -190,8 +195,8 @@ def get_team_badge(code):
                                     'https://resources.premierleague.com/premierleague/badges/70/t4.png')
     team_shirt = team_shirt.replace('Nottingham Forest',
                                     'https://resources.premierleague.com/premierleague/badges/70/t17.png')
-    team_shirt = team_shirt.replace('Southampton',
-                                    'https://resources.premierleague.com/premierleague/badges/70/t20.png')
+    team_shirt = team_shirt.replace('Sheffield United',
+                                    'https://resources.premierleague.com/premierleague/badges/70/t49.png')
     team_shirt = team_shirt.replace('Tottenham',
                                     'https://resources.premierleague.com/premierleague/badges/70/t6.png')
     team_shirt = team_shirt.replace('Westham',

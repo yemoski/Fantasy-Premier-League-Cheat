@@ -39,21 +39,22 @@ def get_team_name(team_code):
         team = team.replace('3', 'Bournemouth')
         team = team.replace('4', 'Brentford')
         team = team.replace('5', 'Brighton')
-        team = team.replace('6', 'Chelsea')
-        team = team.replace('7', 'Crystal Palace')
-        team = team.replace('8', 'Everton')
-        team = team.replace('9', 'Fulham')
+        team = team.replace('6', 'Burnley')
+        team = team.replace('7', 'Chelsea')
+        team = team.replace('8', 'Crystal Palace')
+        team = team.replace('9', 'Everton')
+        
 
 
     elif len(team) == 2:
-        team = team.replace('10', 'Leicester')
-        team = team.replace('11', 'Leeds')
-        team = team.replace('12', 'Liverpool')
+        team = team.replace('10', 'Fulham')
+        team = team.replace('11', 'Liverpool')
+        team = team.replace('12', 'Luton')
         team = team.replace('13', 'Man city')
         team = team.replace('14', 'Man United')
         team = team.replace('15', 'Newcastle')
         team = team.replace('16', 'Nottingham Forest')
-        team = team.replace('17', 'Southampton')
+        team = team.replace('17', 'Sheffield United')
         team = team.replace('18', 'Tottenham')
         team = team.replace('19', 'Westham')
         team = team.replace('20', 'Wolves')
@@ -68,28 +69,29 @@ def get_short_team(team_code):
         team = team.replace('3', 'BOU')
         team = team.replace('4', 'BRE')
         team = team.replace('5', 'BHA')
-        team = team.replace('6', 'CHE')
-        team = team.replace('7', 'CRY')
-        team = team.replace('8', 'EVE')
-        team = team.replace('9', 'FUL')
+        team = team.replace('6', 'BUR')
+        team = team.replace('7', 'CHE')
+        team = team.replace('8', 'CRY')
+        team = team.replace('9', 'EVE')
+        
 
 
     elif len(team) == 2:
-        team = team.replace('10', 'LEI')
-        team = team.replace('11', 'LEE')
-        team = team.replace('12', 'LIV')
+        team = team.replace('10', 'FUL')
+        team = team.replace('11', 'LIV')
+        team = team.replace('12', 'LUT')
         team = team.replace('13', 'MCI')
         team = team.replace('14', 'MUN')
         team = team.replace('15', 'NEW')
         team = team.replace('16', 'NFO')
-        team = team.replace('17', 'SOU')
+        team = team.replace('17', 'SHU')
         team = team.replace('18', 'TOT')
         team = team.replace('19', 'WHU')
         team = team.replace('20', 'WOL')
 
     return team
 next_5 = []
-all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Leicester','Leeds','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
+all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Burnley','Chelsea','Crystal Palace','Everton','Fulham','Liverpool','Luton','Man city','Man United','Newcastle','Nottingham Forest','Sheffield United','Tottenham','Westham','Wolves']
 
 def get_fixtures():
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
@@ -299,33 +301,33 @@ def get_dataset():
         status = i['status']
         form_ict_index = float(i['form']) * float(i['ict_index'])
 
-
-        if len(team)==1:
-            team = team.replace('1','Arsenal')
-            team = team.replace('2','Aston Villa')
-            team = team.replace('3','Bournemouth')
-            team = team.replace('4','Brentford')
-            team = team.replace('5','Brighton')
-            team = team.replace('6','Chelsea')
-            team = team.replace('7','Crystal Palace')
-            team = team.replace('8','Everton')
-            team = team.replace('9','Fulham')
       
+        if len(team) == 1:
+            team = team.replace('1', 'Arsenal')
+            team = team.replace('2', 'Aston Villa')
+            team = team.replace('3', 'Bournemouth')
+            team = team.replace('4', 'Brentford')
+            team = team.replace('5', 'Brighton')
+            team = team.replace('6', 'Burnley')
+            team = team.replace('7', 'Chelsea')
+            team = team.replace('8', 'Crystal Palace')
+            team = team.replace('9', 'Everton')
+            
 
-      
-        elif len(team)==2:
-            team = team.replace('10','Leicester')
-            team = team.replace('11','Leeds')
-            team = team.replace('12','Liverpool')
-            team = team.replace('13','Man city')
-            team = team.replace('14','Man United')
-            team = team.replace('15','Newcastle')
-            team = team.replace('16','Nottingham Forest')
-            team = team.replace('17','Southampton')
-            team = team.replace('18','Tottenham')
-            team = team.replace('19','Westham')
-            team = team.replace('20','Wolves')
-     
+
+        elif len(team) == 2:
+            team = team.replace('10', 'Fulham')
+            team = team.replace('11', 'Liverpool')
+            team = team.replace('12', 'Luton')
+            team = team.replace('13', 'Man city')
+            team = team.replace('14', 'Man United')
+            team = team.replace('15', 'Newcastle')
+            team = team.replace('16', 'Nottingham Forest')
+            team = team.replace('17', 'Sheffield United')
+            team = team.replace('18', 'Tottenham')
+            team = team.replace('19', 'Westham')
+            team = team.replace('20', 'Wolves')
+        
             
 
 
