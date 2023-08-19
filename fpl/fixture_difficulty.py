@@ -8,11 +8,11 @@ from pprint import  pprint
 import fpl
 
 
-# Make a get request to get the latest player data from the FPL API
+# Make a get request to get the latest player data from the FPL API's
 link = "https://fantasy.premierleague.com/api/bootstrap-static/"
 response = requests.get(link)
 
-# Convert JSON data to a python object
+# Convert JSON data to a python objects
 data = json.loads(response.text)
 
 
