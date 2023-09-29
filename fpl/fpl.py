@@ -8,7 +8,7 @@ import fixture_difficulty as fd
 
 
 ##testing
-# Make a get request to get the latest player data from the FPL API's
+# Make a get request to get the latest player data from the FPL API
 link = "https://fantasy.premierleague.com/api/bootstrap-static/"
 response = requests.get(link)
 
