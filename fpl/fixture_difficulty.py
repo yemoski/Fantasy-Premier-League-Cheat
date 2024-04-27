@@ -185,17 +185,7 @@ def get_fixtures():
                 final_total_info.append(total_info[i])
 
 
-
-
-
-      
-
-
-
         next_5.append(final_total_info)
-
-
-
 
 
     #pprint(next_5);
@@ -231,13 +221,6 @@ def get_fixtures():
                 fixtures.append('Blank')
             
 
-
-
-           
-
-
-
-
         data_dict = {
             'team': i,
             'next_5':fixtures
@@ -245,19 +228,16 @@ def get_fixtures():
 
         total_data.append(data_dict)
 
-    
-
-
-  
     return total_data
 
 #gets the name of the next 5 gw's -> [1,2,3,4,5]
 def get_fixtures_header():
     
     headers = [] # Next 5 game week names
+    max_gw = min(current_gw + 5, 39)  # Ensure the maximum game week is 38
 
-    for xy in range(0,5):
-            headers.append(current_gw+xy)
+    for gw in range(current_gw, max_gw):
+        headers.append(gw)
         
 
     return headers

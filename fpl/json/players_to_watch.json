@@ -1,0 +1,112 @@
+[
+    {
+        "teams": "Westham VS Liverpool",
+        "players_to_watch": [
+            "Salah",
+            "Luis D\u00edaz",
+            "Ward-Prowse",
+            "Darwin",
+            "Kudus"
+        ]
+    },
+    {
+        "teams": "Fulham VS Crystal Palace",
+        "players_to_watch": [
+            "Andreas",
+            "Mateta",
+            "Andersen",
+            "Muniz",
+            "Iwobi"
+        ]
+    },
+    {
+        "teams": "Man United VS Burnley",
+        "players_to_watch": [
+            "B.Fernandes",
+            "Garnacho",
+            "H\u00f8jlund",
+            "Bruun Larsen",
+            "Cullen"
+        ]
+    },
+    {
+        "teams": "Newcastle VS Sheffield United",
+        "players_to_watch": [
+            "Isak",
+            "Gordon",
+            "Bruno G.",
+            "Hamer",
+            "Sch\u00e4r"
+        ]
+    },
+    {
+        "teams": "Wolves VS Luton",
+        "players_to_watch": [
+            "Barkley",
+            "Sarabia",
+            "Morris",
+            "Cunha",
+            "Jos\u00e9 S\u00e1"
+        ]
+    },
+    {
+        "teams": "Everton VS Brentford",
+        "players_to_watch": [
+            "McNeil",
+            "Wissa",
+            "Mbeumo",
+            "Pickford",
+            "Branthwaite"
+        ]
+    },
+    {
+        "teams": "Aston Villa VS Chelsea",
+        "players_to_watch": [
+            "Palmer",
+            "Watkins",
+            "Bailey",
+            "Diaby",
+            "N.Jackson"
+        ]
+    },
+    {
+        "teams": "Bournemouth VS Brighton",
+        "players_to_watch": [
+            "Solanke",
+            "Gross",
+            "Kluivert",
+            "Semenyo",
+            "Dunk"
+        ]
+    },
+    {
+        "teams": "Tottenham VS Arsenal",
+        "players_to_watch": [
+            "\u00d8degaard",
+            "Saka",
+            "Havertz",
+            "White",
+            "Son"
+        ]
+    },
+    {
+        "teams": "Nottingham Forest VS Man city",
+        "players_to_watch": [
+            "Foden",
+            "Gibbs-White",
+            "Rodrigo",
+            "Doku",
+            "De Bruyne"
+        ]
+    },
+    {
+        "teams": "Chelsea VS Tottenham",
+        "players_to_watch": [
+            "Palmer",
+            "Son",
+            "Johnson",
+            "N.Jackson",
+            "Pedro Porro"
+        ]
+    }
+]
