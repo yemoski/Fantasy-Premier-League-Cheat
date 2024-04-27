@@ -21,7 +21,7 @@ def write_to_json(data, filename):
         json.dump(data, file, indent=4)
 
 
-@app.route('/run-task')
+@app.route('/run-task', methods=["GET", "POST"])
 def getUpdatedData():
     write_to_json(spi.get_notes(), 'spi.json')
     write_to_json(fd.players_to_watch(), 'players_to_watch.json')
