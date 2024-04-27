@@ -42,6 +42,9 @@ def getUpdatedData():
 
     selected = fpl.get_most_selected()
     selected.to_json('json/selected.json', orient='records')
+
+
+    return 'Task executed successfully'
     
 
 
