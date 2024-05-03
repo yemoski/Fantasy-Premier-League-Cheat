@@ -255,9 +255,10 @@ def get_fixtures():
 def get_fixtures_header():
     
     headers = [] # Next 5 game week names
+    max_gw = min(current_gw + 5, 39)  # Ensure the maximum game week is 38
 
-    for xy in range(0,5):
-            headers.append(current_gw+xy)
+    for gw in range(current_gw, max_gw):
+        headers.append(gw)
         
 
     return headers
