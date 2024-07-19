@@ -14,11 +14,9 @@ response = requests.get(link)
 
 # Convert JSON data to a python objects
 data = json.loads(response.text)
-
-
 events = data['events']
-
 events_df = pd.DataFrame(events)
+all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Ipswich Town','Leicester City','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
 
 
 
@@ -27,39 +25,17 @@ for index, row in events_df.iterrows():
     if str(row['finished']).lower() == 'false':
         current_gw = row['name']
         current_gw = [int(s) for s in re.findall(r'\b\d+\b', current_gw)]
-        current_gw= current_gw[0]
+        current_gw = current_gw[0]
         break
 
 # function to convert the number to the actual team names
 def get_team_name(team_code):
-    team = str(team_code)
-    if len(team) == 1:
-        team = team.replace('1', 'Arsenal')
-        team = team.replace('2', 'Aston Villa')
-        team = team.replace('3', 'Bournemouth')
-        team = team.replace('4', 'Brentford')
-        team = team.replace('5', 'Brighton')
-        team = team.replace('6', 'Burnley')
-        team = team.replace('7', 'Chelsea')
-        team = team.replace('8', 'Crystal Palace')
-        team = team.replace('9', 'Everton')
-        
+   
+    team_names = {i+1: team for i, team in enumerate(all_distict_teams)}
+   
+    return team_names[team_code]
 
 
-    elif len(team) == 2:
-        team = team.replace('10', 'Fulham')
-        team = team.replace('11', 'Liverpool')
-        team = team.replace('12', 'Luton')
-        team = team.replace('13', 'Man city')
-        team = team.replace('14', 'Man United')
-        team = team.replace('15', 'Newcastle')
-        team = team.replace('16', 'Nottingham Forest')
-        team = team.replace('17', 'Sheffield United')
-        team = team.replace('18', 'Tottenham')
-        team = team.replace('19', 'Westham')
-        team = team.replace('20', 'Wolves')
-
-    return team
 #gets the short form of the team name (Arsenal -> ARS)
 def get_short_team(team_code):
     team = str(team_code)
@@ -69,29 +45,28 @@ def get_short_team(team_code):
         team = team.replace('3', 'BOU')
         team = team.replace('4', 'BRE')
         team = team.replace('5', 'BHA')
-        team = team.replace('6', 'BUR')
-        team = team.replace('7', 'CHE')
-        team = team.replace('8', 'CRY')
-        team = team.replace('9', 'EVE')
+        team = team.replace('6', 'CHE')
+        team = team.replace('7', 'CRY')
+        team = team.replace('8', 'EVE')
+        team = team.replace('9', 'FUL')
         
 
 
     elif len(team) == 2:
-        team = team.replace('10', 'FUL')
-        team = team.replace('11', 'LIV')
-        team = team.replace('12', 'LUT')
+        team = team.replace('10', 'IPS')
+        team = team.replace('11', 'LEI')
+        team = team.replace('12', 'LIV')
         team = team.replace('13', 'MCI')
         team = team.replace('14', 'MUN')
         team = team.replace('15', 'NEW')
         team = team.replace('16', 'NFO')
-        team = team.replace('17', 'SHU')
+        team = team.replace('17', 'SOU')
         team = team.replace('18', 'TOT')
         team = team.replace('19', 'WHU')
         team = team.replace('20', 'WOL')
 
     return team
 next_5 = []
-all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Burnley','Chelsea','Crystal Palace','Everton','Fulham','Liverpool','Luton','Man city','Man United','Newcastle','Nottingham Forest','Sheffield United','Tottenham','Westham','Wolves']
 
 def get_fixtures():
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
@@ -100,6 +75,7 @@ def get_fixtures():
     # Convert JSON data to a python object
     data = json.loads(response.text)
 
+ 
 
     #getting all the games playing in this game week
     for i in range(0,5):
@@ -110,6 +86,7 @@ def get_fixtures():
         total_info = [] #a dummy that stores all the fixtures this game week
         final_total_info = [] # a structures list that groups double game weeks
         for p in gw:
+            #this stores all the home teams playing
             gw_info= {
                 'team': get_team_name(p['team_h']),
                 'event': p['event'],
@@ -118,6 +95,7 @@ def get_fixtures():
 
             }
 
+            #this stores all the away teams playing
             gw_info2 = {
                 'team': get_team_name(p['team_a']),
                 'event': p['event'],
@@ -185,28 +163,10 @@ def get_fixtures():
                 final_total_info.append(total_info[i])
 
 
-
-
-
-      
-
-
-
         next_5.append(final_total_info)
 
 
-
-
-
-    #pprint(next_5);
-
     total_data = []
-
-
-
-
-
-
 
 
 
@@ -230,14 +190,6 @@ def get_fixtures():
             if found == False:
                 fixtures.append('Blank')
             
-
-
-
-           
-
-
-
-
         data_dict = {
             'team': i,
             'next_5':fixtures
@@ -263,7 +215,7 @@ def get_fixtures_header():
 
     return headers
 
-
+#gets a list of postponed games
 def get_postponed_games():
 
     all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Leicester','Leeds','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
@@ -356,7 +308,7 @@ def get_dataset():
     return dataset
 
 
-# function that returns a list ofo 5 players from both teams in all fixtures that game week that we should watch (might do well)
+# function that returns a list of 5 players from both teams in all fixtures that game week that we should watch (might do well)
 def players_to_watch():
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
     response = requests.get(link2)
