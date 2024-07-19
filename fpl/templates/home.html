@@ -112,9 +112,9 @@
  			<th>price</th>
  			<th>transferred in By</th>
  		</tr>
- 		{% for index,x in transfer_in.iterrows() %}
+ 		{% for x in transfer_in %}
  		<tr>
- 			<td>{{index+1}}</td>
+ 			<td>{{ loop.index }}</td>
  			<td>{{x['name']}}</td>
  			<td>{{x['team']}}</td>
  			<td>{{x['position']}}</td>
@@ -146,9 +146,9 @@
  			<th>price</th>
  			<th>transferred in By</th>
  		</tr>
- 		{% for index,x in transfer_out.iterrows() %}
+ 		{% for x in transfer_out %}
  		<tr>
- 			<td>{{index+1}}</td>
+			<td>{{ loop.index }}</td>
  			<td>{{x['name']}}</td>
  			<td>{{x['team']}}</td>
  			<td>{{x['position']}}</td>
@@ -180,9 +180,9 @@
  			<th>price</th>
  			<th>Owned By</th>
  		</tr>
- 		{% for index,x in selected.iterrows() %}
+ 		{% for x in selected %}
  		<tr>
- 			<td>{{index+1}}</td>
+			<td>{{ loop.index }}</td>
  			<td>{{x['name']}}</td>
  			<td>{{x['team']}}</td>
  			<td>{{x['position']}}</td>
@@ -214,9 +214,9 @@
  			<th>price</th>
  			<th>Owned By</th>
  		</tr>
- 		{% for index,x in differentials.iterrows() %}
+ 		{% for x in differentials %}
  		<tr>
- 			<td>{{index+1}}</td>
+			<td>{{ loop.index }}</td>
  			<td>{{x['name']}}</td>
  			<td>{{x['team']}}</td>
  			<td>{{x['position']}}</td>

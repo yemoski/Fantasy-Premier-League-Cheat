@@ -8,12 +8,44 @@ import livescores as ls
 import fixture_difficulty as fd
 import setpieceinfo as spi
 import manager_info as mi
+import json
+import os
 
 
 app = Flask(__name__)
 app.secret_key = 'fpl'
 
+def write_to_json(data, filename):
+    file_path = os.path.join('json', filename)
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
 
+
+@app.route('/run-task', methods=["GET", "POST"])
+def getUpdatedData():
+    write_to_json(spi.get_notes(), 'spi.json')
+    write_to_json(fd.players_to_watch(), 'players_to_watch.json')
+    write_to_json(gameweek_info.get_info(), 'gameweek_info.json')
+    write_to_json(fd.get_fixtures(), 'fixtures.json')
+    write_to_json(fd.get_fixtures_header(), 'fixture_header.json')
+  
+    #wriring pandas data frames to json files
+    differentials_df = fpl.get_differentials()
+    differentials_df.to_json('json/get_differentials.json', orient='records')
+
+    transfer_in = fpl.get_most_transferred_in()
+    transfer_in.to_json('json/transfer_in.json', orient='records')
+
+    transfer_out = fpl.get_most_transferred_out()
+    transfer_out.to_json('json/transfer_out.json', orient='records')
+
+
+    selected = fpl.get_most_selected()
+    selected.to_json('json/selected.json', orient='records')
+
+
+    return 'Task executed successfully'
+    
 
 
 #Home page
@@ -22,14 +54,35 @@ def home():
 
     verse = bible.get_verse()
 
-    #pprint(fpl.get_differentials())
+    #getUpdatedData()
 
-    #pprint(fd.get_fixtures_header())
-    #pprint(gameweek_info.get_info())
-    #pprint(spi.get_notes())
+    with open('json/players_to_watch.json') as json_file:
+        players_to_watch = json.load(json_file)
+    
+    with open('json/get_differentials.json') as json_file:
+        differentials = json.load(json_file)
+    
+    with open('json/gameweek_info.json') as json_file:
+        gameweek_info = json.load(json_file)
+    
+    with open('json/fixtures.json') as json_file:
+        fixtures = json.load(json_file)
+
+    with open('json/fixture_header.json') as json_file:
+        header = json.load(json_file)
+
+    with open('json/transfer_in.json') as json_file:
+        transfer_in = json.load(json_file)
+    
+    with open('json/transfer_out.json') as json_file:
+        transfer_out = json.load(json_file)
+
+    with open('json/selected.json') as json_file:
+        selected = json.load(json_file)
 
 
-    return render_template("home.html", notes=spi.get_notes(), verse=verse, differentials=fpl.get_differentials(), gameweek_info=gameweek_info.get_info(), fixtures=fd.get_fixtures(), headers=fd.get_fixtures_header(), transfer_in=fpl.get_most_transferred_in(), transfer_out=fpl.get_most_transferred_out(), selected=fpl.get_most_selected(), players_to_watch=fd.players_to_watch())
+
+    return render_template("home.html", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
   
 #gets a livescore for the current gw
 @app.route("/livescore", methods=["GET", "POST"])

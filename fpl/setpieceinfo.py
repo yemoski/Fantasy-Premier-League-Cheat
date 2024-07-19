@@ -80,5 +80,3 @@ def get_notes():
         all_info.append(info)
 
     return all_info
-
-
