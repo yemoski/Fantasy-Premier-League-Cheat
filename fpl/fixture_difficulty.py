@@ -8,7 +8,8 @@ from pprint import  pprint
 import fpl
 
 
-# Make a get request to get the latest player data from the FPL API'sd
+# Make a get request to get the latest player data from the FPL API'sdd
+
 link = "https://fantasy.premierleague.com/api/bootstrap-static/"
 response = requests.get(link)
 
