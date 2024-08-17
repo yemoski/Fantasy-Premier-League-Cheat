@@ -81,6 +81,7 @@ def get_fixtures():
     #getting all the games playing in this game week
     for i in range(0,5):
         gw = []
+    
         for x in data:
             if x['event']==current_gw+i:
                 gw.append(x)
@@ -219,7 +220,8 @@ def get_fixtures_header():
 #gets a list of postponed games
 def get_postponed_games():
 
-    all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Leicester','Leeds','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
+    all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Ipswich Town','Leicester City','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
+
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
     response = requests.get(link2)
 
@@ -255,29 +257,30 @@ def get_dataset():
         status = i['status']
         form_ict_index = float(i['form']) * float(i['ict_index'])
 
-      
+
         if len(team) == 1:
             team = team.replace('1', 'Arsenal')
             team = team.replace('2', 'Aston Villa')
             team = team.replace('3', 'Bournemouth')
             team = team.replace('4', 'Brentford')
             team = team.replace('5', 'Brighton')
-            team = team.replace('6', 'Burnley')
-            team = team.replace('7', 'Chelsea')
-            team = team.replace('8', 'Crystal Palace')
-            team = team.replace('9', 'Everton')
+            team = team.replace('6', 'Chelsea')
+            team = team.replace('7', 'Crystal Palace')
+            team = team.replace('8', 'Everton')
+            team = team.replace('9', 'Fulham')
             
 
+      #all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Ipswich Town','Leicester City','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
 
         elif len(team) == 2:
-            team = team.replace('10', 'Fulham')
-            team = team.replace('11', 'Liverpool')
-            team = team.replace('12', 'Luton')
+            team = team.replace('10', 'Ipswich Town')
+            team = team.replace('11', 'Leicester City')
+            team = team.replace('12', 'Liverpool')
             team = team.replace('13', 'Man city')
             team = team.replace('14', 'Man United')
             team = team.replace('15', 'Newcastle')
             team = team.replace('16', 'Nottingham Forest')
-            team = team.replace('17', 'Sheffield United')
+            team = team.replace('17', 'Southampton')
             team = team.replace('18', 'Tottenham')
             team = team.replace('19', 'Westham')
             team = team.replace('20', 'Wolves')

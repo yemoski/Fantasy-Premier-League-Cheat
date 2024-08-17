@@ -112,15 +112,15 @@
  			<th>price</th>
  			<th>transferred in By</th>
  		</tr>
- 		{% for x in transfer_in %}
+ 		{% for key,value in transfer_in.iterrows() %}
  		<tr>
- 			<td>{{ loop.index }}</td>
- 			<td>{{x['name']}}</td>
- 			<td>{{x['team']}}</td>
- 			<td>{{x['position']}}</td>
- 			<td>{{x['points_per_game']}}</td>
- 			<td>£{{x['price']}}</td>
- 			<td>{{x['count']}} Managers</td>
+ 			<td>{{ key  }}</td>
+ 			<td>{{ value['name']}}</td>
+ 			<td>{{ value['team']}}</td>
+ 			<td>{{ value['position']}}</td>
+ 			<td>{{ value['points_per_game']}}</td>
+ 			<td>£{{value['price']}}</td>
+ 			<td>{{value['count']}} Managers</td>
  		</tr>
  		{% endfor %}
 
@@ -144,17 +144,17 @@
  			<th>Position</th>
  			<th>Points per game</th>
  			<th>price</th>
- 			<th>transferred in By</th>
+ 			<th>transferred out By</th>
  		</tr>
- 		{% for x in transfer_out %}
+ 		{% for key,value in transfer_out.iterrows() %}
  		<tr>
-			<td>{{ loop.index }}</td>
- 			<td>{{x['name']}}</td>
- 			<td>{{x['team']}}</td>
- 			<td>{{x['position']}}</td>
- 			<td>{{x['points_per_game']}}</td>
- 			<td>£{{x['price']}}</td>
- 			<td>{{x['count']}} Managers</td>
+			<td>{{ key }}</td>
+ 			<td>{{ value['name']}}</td>
+ 			<td>{{ value['team']}}</td>
+ 			<td>{{ value['position']}}</td>
+ 			<td>{{ value['points_per_game']}}</td>
+ 			<td>£{{ value['price']}}</td>
+ 			<td>{{ value['count']}} Managers</td>
  		</tr>
  		{% endfor %}
 
@@ -180,15 +180,15 @@
  			<th>price</th>
  			<th>Owned By</th>
  		</tr>
- 		{% for x in selected %}
+ 		{% for key,value in selected.iterrows() %}
  		<tr>
-			<td>{{ loop.index }}</td>
- 			<td>{{x['name']}}</td>
- 			<td>{{x['team']}}</td>
- 			<td>{{x['position']}}</td>
- 			<td>{{x['points_per_game']}}</td>
- 			<td>£{{x['price']}}</td>
- 			<td>{{x['percent']}}% of Managers</td>
+			<td>{{ key }}</td>
+ 			<td>{{ value['name']}}</td>
+ 			<td>{{ value['team']}}</td>
+ 			<td>{{ value['position']}}</td>
+ 			<td>{{ value['points_per_game']}}</td>
+ 			<td>£{{ value['price']}}</td>
+ 			<td>{{ value['percent']}}% of Managers</td>
  		</tr>
  		{% endfor %}
 
@@ -214,15 +214,15 @@
  			<th>price</th>
  			<th>Owned By</th>
  		</tr>
- 		{% for x in differentials %}
+ 		{% for key,value in differentials.iterrows() %}
  		<tr>
-			<td>{{ loop.index }}</td>
- 			<td>{{x['name']}}</td>
- 			<td>{{x['team']}}</td>
- 			<td>{{x['position']}}</td>
- 			<td>{{x['points_per_game']}}</td>
- 			<td>£{{x['price']}}</td>
- 			<td>{{x['selected']}}% of Managers</td>
+			<td>{{ key }}</td>
+ 			<td>{{ value['name']}}</td>
+ 			<td>{{ value['team']}}</td>
+ 			<td>{{ value['position']}}</td>
+ 			<td>{{ value['points_per_game']}}</td>
+ 			<td>£{{ value['price']}}</td>
+ 			<td>{{ value['selected']}}% of Managers</td>
  		</tr>
  		{% endfor %}
 

@@ -3,7 +3,7 @@ import fpl
 from pprint import pprint
 import bible
 import team_stats
-import gameweek_info
+import gameweek_info as gi
 import livescores as ls
 import fixture_difficulty as fd
 import setpieceinfo as spi
@@ -15,36 +15,9 @@ import os
 app = Flask(__name__)
 app.secret_key = 'fpl'
 
-def write_to_json(data, filename):
-    file_path = os.path.join('json', filename)
-    with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4)
 
 
-@app.route('/run-task', methods=["GET", "POST"])
-def getUpdatedData():
-    write_to_json(spi.get_notes(), 'spi.json')
-    write_to_json(fd.players_to_watch(), 'players_to_watch.json')
-    write_to_json(gameweek_info.get_info(), 'gameweek_info.json')
-    write_to_json(fd.get_fixtures(), 'fixtures.json')
-    write_to_json(fd.get_fixtures_header(), 'fixture_header.json')
-  
-    #wriring pandas data frames to json files
-    differentials_df = fpl.get_differentials()
-    differentials_df.to_json('json/get_differentials.json', orient='records')
 
-    transfer_in = fpl.get_most_transferred_in()
-    transfer_in.to_json('json/transfer_in.json', orient='records')
-
-    transfer_out = fpl.get_most_transferred_out()
-    transfer_out.to_json('json/transfer_out.json', orient='records')
-
-
-    selected = fpl.get_most_selected()
-    selected.to_json('json/selected.json', orient='records')
-
-
-    return 'Task executed successfully'
     
 
 
@@ -54,31 +27,16 @@ def home():
 
     verse = bible.get_verse()
 
-    #getUpdatedData()
+    players_to_watch = fd.players_to_watch()
+    differentials = fpl.get_differentials()
+    gameweek_info = gi.get_info()
+    fixtures = fd.get_fixtures()
+    header = fd.get_fixtures_header()
+    transfer_in = fpl.get_most_transferred_in()
+    transfer_out = fpl.get_most_transferred_out()
+    selected = fpl.get_most_selected()
 
-    with open('json/players_to_watch.json') as json_file:
-        players_to_watch = json.load(json_file)
     
-    with open('json/get_differentials.json') as json_file:
-        differentials = json.load(json_file)
-    
-    with open('json/gameweek_info.json') as json_file:
-        gameweek_info = json.load(json_file)
-    
-    with open('json/fixtures.json') as json_file:
-        fixtures = json.load(json_file)
-
-    with open('json/fixture_header.json') as json_file:
-        header = json.load(json_file)
-
-    with open('json/transfer_in.json') as json_file:
-        transfer_in = json.load(json_file)
-    
-    with open('json/transfer_out.json') as json_file:
-        transfer_out = json.load(json_file)
-
-    with open('json/selected.json') as json_file:
-        selected = json.load(json_file)
 
 
 

@@ -194,6 +194,7 @@ def get_differentials():
                 counter = counter +1
 
     df = pd.DataFrame(players_list)
+
     return df
 
 
