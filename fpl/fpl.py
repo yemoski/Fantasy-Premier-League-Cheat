@@ -48,16 +48,24 @@ for i in data['elements']:
     position = position.replace('4',"FOW")
 
     photo = photo.replace('jpg','png')
+
+    
+            
+            
+
+
+    
+            
     if len(team)==1:
         team = team.replace('1', 'Arsenal')
         team = team.replace('2', 'Aston Villa')
         team = team.replace('3', 'Bournemouth')
         team = team.replace('4', 'Brentford')
         team = team.replace('5', 'Brighton')
-        team = team.replace('6', 'Burnley')
-        team = team.replace('7', 'Chelsea')
-        team = team.replace('8', 'Crystal Palace')
-        team = team.replace('9', 'Everton')
+        team = team.replace('6', 'Chelsea')
+        team = team.replace('7', 'Crystal Palace')
+        team = team.replace('8', 'Everton')
+        team = team.replace('9', 'Fulham')
         team_shirt = team
 
         team_shirt = team_shirt.replace('Arsenal','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_3-66.webp')
@@ -70,20 +78,20 @@ for i in data['elements']:
         team_shirt = team_shirt.replace('Everton','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_11-66.webp')
         team_shirt = team_shirt.replace('Fulham','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_54-66.webp')
     elif len(team)==2:
-        team = team.replace('10', 'Fulham')
-        team = team.replace('11', 'Liverpool')
-        team = team.replace('12', 'Luton')
+        team = team.replace('10', 'Ipswich Town')
+        team = team.replace('11', 'Leicester City')
+        team = team.replace('12', 'Liverpool')
         team = team.replace('13', 'Man city')
         team = team.replace('14', 'Man United')
         team = team.replace('15', 'Newcastle')
         team = team.replace('16', 'Nottingham Forest')
-        team = team.replace('17', 'Sheffield United')
+        team = team.replace('17', 'Southampton')
         team = team.replace('18', 'Tottenham')
         team = team.replace('19', 'Westham')
         team = team.replace('20', 'Wolves')
         team_shirt = team
         team_shirt = team_shirt.replace('Leicester','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_13-66.webp')
-        team_shirt = team_shirt.replace('Leeds','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_2-66.webp')
+        team_shirt = team_shirt.replace('Ipswich Town','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_40-66.webp')
         team_shirt = team_shirt.replace('Liverpool','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_14-66.webp')
         team_shirt = team_shirt.replace('Man city','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_43-66.webp')
         team_shirt = team_shirt.replace('Man United','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_1-66.webp')
@@ -194,6 +202,7 @@ def get_differentials():
                 counter = counter +1
 
     df = pd.DataFrame(players_list)
+
 
     return df
 
