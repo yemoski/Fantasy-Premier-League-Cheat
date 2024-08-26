@@ -18,8 +18,9 @@ postponed_games = fd.get_postponed_games()
 
 all_players = []
 for i in data['elements']:
-    name = i['first_name'] + " " + i['second_name']
+    name = i['second_name']
     team = str(i['team'])
+
     team_shirt = str(i['team'])
     form_ict_index = float(i['form']) * float(i['ict_index'])
     photo = i['photo']

@@ -270,7 +270,6 @@ def get_dataset():
             team = team.replace('9', 'Fulham')
             
 
-      #all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Ipswich Town','Leicester City','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
 
         elif len(team) == 2:
             team = team.replace('10', 'Ipswich Town')

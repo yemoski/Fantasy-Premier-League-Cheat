@@ -114,7 +114,7 @@
  		</tr>
  		{% for key,value in transfer_in.iterrows() %}
  		<tr>
- 			<td>{{ key  }}</td>
+ 			<td>{{ key +1  }}</td>
  			<td>{{ value['name']}}</td>
  			<td>{{ value['team']}}</td>
  			<td>{{ value['position']}}</td>
@@ -148,7 +148,7 @@
  		</tr>
  		{% for key,value in transfer_out.iterrows() %}
  		<tr>
-			<td>{{ key }}</td>
+			<td>{{ key +1 }}</td>
  			<td>{{ value['name']}}</td>
  			<td>{{ value['team']}}</td>
  			<td>{{ value['position']}}</td>
@@ -182,7 +182,7 @@
  		</tr>
  		{% for key,value in selected.iterrows() %}
  		<tr>
-			<td>{{ key }}</td>
+			<td>{{ key +1 }}</td>
  			<td>{{ value['name']}}</td>
  			<td>{{ value['team']}}</td>
  			<td>{{ value['position']}}</td>
@@ -216,7 +216,7 @@
  		</tr>
  		{% for key,value in differentials.iterrows() %}
  		<tr>
-			<td>{{ key }}</td>
+			<td>{{ key+1}}</td>
  			<td>{{ value['name']}}</td>
  			<td>{{ value['team']}}</td>
  			<td>{{ value['position']}}</td>
