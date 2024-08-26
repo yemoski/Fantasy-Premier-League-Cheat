@@ -10,6 +10,8 @@ import setpieceinfo as spi
 import manager_info as mi
 import json
 import os
+from flask_talisman import Talisman
+
 
 
 app = Flask(__name__)
