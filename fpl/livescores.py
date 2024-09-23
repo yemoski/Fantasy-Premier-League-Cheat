@@ -124,7 +124,7 @@ def get_twitter_handle(team_code):
 
     return team
 
-#get a teams name when you give it the teams code
+#get a teams name when you give it the teamss code 
 def get_team_name(team_code):
     team_names = {i+1: team for i, team in enumerate(all_distict_teams)}
    
