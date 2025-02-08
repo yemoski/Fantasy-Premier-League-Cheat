@@ -20,7 +20,13 @@ def get_info():
 
     # Convert JSON data to a python object
     data = json.loads(response.text)
+    #pprint(data)
 
+    #Dumping all the context of the api into a json file 
+    #with open("fpl_data.json", "w", encoding="utf-8") as json_file:
+    #    json.dump(data, json_file, indent=4)
+    #print("Data successfully saved to fpl_data.json")
+    
     events = data['events']
 
     events_df = pd.DataFrame(events)

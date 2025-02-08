@@ -17,6 +17,8 @@ data = json.loads(response.text)
 postponed_games = fd.get_postponed_games()
 
 all_players = []
+manager_list = []
+
 for i in data['elements']:
     name = i['second_name']
     team = str(i['team'])
@@ -50,13 +52,29 @@ for i in data['elements']:
 
     photo = photo.replace('jpg','png')
 
-    
-            
-            
+    if i.get("element_type") == 5:  # Ensure it's a manager
+        manager_data =  {
+        "first_name": i.get("first_name"),
+        "second_name": i.get("second_name"),
+        "element_type": i.get("element_type"),
+        "mng_win": i.get("mng_win", 0),
+        "mng_draw": i.get("mng_draw", 0),
+        "mng_loss": i.get("mng_loss", 0),
+        "mng_underdog_win": i.get("mng_underdog_win", 0),
+        "influence_rank": i.get("influence_rank", 1000),
+        "creativity_rank": i.get("creativity_rank", 1000),
+        "threat_rank": i.get("threat_rank", 1000),
+        "ict_index_rank": i.get("ict_index_rank", 1000),
+        "now_cost": i.get("now_cost")/10,
+        "points_per_game": float(i.get("points_per_game", "0.0")),
+        "selected_by_percent": float(i.get("selected_by_percent", "0.0")),
+        "transfers_in": i.get("transfers_in", 0),
+        "transfers_out": i.get("transfers_out", 0)
+        }
+        manager_list.append(manager_data)
+        #pprint(manager_list)
 
 
-    
-            
     if len(team)==1:
         team = team.replace('1', 'Arsenal')
         team = team.replace('2', 'Aston Villa')
@@ -146,6 +164,27 @@ dataset = dataset.sort_values(by=['form_ict_index'], ascending=False)
 #dataset.to_csv(index=False, path_or_buf='data.csv')
 
 
+def calculate_manager_score(manager):
+    performance_score = (manager["mng_win"] * 3 + manager["mng_draw"]) / max(1, (manager["mng_win"] + manager["mng_draw"] + manager["mng_loss"])) * 10
+    tactical_strength = (1000 - manager["influence_rank"] + 1000 - manager["creativity_rank"] + 1000 - manager["ict_index_rank"]) / 3000 * 10
+    cost_effectiveness = (manager["points_per_game"] / max(1, manager["now_cost"])) * 100
+    popularity_score = (float(manager["selected_by_percent"]) + (manager["transfers_in"] - manager["transfers_out"]) / 1000)
+
+    # Weighted Score
+    weighted_score = (0.4 * performance_score) + (0.3 * tactical_strength) + (0.2 * cost_effectiveness) + (0.1 * popularity_score)
+    
+    return pd.Series([performance_score, tactical_strength, cost_effectiveness, popularity_score, weighted_score])
+
+def get_managers():
+    #converting the list to a pandas dataframe 
+    manager_list_df = pd.DataFrame(manager_list)
+    # Apply the function to each row and create new columns
+    manager_list_df[["Performance_Score", "Tactical_Strength", "Cost_Effectiveness", "Popularity_Score", "Weighted_Score"]] = manager_list_df.apply(calculate_manager_score, axis=1)
+
+    # Sort by Weighted Score
+    manager_list_df = manager_list_df.sort_values(by="Weighted_Score", ascending=False)
+
+    return manager_list_df
 
 def get_current_time():
     now = datetime.today()

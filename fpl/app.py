@@ -38,11 +38,14 @@ def home():
     transfer_out = fpl.get_most_transferred_out()
     selected = fpl.get_most_selected()
 
+    assistant_manager_chip = fpl.get_managers()
+    #pprint(assistant_manager_chip)
+
     
 
 
 
-    return render_template("home.html", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
+    return render_template("home.html", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header,managers_df=assistant_manager_chip, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
   
 #gets a livescore for the current gw
 @app.route("/livescore", methods=["GET", "POST"])

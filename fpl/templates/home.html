@@ -99,6 +99,35 @@
 		
  </section>	
  <section class="stat_tables">
+	<h3>Assistant Manager Chips</h3>
+	<div class="table_infos">
+	<table>
+		<tr>
+			<th>Ranking</th>
+			<th>Manager Name</th>
+			<th>Cost</th>
+			<th>Performance Score</th>
+			<th>Tactical Strength</th>
+			<th>Popularity Score</th>
+			<th>Weighted Score</th>
+		</tr>
+		{% for index, value in managers_df.iterrows() %}
+		<tr>
+			<td>{{ loop.index }}</td>
+			<td>{{ value['first_name'] }} {{ value['second_name'] }} </td>
+			<td>£{{ value['now_cost'] }}</td>
+			<td>{{ value['Performance_Score'] | round(2) }}</td>
+			<td>{{ value['Tactical_Strength'] | round(2) }}</td>
+			<td>{{ value['Popularity_Score'] | round(2) }}</td>
+			<td><strong>{{ value['Weighted_Score'] | round(2) }}</strong></td>
+		</tr>
+		{% endfor %}
+
+	</table>
+   </div> 	
+   
+</section>
+ <section class="stat_tables">
  	<h3>MOST TRANSFERRED IN PLAYERS</h3>
  	<div class="table_infos">
  	<table>
