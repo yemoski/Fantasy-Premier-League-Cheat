@@ -52,27 +52,7 @@ for i in data['elements']:
 
     photo = photo.replace('jpg','png')
 
-    if i.get("element_type") == 5:  # Ensure it's a manager
-        manager_data =  {
-        "first_name": i.get("first_name"),
-        "second_name": i.get("second_name"),
-        "element_type": i.get("element_type"),
-        "mng_win": i.get("mng_win", 0),
-        "mng_draw": i.get("mng_draw", 0),
-        "mng_loss": i.get("mng_loss", 0),
-        "mng_underdog_win": i.get("mng_underdog_win", 0),
-        "influence_rank": i.get("influence_rank", 1000),
-        "creativity_rank": i.get("creativity_rank", 1000),
-        "threat_rank": i.get("threat_rank", 1000),
-        "ict_index_rank": i.get("ict_index_rank", 1000),
-        "now_cost": i.get("now_cost")/10,
-        "points_per_game": float(i.get("points_per_game", "0.0")),
-        "selected_by_percent": float(i.get("selected_by_percent", "0.0")),
-        "transfers_in": i.get("transfers_in", 0),
-        "transfers_out": i.get("transfers_out", 0)
-        }
-        manager_list.append(manager_data)
-        #pprint(manager_list)
+
 
 
     if len(team)==1:
@@ -131,7 +111,34 @@ for i in data['elements']:
         postponed = 'No'
 
     stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game, in_dreamteam,cost_change_event]
-    all_players.append(stats)
+
+    # only add players not managers
+    if position != '5':
+        all_players.append(stats)
+    
+    
+    # Ensure it's a manager
+    if i.get("element_type") == 5: 
+        manager_data =  {
+        "first_name": i.get("first_name"),
+        "second_name": i.get("second_name"),
+        "element_type": i.get("element_type"),
+        "mng_win": i.get("mng_win", 0),
+        "mng_draw": i.get("mng_draw", 0),
+        "mng_loss": i.get("mng_loss", 0),
+        "mng_underdog_win": i.get("mng_underdog_win", 0),
+        "influence_rank": i.get("influence_rank", 1000),
+        "creativity_rank": i.get("creativity_rank", 1000),
+        "threat_rank": i.get("threat_rank", 1000),
+        "ict_index_rank": i.get("ict_index_rank", 1000),
+        "now_cost": i.get("now_cost")/10,
+        "points_per_game": float(i.get("points_per_game", "0.0")),
+        "selected_by_percent": float(i.get("selected_by_percent", "0.0")),
+        "transfers_in": i.get("transfers_in", 0),
+        "transfers_out": i.get("transfers_out", 0)
+        }
+        manager_list.append(manager_data)
+        #pprint(manager_list)
 
 
 all_players = np.array(all_players)
