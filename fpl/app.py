@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, url_for, flash, jsonify, redirect
-import fpl
+#import fpl
 from pprint import pprint
 import bible
 import team_stats
-import gameweek_info as gi
-import livescores as ls
-import fixture_difficulty as fd
-import setpieceinfo as spi
-import manager_info as mi
+#import gameweek_info as gi
+#import livescores as ls
+#import fixture_difficulty as fd
+#import setpieceinfo as spi
+#import manager_info as mi
 import json
 import os
 
@@ -29,6 +29,8 @@ def home():
 
     verse = bible.get_verse()
 
+
+    """
     players_to_watch = fd.players_to_watch()
     differentials = fpl.get_differentials()
     gameweek_info = gi.get_info()
@@ -39,22 +41,23 @@ def home():
     selected = fpl.get_most_selected()
 
     assistant_manager_chip = fpl.get_managers()
-    #pprint(assistant_manager_chip)
-
+    """
+    
     
 
 
-
-    return render_template("home.html", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header,managers_df=assistant_manager_chip, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
+    return redirect(url_for("coming_soon"))
+    #return render_template("home.html", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header,managers_df=assistant_manager_chip, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
   
 #gets a livescore for the current gw
 @app.route("/livescore", methods=["GET", "POST"])
 def livescore():
-    # pprint(ls.get_livescore())
-    length_of_games = len(ls.get_livescore()['Game_results'])
-    # pprint(ls.get_livescore()['Game_results'])
 
-    return render_template("livescore.html", livescore=ls.get_livescore(), length=length_of_games)
+
+
+    #length_of_games = len(ls.get_livescore()['Game_results'])
+    return redirect(url_for("coming_soon"))
+    #return render_template("livescore.html", livescore=ls.get_livescore(), length=length_of_games)
 
 
 
@@ -62,6 +65,8 @@ def livescore():
 
 @app.route("/formations", methods=["GET", "POST"])
 def formations():
+
+    """
     f442 = fpl.get_442()
     f451 = fpl.get_451()
     f532 = fpl.get_532()
@@ -127,14 +132,18 @@ def formations():
     row['ict_form'] = round(f343['ict_form'], 2)
     row['budget'] = round(100 - f343['team_value'], 2)
     formations.append(row)
-
-    return render_template('formations.html', f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
+    
+    
+    """
+    
+    return redirect(url_for("coming_soon"))
+    #return render_template('formations.html', f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
 
 # shows how to use the app
 @app.route("/help", methods=["GET", "POST"])
 def help():
-
-    return render_template("help.html")
+    return redirect(url_for("coming_soon"))
+    #return render_template("help.html")
 
 
 
@@ -142,8 +151,13 @@ def help():
 
 @app.route("/manager_info", methods=["GET", "POST"])
 def manager_info():
-    # pprint()
+
+
+
+
+    """
     result = {}
+
 
     if request.method == 'POST':
         pin = request.form['pin']
@@ -156,7 +170,12 @@ def manager_info():
         else:
             return render_template('manager_info.html', m_info=result)
 
-    return render_template("manager_info_login.html", m_info=result)
+    
+    """
+    
+
+    #return render_template("manager_info_login.html", m_info=result)
+    return redirect(url_for("coming_soon")) 
 
 
 @app.route("/stats", methods=["GET", "POST"])
@@ -170,7 +189,8 @@ def stats():
 
     #table =  team_stats.get_league_table()
 
-    return render_template("stats.html", xg=team_stats.get_expected_g(), xa=team_stats.get_expected_a(), table=team_stats.get_league_table(), teams_data=team_stats.get_expected_ga())
+    #return render_template("stats.html", xg=team_stats.get_expected_g(), xa=team_stats.get_expected_a(), table=team_stats.get_league_table(), teams_data=team_stats.get_expected_ga())
+    return redirect(url_for("coming_soon"))
 
 @app.route("/coming_soon", methods=["GET", "POST"])
 def coming_soon():
@@ -182,7 +202,8 @@ def coming_soon():
 def news():
     # pprint(fpl.get_news())
 
-    return render_template("news.html", news=fpl.get_news(), current_date_time=fpl.get_current_time())
+    #return render_template("news.html", news=fpl.get_news(), current_date_time=fpl.get_current_time())
+    return redirect(url_for("coming_soon"))
 
 
 if __name__ == "__main__":
