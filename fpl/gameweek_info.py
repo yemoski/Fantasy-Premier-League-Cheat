@@ -77,11 +77,22 @@ def get_info():
             #print(current_gameweek['deadline_time'])
             current_gameweek['deadline_time'] = day.day_name() + ' ' + full_date + ' '+hour+':'+minutes
             current_gameweek['chip_plays'] = row['chip_plays']
-
+            
             if row['most_captained']!=None:
-                current_gameweek['most_captained'] = ls.get_player_name(int(row['most_captained']))
-                current_gameweek['most_vice_captained'] = ls.get_player_name(int(row['most_vice_captained']))
-                current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
+                current_gameweek['most_captained'] = {    
+                "name" : ls.get_player_name(int(row['most_captained'])),
+                "photo" : ls.get_player_photo(int(row['most_captained']))
+                } 
+                current_gameweek['most_vice_captained'] = {
+                "name" : ls.get_player_name(int(row['most_vice_captained'])),
+                "photo" : ls.get_player_photo(int(row['most_vice_captained']))
+                }
+                current_gameweek['top_element'] = {
+                "name" :ls.get_player_name(int(row['top_element_info']['id'])),
+                "photo" : ls.get_player_photo(int(row['top_element_info']['id'])),
+                "points":  str(row['top_element_info']['points'])
+                }
+                #current_gameweek['top_element'] = ls.get_player_name(int(row['top_element_info']['id'])) +' with ' + str(row['top_element_info']['points']) + ' points'
             break
     for x in current_gameweek['chip_plays']:
         #pprint(x)
@@ -100,3 +111,4 @@ def get_info():
             x['chip_name'] = 'Triple Captain'
    
     return current_gameweek
+

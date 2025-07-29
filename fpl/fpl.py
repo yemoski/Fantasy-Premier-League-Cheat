@@ -61,47 +61,68 @@ for i in data['elements']:
         team = team.replace('3', 'Bournemouth')
         team = team.replace('4', 'Brentford')
         team = team.replace('5', 'Brighton')
-        team = team.replace('6', 'Chelsea')
-        team = team.replace('7', 'Crystal Palace')
-        team = team.replace('8', 'Everton')
-        team = team.replace('9', 'Fulham')
+        team = team.replace('6', 'Burnley')
+        team = team.replace('7', 'Chelsea')
+        team = team.replace('8', 'Crystal Palace')
+        team = team.replace('9', 'Everton')
         team_shirt = team
+        badge = team
 
         team_shirt = team_shirt.replace('Arsenal','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_3-66.webp')
         team_shirt = team_shirt.replace('Aston Villa','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_7-66.webp')
         team_shirt = team_shirt.replace('Bournemouth','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_91-66.webp')
         team_shirt = team_shirt.replace('Brentford','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_94-66.webp')
         team_shirt = team_shirt.replace('Brighton','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_36-66.webp')
+        team_shirt = team_shirt.replace('Burnley','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_90-66.webp')       
         team_shirt = team_shirt.replace('Chelsea','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_8-66.webp')
         team_shirt = team_shirt.replace('Crystal Palace','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_31-66.webp')
         team_shirt = team_shirt.replace('Everton','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_11-66.webp')
-        team_shirt = team_shirt.replace('Fulham','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_54-66.webp')
+
+        badge = badge.replace('Arsenal','https://resources.premierleague.com/premierleague/badges/t3.svg')
+        badge = badge.replace('Aston Villa','https://resources.premierleague.com/premierleague/badges/t7.svg')
+        badge = badge.replace('Bournemouth','https://resources.premierleague.com/premierleague/badges/t91.svg')
+        badge = badge.replace('Brentford','https://resources.premierleague.com/premierleague/badges/t94.svg')
+        badge = badge.replace('Brighton','https://resources.premierleague.com/premierleague/badges/t36.svg')
+        badge = badge.replace('Burnley','https://resources.premierleague.com/premierleague/badges/t90.svg')
+        badge = badge.replace('Chelsea','https://resources.premierleague.com/premierleague/badges/t8.svg')
+        badge = badge.replace('Crystal Palace','https://resources.premierleague.com/premierleague/badges/t31.svg')
+        badge = badge.replace('Everton','https://resources.premierleague.com/premierleague/badges/t11.svg')
     elif len(team)==2:
-        team = team.replace('10', 'Ipswich Town')
-        team = team.replace('11', 'Leicester City')
+        team = team.replace('10', 'Fulham')
+        team = team.replace('11', 'Leeds')
         team = team.replace('12', 'Liverpool')
         team = team.replace('13', 'Man city')
         team = team.replace('14', 'Man United')
         team = team.replace('15', 'Newcastle')
         team = team.replace('16', 'Nottingham Forest')
-        team = team.replace('17', 'Southampton')
+        team = team.replace('17', 'Sunderland')
         team = team.replace('18', 'Tottenham')
         team = team.replace('19', 'Westham')
         team = team.replace('20', 'Wolves')
         team_shirt = team
-        team_shirt = team_shirt.replace('Leicester','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_13-66.webp')
-        team_shirt = team_shirt.replace('Ipswich Town','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_40-66.webp')
+        team_shirt = team_shirt.replace('Fulham','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_54-66.webp')
         team_shirt = team_shirt.replace('Liverpool','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_14-66.webp')
+        team_shirt = team_shirt.replace('Leeds','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_2-66.webp')
         team_shirt = team_shirt.replace('Man city','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_43-66.webp')
         team_shirt = team_shirt.replace('Man United','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_1-66.webp')
         team_shirt = team_shirt.replace('Newcastle','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_4-66.webp')
         team_shirt = team_shirt.replace('Nottingham Forest','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_17-66.webp')
-        team_shirt = team_shirt.replace('Southampton','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_20-66.webp')
+        team_shirt = team_shirt.replace('Sunderland','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_56-66.webp')
         team_shirt = team_shirt.replace('Tottenham','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_6-66.webp')
         team_shirt = team_shirt.replace('Westham','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_21-66.webp')
         team_shirt = team_shirt.replace('Wolves','https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_39-66.webp')
 
-
+        badge = badge.replace('Fulham','https://resources.premierleague.com/premierleague/badges/t54.svg')
+        badge = badge.replace('Liverpool','https://resources.premierleague.com/premierleague/badges/t14.svg')
+        badge = badge.replace('Leeds','https://resources.premierleague.com/premierleague/badges/t2.svg')
+        badge = badge.replace('Man city','https://resources.premierleague.com/premierleague/badges/t43.svg')
+        badge = badge.replace('Man United','https://resources.premierleague.com/premierleague/badges/t1.svg')
+        badge = badge.replace('Newcastle','https://resources.premierleague.com/premierleague/badges/t4.svg')
+        badge = badge.replace('Nottingham Forest','https://resources.premierleague.com/premierleague/badges/t17.svg')
+        badge = badge.replace('Sunderland','https://resources.premierleague.com/premierleague/badges/t56.svg')
+        badge = badge.replace('Tottenham','https://resources.premierleague.com/premierleague/badges/t6.svg')
+        badge = badge.replace('Westham','https://resources.premierleague.com/premierleague/badges/t21.svg')
+        badge = badge.replace('Wolves','https://resources.premierleague.com/premierleague/badges/t39.svg')
     
     
     #for game week 8 alone the teams in the above array have their games postponed
@@ -138,7 +159,6 @@ for i in data['elements']:
         "transfers_out": i.get("transfers_out", 0)
         }
         manager_list.append(manager_data)
-        #pprint(manager_list)
 
 
 all_players = np.array(all_players)
@@ -168,7 +188,6 @@ dataset = pd.DataFrame({
 
 
 dataset = dataset.sort_values(by=['form_ict_index'], ascending=False)
-#dataset.to_csv(index=False, path_or_buf='data.csv')
 
 
 def calculate_manager_score(manager):
@@ -182,9 +201,15 @@ def calculate_manager_score(manager):
     
     return pd.Series([performance_score, tactical_strength, cost_effectiveness, popularity_score, weighted_score])
 
+
+
+""" commenting this about because apparently we dont have managers anymore
 def get_managers():
     #converting the list to a pandas dataframe 
     manager_list_df = pd.DataFrame(manager_list)
+    #pprint("This is the list of managers")
+    #pprint(manager_list_df)
+
     # Apply the function to each row and create new columns
     manager_list_df[["Performance_Score", "Tactical_Strength", "Cost_Effectiveness", "Popularity_Score", "Weighted_Score"]] = manager_list_df.apply(calculate_manager_score, axis=1)
 
@@ -192,6 +217,7 @@ def get_managers():
     manager_list_df = manager_list_df.sort_values(by="Weighted_Score", ascending=False)
 
     return manager_list_df
+"""
 
 def get_current_time():
     now = datetime.today()
@@ -239,6 +265,7 @@ def get_differentials():
                 player_dict = {
                 'name': row['name'],
                 'team': row['team'],
+                'photo': row['photo'],
                 'position': row['position'],
                 'points_per_game': row['points_per_game'],
                 'price': row['now_cost'],
@@ -268,8 +295,10 @@ def get_most_transferred_in():
         'name': row['name'],
         'team': row['team'],
         'position': row['position'],
+        'photo': row['photo'],
         'points_per_game': row['points_per_game'],
         'price': row['now_cost'],
+        'percent': row['selected_by_percent'],
         'fake_count': row['transfer_in_event'],
         'count': '{:,}'.format(int(row['transfer_in_event']))
         }
@@ -293,9 +322,11 @@ def get_most_transferred_out():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'photo': row['photo'],
         'position': row['position'],
         'points_per_game': row['points_per_game'],
         'price': row['now_cost'],
+        'percent': row['selected_by_percent'],
         'fake_count': row['transfer_out_event'],
         'count': '{:,}'.format(int(row['transfer_out_event']))
         }
@@ -318,6 +349,7 @@ def get_most_selected():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'photo': row['photo'],
         'position': row['position'],
         'points_per_game': row['points_per_game'],
         'price': row['now_cost'],

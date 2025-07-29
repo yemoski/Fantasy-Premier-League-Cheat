@@ -1,0 +1,110 @@
+{% extends 'index1.html' %}
+{% block maincontent %}
+<!-- Header -->
+<section class="header">
+    <div class="text-box">
+        <h1>Gameweek {{livescore['game_week']}}</h1>
+        <p>Live Scores - Auto Refresh</p>
+    </div>
+</section>
+
+<!-- Livescores Container -->
+<div class="livescore-container">
+    <!-- Example of a game day -->
+     {%for date in livescore['date'] %}
+    <div class="game-day">
+        <h2>{{date}} </h2>
+        
+        <!-- Example of a match card -->
+        {%for x in range(0,length) %}
+		{% if livescore['Game_results'][x]['kick_off_time'].find(date)!=-1 %}
+			{{break}}
+        <div class="match-card">
+            <div class="match-header">
+                {% if  livescore['Game_results'][x]['started']==True and livescore['Game_results'][x]['minutes']!=90 %}
+                <div class="match-status live">LIVE'</div>
+                {% elif  livescore['Game_results'][x]['started']==False and livescore['Game_results'][x]['finished']==False%}
+                    <div class="match-status upcoming">Upcoming</div>
+                {% elif livescore['Game_results'][x]['minutes']==90 %}
+                    <div class="match-status finished">>Full Time</div>
+                {% endif %}
+                
+                <div class="match-tournament">
+                    <img src="https://assets.codepen.io/285131/pl-logo.svg" alt="Premier League">
+                    Premier League
+                </div>
+                <a href="{{ livescore['Game_results'][x]['twitter_link'] }}" 
+                    target="_blank" 
+                    class="twitter-link">
+                    <i class="fab fa-x-twitter"></i> {{ livescore['Game_results'][x]['twitter_handle'] }}
+                </a>
+            </div>
+
+            <div class="match-content">
+                <div class="team">
+                    <div class="team-logo">
+                        <img src="{{livescore['Game_results'][x]['team_h_badge']}}" alt="Homebadge">
+                    </div>
+                    <h2 class="team-name">{{livescore['Game_results'][x]['team_h']}}</h2>
+                </div>
+
+                <div class="match-details">
+                    <div class="match-time">{{livescore['Game_results'][x]['display_time']}}</div>
+                    {%if livescore['Game_results'][x]['team_h_score'] !=None%}
+                    <div class="match-score">{{livescore['Game_results'][x]['team_h_score']}} : {{livescore['Game_results'][x]['team_a_score']}}</div>
+                    {% else %}
+                    <div class="match-score">-:-</div>
+                    {% endif %}
+                    <div class="match-venue">{{livescore['Game_results'][x]['home_stadium']}}</div>
+                </div>
+                <div class="team">
+                    <div class="team-logo">
+                        <img src="{{livescore['Game_results'][x]['team_a_badge']}}" alt="Awaybadge">
+                    </div>
+                    <h2 class="team-name">{{livescore['Game_results'][x]['team_a']}}</h2>
+                </div>
+            </div>
+
+            <!-- Match Details -->
+             {% if  livescore['Game_results'][x]['events']!=None %}
+            <div class="match-info">
+                <div class="info-header">
+                    <h3>GAME DETAILS</h3>
+                </div>
+                <div class="info-content">
+                    <div class="info-row">
+                        <div>{{livescore['Game_results'][x]['home_goals_string']}}</div>
+                        <div>GOALS</div>
+                        <div>{{livescore['Game_results'][x]['away_goals_string']}}</div>
+                    </div>
+                    <div class="info-row">
+                        <div>{{livescore['Game_results'][x]['home_assists_string']}}d</div>
+                        <div>ASSISTS</div>
+                        <div>{{livescore['Game_results'][x]['away_assists_string']}}</div>
+                    </div>
+                    <div class="info-row">
+                        <div>{{livescore['Game_results'][x]['home_yellowcards_string']}}</div>
+                        <div>YELLOW CARDS</div>
+                        <div>{{livescore['Game_results'][x]['away_yellowcards_string']}}</div>
+                    </div>
+                    <div class="info-row">
+                        <div>{{livescore['Game_results'][x]['home_redcards_string']}}</div>
+                        <div>RED CARDS</div>
+                        <div>{{livescore['Game_results'][x]['away_redcards_string']}}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="bonus">{{livescore['Game_results'][x]['home_bonus']}}</div>
+                        <div>BONUS POINTS</div>
+                        <div class="bonus">{{livescore['Game_results'][x]['away_bonus']}}</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        
+        <!-- Add more match cards here -->
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endfor %}
+</div>
+{% endblock %}

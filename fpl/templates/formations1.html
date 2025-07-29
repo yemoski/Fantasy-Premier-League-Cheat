@@ -1,0 +1,212 @@
+{% extends 'index1.html' %}
+{% block maincontent %}
+ <!-- Header -->
+    <header class="header">
+        <h1>Formation Drafts</h1>
+        <p>Automated team selection based on ICT and Form</p>
+    </header>
+
+    <!-- Info Section -->
+    <section class="container">
+        <div class="summary-card">
+            <p>This is an Automated live Script that chooses the best available (injury-free) players to start in your FPL team based on ICT (Influence, Creativity, Threat) and Form for all FPL Formations. It follows all the FPL rules (3 players max from a particular team, budget of £100M, etc). This only picks the starting 11, Use the remaining budget to pick your bench.</p>
+        </div>
+    </section>
+
+    <!-- Formation Summary -->
+    <section class="formation-summary">
+        <div class="container">
+            <div class="summary-card">
+                <h2>Formation Summary</h2>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Formation</th>
+                            <th>Team Value</th>
+                            <th>ICT Form</th>
+                            <th>Remaining Budget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in formations%}
+                        <tr>
+                            <td>{{x['name']}}</td>
+                            <td>{{x['value']}}</td>
+                            <td>{{x['ict_form']}}</td>
+                            <td>{{x['budget']}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formation Selector -->
+    <div class="formation-selector">
+        <!-- <button class="formation-btn active" data-formation="dream">Dream Team</button> -->
+        <button class="formation-btn active" data-formation="442">4-4-2</button>
+        <button class="formation-btn" data-formation="451">4-5-1</button>
+        <button class="formation-btn" data-formation="433">4-3-3</button>
+        <button class="formation-btn" data-formation="532">5-3-2</button>
+        <button class="formation-btn" data-formation="352">3-5-2</button>
+        <button class="formation-btn" data-formation="343">3-4-3</button>
+    </div>
+
+    <!-- Formation Display -->
+    <div class="formation-display">
+        <!-- Pitch View -->
+        <div class="pitch">
+            <div class="position-rows">
+                <!-- Forwards Row -->
+                <div class="position-row forwards">
+                    <!-- Players will be added dynamically -->
+                </div>
+                <!-- Midfielders Row -->
+                <div class="position-row midfielders">
+                </div>
+                <!-- Defenders Row -->
+                <div class="position-row defenders">
+                </div>
+                <!-- Goalkeeper -->
+                <div class="position-row goalkeeper">
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Information -->
+        <div class="formation-team-info">
+            <div class="captain-info">
+                <h3>Captain: <span class="captain-name">Mohamed Salah</span></h3>
+            </div>
+            <!-- Player List -->
+            <div class="player-list">
+                <!-- Goalkeepers -->
+                <div class="position-group gk">                
+                </div>
+                <div class="position-group def">
+                </div>
+                <div class="position-group mid">
+                </div>
+                <div class="position-group fow">
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    //console.log("Getting the formations");
+    const pitch = {
+        forwards: document.querySelector('.position-row.forwards'),
+        midfielders: document.querySelector('.position-row.midfielders'),
+        defenders: document.querySelector('.position-row.defenders'),
+        goalkeeper: document.querySelector('.position-row.goalkeeper'),
+    };
+
+    const player_list = {
+        forwards: document.querySelector('.position-group.fow'),
+        midfielders: document.querySelector('.position-group.mid'),
+        defenders: document.querySelector('.position-group.def'),
+        goalkeeper: document.querySelector('.position-group.gk'),
+    }
+
+    const captain = document.querySelector('.captain-name');
+
+    document.querySelectorAll('.formation-btn').forEach(button => {
+        button.addEventListener('click', async () => {
+            // Remove 'active' class from all buttons
+            document.querySelectorAll('.formation-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const formation = button.dataset.formation;
+            //console.log("this is the formation" + formation)
+
+            // Clear previous players from pitch
+            Object.values(pitch).forEach(row => row.innerHTML = '');
+            
+
+            //Clear previous players from the list
+            Object.values(player_list).forEach(row => row.innerHTML = '');
+
+            // Clear the previous captain information
+            //console.log(captain)
+            captain.innerHTML = '';            
+
+            try {
+                const response = await fetch(`/api/formation/${formation}`);
+                const data = await response.json();
+
+                //console.log(data.captain.name);
+
+                // Adding captain information to the table
+                captain.innerHTML = data.captain.name
+
+                // Adding players to both the pitch and the table
+                if (data.GK) addPlayersToRow('goalkeeper', data.GK);
+                if (data.DEF) addPlayersToRow('defenders', data.DEF);
+                if (data.MID) addPlayersToRow('midfielders', data.MID);
+                if (data.FOW) addPlayersToRow('forwards', data.FOW);
+            } catch (err) {
+                console.error('Error loading formation:', err);
+            }
+        });
+    });
+
+ 
+    function addPlayersToRow(position, players) {
+        
+        players.forEach(player => {
+            const playerCard = document.createElement('div');
+            playerCard.classList.add('pos');
+            playerCard.innerHTML = `
+                <div class="dream_team_img">
+                    <img class="img"
+                     src="https://resources.premierleague.com/premierleague/photos/players/110x140/p${player.photo}"
+                      alt="${player.name}"
+                      onerror="this.onerror=null; this.src='/static/images/default.png';">
+                </div>
+                <b><p>${player.name}</p></b>
+            `;
+            const playerFormationCard = document.createElement('div')
+            playerFormationCard.innerHTML = `
+            <div class="formation-player-card">
+                        <div class="player-image">
+                            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p${player.photo}" alt="Player"
+                            onerror="this.onerror=null; this.src='/static/images/default.png';">
+                        </div>
+                        <div class="formation-player-info">
+                            <h4>${player.name}</h4>
+                            <div class="player-stats">
+                                <div class="stat">
+                                    <div class="stat-value">${player.now_cost}m</div>
+                                    <div class="stat-label">Price</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-value">${player.selected_by_percent}%</div>
+                                    <div class="stat-label">Selected</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-value">${player.points_per_game}</div>
+                                    <div class="stat-label">PPG</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-value">${player.transfer_in_event}</div>
+                                    <div class="stat-label">Transferred In by</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-value">${player.transfer_out_event}</div>
+                                    <div class="stat-label">Transferred out by</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> `;
+            pitch[position].appendChild(playerCard);
+            player_list[position].appendChild(playerFormationCard);
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const defaultBtn = document.querySelector('.formation-btn[data-formation="442"]');
+        if (defaultBtn) defaultBtn.click();
+    });
+    </script>
+{% endblock %}

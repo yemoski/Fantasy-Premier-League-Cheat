@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, url_for, flash, jsonify, redirect
-#import fpl
+import fpl
 from pprint import pprint
 import bible
 import team_stats
-#import gameweek_info as gi
-#import livescores as ls
-#import fixture_difficulty as fd
-#import setpieceinfo as spi
-#import manager_info as mi
+import gameweek_info as gi
+import livescores as ls
+import fixture_difficulty as fd
+import setpieceinfo as spi
+import manager_info as mi
 import json
 import os
 
@@ -28,9 +28,6 @@ app.secret_key = 'fpl'
 def home():
 
     verse = bible.get_verse()
-
-
-    """
     players_to_watch = fd.players_to_watch()
     differentials = fpl.get_differentials()
     gameweek_info = gi.get_info()
@@ -39,25 +36,17 @@ def home():
     transfer_in = fpl.get_most_transferred_in()
     transfer_out = fpl.get_most_transferred_out()
     selected = fpl.get_most_selected()
-
-    assistant_manager_chip = fpl.get_managers()
-    """
     
-    
+    #pprint(gameweek_info)
 
-
-    return redirect(url_for("coming_soon"))
-    #return render_template("home.html", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header,managers_df=assistant_manager_chip, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
+    #return redirect(url_for("coming_soon"))
+    return render_template("home1.html", title="Home", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
   
 #gets a livescore for the current gw
 @app.route("/livescore", methods=["GET", "POST"])
 def livescore():
-
-
-
-    #length_of_games = len(ls.get_livescore()['Game_results'])
-    return redirect(url_for("coming_soon"))
-    #return render_template("livescore.html", livescore=ls.get_livescore(), length=length_of_games)
+    length_of_games = len(ls.get_livescore()['Game_results'])
+    return render_template("livescore1.html", title="Livescores", livescore=ls.get_livescore(), length=length_of_games)
 
 
 
@@ -66,7 +55,6 @@ def livescore():
 @app.route("/formations", methods=["GET", "POST"])
 def formations():
 
-    """
     f442 = fpl.get_442()
     f451 = fpl.get_451()
     f532 = fpl.get_532()
@@ -133,17 +121,36 @@ def formations():
     row['budget'] = round(100 - f343['team_value'], 2)
     formations.append(row)
     
-    
-    """
-    
-    return redirect(url_for("coming_soon"))
-    #return render_template('formations.html', f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
+
+    #pprint(dream)
+    return render_template('formations1.html', title="Best Value formations", f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
+
+
+
+@app.route("/api/formation/<formation_name>", methods=["GET"])
+def get_formation_data(formation_name):
+    formations = {
+        "442": fpl.get_442(),
+        "451": fpl.get_451(),
+        "433": fpl.get_433(),
+        "532": fpl.get_532(),
+        "352": fpl.get_352(),
+        "343": fpl.get_343(),
+        "dream": fpl.get_dream_team()
+    }
+
+    data = formations.get(formation_name)
+
+    if data:
+        return jsonify(data)
+    else:
+        return jsonify({"error": "Invalid formation"}), 404
+
 
 # shows how to use the app
 @app.route("/help", methods=["GET", "POST"])
 def help():
-    return redirect(url_for("coming_soon"))
-    #return render_template("help.html")
+    return render_template("help1.html", title="How to Use",)
 
 
 
@@ -202,8 +209,21 @@ def coming_soon():
 def news():
     # pprint(fpl.get_news())
 
-    #return render_template("news.html", news=fpl.get_news(), current_date_time=fpl.get_current_time())
-    return redirect(url_for("coming_soon"))
+    return render_template("news1.html",title="FPL News", news=fpl.get_news(), current_date_time=fpl.get_current_time())
+
+@app.route("/player_comparison", methods=["GET", "POST"])
+def player_comparison():
+    all_players = fd.get_dataset()
+    return render_template("player_comparison.html", title="Player Comparison", all_players=all_players)
+
+@app.route("/api/players", methods=["GET"])
+def get_all_players():
+    data = fd.get_dataset()  # returns a pandas DataFrame
+
+    if not data.empty:
+        return jsonify(data.to_dict(orient="records"))
+    else:
+        return jsonify({"error": "Invalid data"}), 404
 
 
 if __name__ == "__main__":

@@ -1,0 +1,243 @@
+{% extends 'index1.html' %}
+{% block maincontent %}
+<div id="disclaimer-modal" class="disclaimer-modal" style="display: none;">
+ <div class="disclaimer-content">
+    <h2>🎉 Welcome to the New FPL Season! 🎉</h2>
+    <p>Hey there, Manager! 👋</p>
+    <p><strong>Note:</strong> This is the first gameweek, so the machine learning model hasn't learned anything yet, but don’t worry, it’ll get smarter as the season progresses.
+        So pick your squad, have fun, and enjoy the ride!</p>
+    <p>If you'd like to join Yemisi’s invitational league, use this code: <strong>lw1vvj</strong>🏆</p>
+    <p style="margin-top: 1rem;"><em>-Yemisi ❤️</em></p>
+    <button id="dismiss-disclaimer">Got it!</button>
+  </div>
+</div>
+<div class="hero-section">
+        <div class="gameweek-info">
+            <div class="card primary">
+            <div class="card-header">
+                <h2>{{gameweek_info['Gameweek']}}</h2>
+            </div>
+            <div class="deadline">
+                <i class="fas fa-clock"></i>
+                <p>{{gameweek_info['deadline_time']}} <span class="timezone">UK time</span></p>
+            </div>
+            </div>
+            
+
+            {% for x in gameweek_info['chip_plays']%}
+            <div class="stats-grid">
+                <div class="card">
+                    <h3>{{x['chip_name']}}</h3>
+                    <div class="player-info">
+                        <p>{{x['chip_name']}} played by {{x['num_played']}} ({{x['percentage']}}%) of our Managers</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if gameweek_info['most_captained']!='' %}
+            <div class="stats-grid">
+                <div class="card">
+                    <h3>Most Captained</h3>
+                    <div class="player-info">
+                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ gameweek_info['most_captained']['photo'] }}"
+                         alt="NA"
+                         onerror="this.onerror=null; this.src='/static/images/default.png';"
+                         >
+                        <p>{{gameweek_info['most_captained']['name']}}</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Vice Captain</h3>
+                    <div class="player-info">
+                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ gameweek_info['most_vice_captained']['photo'] }}"
+                         alt="NA"
+                         onerror="this.onerror=null; this.src='/static/images/default.png';"
+                         >
+                        <p>{{gameweek_info['most_vice_captained']['name']}}</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Highest Points</h3>
+                    <div class="player-info">
+                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ gameweek_info['top_element']['photo'] }}" alt="NA">
+                        <p>{{gameweek_info['top_element']['name']}} with {{gameweek_info['top_element']['points']}} </p>
+                    </div>
+                </div>
+            </div>
+	        {% endif %}
+            
+        </div>
+</div>
+<div class="fdr-section">
+        <h2>Fixture Difficulty Rating</h2>
+        <div class="fdr-grid">
+            {% for x in fixtures %}
+            <div class="team-row">
+                <div class="team-info">
+                    <img src="{{x['badge']}}" alt="NA">
+                    <span>{{x['team']}}</span>
+                </div>
+                <div class="fixtures">
+                    {% for y in range(0,10) %}
+                    <div class="fixture difficulty-{{x['next_10'][y]['difficulty']}}">{{x['next_10'][y]['team']}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+ </div>
+<div class="transfers-section">
+      
+
+    <div class="tabs">
+        <button class="tab active" data-target="in">Most Transferred In</button>
+        <button class="tab" data-target="out">Most Transferred Out</button>
+        <button class="tab" data-target="selected">Most Selected</button>
+        <button class="tab" data-target="differentials">Differentials</button>
+    </div>
+
+    <!-- Transfer In -->
+    <div class="transfer-grid tab-content" id="in-tab">
+        {% for key,value in transfer_in.iterrows() %}
+        <div class="player-card">
+            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            onerror="this.onerror=null; this.src='/static/images/default.png';"
+            >
+            <div class="player-details">
+                <h3>{{value['name']}}</h3>
+                <p class="team">{{ value['team']}} • {{ value['position']}}</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span>£{{value['price']}}</span>
+                        <label>Price</label>
+                    </div>
+                    <div class="stat">
+                        <span>{{value['percent']}}%</span>
+                        <label>Ownership</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Transfer Out -->
+    <div class="transfer-grid tab-content" id="out-tab" style="display: none;">
+        {% for key,value in transfer_out.iterrows() %}
+        <div class="player-card">
+            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            onerror="this.onerror=null; this.src='/static/images/default.png';"
+            >
+            <div class="player-details">
+                <h3>{{value['name']}}</h3>
+                <p class="team">{{ value['team']}} • {{ value['position']}}</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span>£{{value['price']}}</span>
+                        <label>Price</label>
+                    </div>
+                    <div class="stat">
+                        <span>{{value['percent']}}%</span>
+                        <label>Ownership</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Most Selected -->
+    <div class="transfer-grid tab-content" id="selected-tab" style="display: none;">
+        {% for key,value in selected.iterrows() %}
+        <div class="player-card">
+            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            onerror="this.onerror=null; this.src='/static/images/default.png';">
+            <div class="player-details">
+                <h3>{{value['name']}}</h3>
+                <p class="team">{{ value['team']}} • {{ value['position']}}</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span>£{{value['price']}}</span>
+                        <label>Price</label>
+                    </div>
+                    <div class="stat">
+                        <span>{{value['percent']}}%</span>
+                        <label>Ownership</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <!-- Differentials -->
+    <div class="transfer-grid tab-content" id="differentials-tab" style="display: none;">
+        {% for key,value in differentials.iterrows() %}
+        <div class="player-card">
+            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            onerror="this.onerror=null; this.src='/static/images/default.png';">
+            <div class="player-details">
+                <h3>{{value['name']}}</h3>
+                <p class="team">{{ value['team']}} • {{ value['position']}}</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span>£{{value['price']}}</span>
+                        <label>Price</label>
+                    </div>
+                    <div class="stat">
+                        <span>{{value['selected']}}%</span>
+                        <label>Ownership</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="watchlist-section">
+        <h2>Players to Watch</h2>
+        <div class="match-cards">
+            {% for x in players_to_watch %}
+            <div class="match-card">
+                <div class="fixture">{{x['teams']}}</div>
+                <div class="players-grid">
+                    {%for y in x['players_to_watch'] %}
+                    <div class="player-pick">
+                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ y['photo'] }}" alt="NA"
+                        onerror="this.onerror=null; this.src='/static/images/default.png';">
+                        <div class="pick-details">
+                            <h4>{{y["name"]}}</h4>
+                            <p>{{y["ppg"]}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</div>
+<script>
+    //console.log("Yemisi the JS loaded");
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Toggle active tab
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Hide all content
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+
+            // Show selected content
+            const target = tab.getAttribute('data-target');
+            document.getElementById(`${target}-tab`).style.display = 'grid';
+
+            //console.log(`Switched to ${target} tab`);
+        });
+    });
+    </script> 
+{% endblock %}
+

@@ -17,8 +17,31 @@ response = requests.get(link)
 data = json.loads(response.text)
 events = data['events']
 events_df = pd.DataFrame(events)
-all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Ipswich Town','Leicester City','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
+all_distict_teams = ['Arsenal','Aston Villa','Burnley','Brentford','Bournemouth','Brighton', 'Chelsea','Crystal Palace','Everton','Fulham','Leeds',
+                     'Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Sunderland','Tottenham','Westham','Wolves']
 
+team_badge_map = {
+    "Arsenal": "https://resources.premierleague.com/premierleague/badges/t3.svg",
+    "Aston Villa": "https://resources.premierleague.com/premierleague/badges/t7.svg",
+    "Bournemouth": "https://resources.premierleague.com/premierleague/badges/t91.svg",
+    "Brentford": "https://resources.premierleague.com/premierleague/badges/t94.svg",
+    "Brighton": "https://resources.premierleague.com/premierleague/badges/t36.svg",
+    "Burnley": "https://resources.premierleague.com/premierleague/badges/t90.svg",
+    "Chelsea": "https://resources.premierleague.com/premierleague/badges/t8.svg",
+    "Crystal Palace": "https://resources.premierleague.com/premierleague/badges/t31.svg",
+    "Everton": "https://resources.premierleague.com/premierleague/badges/t11.svg",
+    "Fulham": "https://resources.premierleague.com/premierleague/badges/t54.svg",
+    "Leeds": "https://resources.premierleague.com/premierleague/badges/t2.svg",
+    "Liverpool": "https://resources.premierleague.com/premierleague/badges/t14.svg",
+    "Man city": "https://resources.premierleague.com/premierleague/badges/t43.svg",
+    "Man United": "https://resources.premierleague.com/premierleague/badges/t1.svg",
+    "Newcastle": "https://resources.premierleague.com/premierleague/badges/t4.svg",
+    "Nottingham Forest": "https://resources.premierleague.com/premierleague/badges/t17.svg",
+    "Sunderland": "https://resources.premierleague.com/premierleague/badges/t56.svg",
+    "Tottenham": "https://resources.premierleague.com/premierleague/badges/t6.svg",
+    "Westham": "https://resources.premierleague.com/premierleague/badges/t21.svg",
+    "Wolves": "https://resources.premierleague.com/premierleague/badges/t39.svg"
+}
 
 
 
@@ -43,31 +66,30 @@ def get_short_team(team_code):
     if len(team) == 1:
         team = team.replace('1', 'ARS')
         team = team.replace('2', 'AVL')
-        team = team.replace('3', 'BOU')
+        team = team.replace('3', 'BUR')
         team = team.replace('4', 'BRE')
-        team = team.replace('5', 'BHA')
-        team = team.replace('6', 'CHE')
-        team = team.replace('7', 'CRY')
-        team = team.replace('8', 'EVE')
-        team = team.replace('9', 'FUL')
+        team = team.replace('5', 'BOU')
+        team = team.replace('6', 'BHA')
+        team = team.replace('7', 'CHE')
+        team = team.replace('8', 'CRY')
+        team = team.replace('9', 'EVE')
         
 
-
     elif len(team) == 2:
-        team = team.replace('10', 'IPS')
-        team = team.replace('11', 'LEI')
+        team = team.replace('10', 'FUL')
+        team = team.replace('11', 'LEE')
         team = team.replace('12', 'LIV')
         team = team.replace('13', 'MCI')
         team = team.replace('14', 'MUN')
         team = team.replace('15', 'NEW')
         team = team.replace('16', 'NFO')
-        team = team.replace('17', 'SOU')
+        team = team.replace('17', 'SUN')
         team = team.replace('18', 'TOT')
         team = team.replace('19', 'WHU')
         team = team.replace('20', 'WOL')
 
     return team
-next_5 = []
+next_10 = []
 
 def get_fixtures():
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
@@ -79,7 +101,7 @@ def get_fixtures():
  
 
     #getting all the games playing in this game week
-    for i in range(0,5):
+    for i in range(0,10):
         gw = []
     
         for x in data:
@@ -165,7 +187,7 @@ def get_fixtures():
                 final_total_info.append(total_info[i])
 
 
-        next_5.append(final_total_info)
+        next_10.append(final_total_info)
 
 
     total_data = []
@@ -177,7 +199,7 @@ def get_fixtures():
         fixtures = []
         fixtures_dict = {}
 
-        for gw in next_5:
+        for gw in next_10:
             found = False
             for games in gw:
                 if games['team']==i:
@@ -194,7 +216,8 @@ def get_fixtures():
             
         data_dict = {
             'team': i,
-            'next_5':fixtures
+            'badge': team_badge_map[i],
+            'next_10':fixtures
         }
 
         total_data.append(data_dict)
@@ -202,7 +225,7 @@ def get_fixtures():
     
 
 
-  
+    #pprint(total_data)
     return total_data
 
 #gets the name of the next 5 gw's -> [1,2,3,4,5]
@@ -219,8 +242,8 @@ def get_fixtures_header():
 
 #gets a list of postponed games
 def get_postponed_games():
-
-    all_distict_teams = ['Arsenal','Aston Villa','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Ipswich Town','Leicester City','Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Southampton','Tottenham','Westham','Wolves']
+    all_distict_teams = ['Arsenal','Aston Villa','Burnley','Brentford','Bournemouth','Brighton', 'Chelsea','Crystal Palace','Everton','Fulham','Leeds',
+                     'Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Sunderland','Tottenham','Westham','Wolves']
 
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
     response = requests.get(link2)
@@ -242,11 +265,16 @@ def get_postponed_games():
 
 
     return postponed
+
+
+
+
+#gets a list of all players
 def get_dataset():
     # Make a get request to get the latest player data from the FPL API
     link5 = "https://fantasy.premierleague.com/api/bootstrap-static/"
     response5 = requests.get(link5)
-
+    
     # Convert JSON data to a python object
     data5 = json.loads(response5.text)
     all_players = []
@@ -256,39 +284,64 @@ def get_dataset():
         team = str(i['team'])
         status = i['status']
         form_ict_index = float(i['form']) * float(i['ict_index'])
+        photo = i['photo']
+        points_per_game = i['points_per_game']
+        photo = photo.replace('jpg','png')
+        useful_stats = {
+            "minutes": i["minutes"],
+            "goals_scored": i["goals_scored"],
+            "assists": i["assists"],
+            "clean_sheets": i["clean_sheets"],
+            "goals_conceded": i["goals_conceded"],
+            "penalties_saved": i["penalties_saved"],
+            "saves": i["saves"],
+            "bps": i["bps"],
+            "bonus": i["bonus"],
+            "expected_goals": i["expected_goals"],
+            "expected_assists": i["expected_assists"],
+            "expected_goal_involvements": i["expected_goal_involvements"],
+            "expected_goals_conceded": i["expected_goals_conceded"],
+            "ict_index": i["ict_index"],
+            "influence": i["influence"],
+            "creativity": i["creativity"],
+            "threat": i["threat"],
+            "points_per_game_rank": i["points_per_game_rank"]
+        }
+
 
 
         if len(team) == 1:
             team = team.replace('1', 'Arsenal')
             team = team.replace('2', 'Aston Villa')
-            team = team.replace('3', 'Bournemouth')
-            team = team.replace('4', 'Brentford')
-            team = team.replace('5', 'Brighton')
-            team = team.replace('6', 'Chelsea')
-            team = team.replace('7', 'Crystal Palace')
-            team = team.replace('8', 'Everton')
-            team = team.replace('9', 'Fulham')
+            team = team.replace('3', 'Burnley')
+            team = team.replace('4', 'Bournemouth')
+            team = team.replace('5', 'Brentford')
+            team = team.replace('6', 'Brighton')
+            team = team.replace('7', 'Chelsea')
+            team = team.replace('8', 'Crystal Palace')
+            team = team.replace('9', 'Everton')
+            
             
 
 
         elif len(team) == 2:
-            team = team.replace('10', 'Ipswich Town')
-            team = team.replace('11', 'Leicester City')
+            team = team.replace('10', 'Fulham')
+            team = team.replace('11', 'Leeds')
             team = team.replace('12', 'Liverpool')
             team = team.replace('13', 'Man city')
             team = team.replace('14', 'Man United')
             team = team.replace('15', 'Newcastle')
             team = team.replace('16', 'Nottingham Forest')
-            team = team.replace('17', 'Southampton')
+            team = team.replace('16', 'Sunderland')
             team = team.replace('18', 'Tottenham')
             team = team.replace('19', 'Westham')
             team = team.replace('20', 'Wolves')
         
-            
+    
 
 
 
-        stats = [name,form_ict_index,team,webname,status]
+        stats = [name,form_ict_index,team,webname,status,photo,points_per_game, useful_stats]
         all_players.append(stats)
 
 
@@ -298,11 +351,10 @@ def get_dataset():
         'form_ict_index': all_players[:,1].astype(float),
         'team': all_players[:,2],
         'webname': all_players[:,3],
-        'status': all_players[:,4]
-        
-     
-
-
+        'status': all_players[:,4],
+        'photo': all_players[:,5],
+        'points_per_game': all_players[:,6],
+        'stats': all_players[:,7]
     })
 
 
@@ -321,7 +373,6 @@ def players_to_watch():
     teams_playing = []
    
     dataset = get_dataset()
-    
     for x in data:
         if x['event'] == current_gw:
             top_5 = []
@@ -331,19 +382,26 @@ def players_to_watch():
                 if counter ==5:
                     break
                 elif row['team']==get_team_name(x['team_h']) and row['status']=='a':
-                    player_list.append(row['webname'])
+                    player = { 
+                        "name": row["webname"],
+                        "photo": row["photo"],
+                        "ppg": row["points_per_game"]
+                    }
+                    player_list.append(player)
                     counter = counter +1
                 elif row['team']==get_team_name(x['team_a']) and row['status']=='a':
-                    player_list.append(row['webname'])
+                    player = { 
+                        "name": row["webname"],
+                        "photo": row["photo"],
+                        "ppg": row["points_per_game"]
+                    }
+                    player_list.append(player)
                     counter = counter +1
         
             fixtures = {
             'teams':get_team_name(x['team_h']) + ' VS ' + get_team_name(x['team_a']),
             'players_to_watch':player_list}
-            teams_playing.append(fixtures)
-
-           
-
+            teams_playing.append(fixtures) 
     return teams_playing
     
 

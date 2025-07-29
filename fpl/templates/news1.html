@@ -1,0 +1,50 @@
+{% extends 'index1.html' %}
+{% block maincontent %}
+<!-- Header -->
+    <header class="header">
+        <h1>LATEST PLAYER NEWS</h1>
+        <p>{{ current_date_time }}</p>
+    </header>
+
+    <!-- News Container -->
+    <div class="news-container">
+        {% for index, x in news.iterrows() %}
+        <div class="news-card">
+            <div class="news-image">
+                <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}" alt="{{ x['name'] }}"
+                onerror="this.onerror=null; this.src='/static/images/default.png';">
+                <div class="news-time">{{ x['time'] }}</div>
+            </div>
+            <div class="news-content">
+                <h3>{{ x['name'] }}</h3>
+                {% if x['price_change'] == 'risen' %}
+                    <div class="price-change price-risen">
+                        Price has risen to £{{ x['news'] }}
+                    </div>
+                {% elif x['price_change'] == 'fallen' %}
+                    <div class="price-change price-fallen">
+                        Price has fallen to £{{ x['news'] }}
+                    </div>
+                {% else %}
+                    <p class="news-text">{{ x['news'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        // Add any additional JavaScript functionality here
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            });
+        });
+    </script>
+{% endblock %}

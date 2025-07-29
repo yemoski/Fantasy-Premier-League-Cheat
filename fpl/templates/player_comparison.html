@@ -1,0 +1,220 @@
+{% extends 'index1.html' %}
+{% block maincontent %}
+
+<!-- Header -->
+<header class="header">
+    <h1>Player Comparison</h1>
+    <p>Compare player stats and performance</p>
+</header>
+
+<!-- Selection Bar -->
+<div class="selection-bar">
+    <input list="players" id="player1-select" class="player-select" placeholder="Search First Player">
+    <input list="players" id="player2-select" class="player-select" placeholder="Search Second Player">
+
+    <datalist id="players"></datalist>
+
+    <button class="compare-button" onclick="compareSelectedPlayers()">
+        <i class="fas fa-exchange-alt"></i> Compare Players
+    </button>
+</div>
+
+<!-- Comparison Container -->
+<div class="comparison-container">
+    <div class="player-card-comparison">
+        <div class="player-header">
+        </div>
+        <div class="stats-container">
+        </div>
+    </div>
+
+    <div class="vs-circle">VS</div>
+
+    <div class="player-card-comparison">
+        <div class="player-header">
+ 
+        </div>
+        <div class="stats-container">
+        
+        </div>
+    </div>
+</div>
+
+<script>
+    const playerData = {}; // This will hold player info, like image and stats
+
+    async function fetchPlayers() {
+        try {
+            const response = await fetch('/api/players'); // 
+            const players = await response.json();
+
+            const datalist = document.getElementById('players');
+            datalist.innerHTML = ''; // Clear old options
+
+            players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player.name; // 
+                option.textContent = player.name;
+                datalist.appendChild(option);
+
+                // Store full data for later use
+
+                const cleanName = player.name.replace(/\s+/g, '_');
+
+                playerData[cleanName] = {
+                    name: player.name,
+                    team: player.team,
+                    image: player.photo,
+                    stats: player.stats
+                };
+            });
+        } catch (error) {
+            console.error('Error fetching players:', error);
+        }
+    }
+
+    // Call this when the page loads
+    document.addEventListener('DOMContentLoaded', fetchPlayers);
+    function updatePlayerCard(playerId, playerData, cardIndex) {
+        const card = document.querySelectorAll('.player-card-comparison')[cardIndex];
+
+        //console.log(playerData)
+        
+        // Update header
+        const header = card.querySelector('.player-header');
+        header.innerHTML = `
+            <img
+             src="https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerData.image}"
+             alt="${playerData.name}"
+              onerror="this.onerror=null; this.src='/static/images/default.png';">
+            <h2>${playerData.name}</h2>
+            <p class="team"><i class="fas fa-shield-alt"></i> ${playerData.team}</p>
+        `;
+
+        // Update stats
+        const stats = card.querySelector('.stats-container');
+        stats.innerHTML = `
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-clock"></i> Minutes Played</span>
+                <span class="stat-value">${playerData.stats.minutes}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-futbol"></i> Goals Scored</span>
+                <span class="stat-value">${playerData.stats.goals_scored}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-hands-helping"></i> Assists</span>
+                <span class="stat-value">${playerData.stats.assists}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-shield-alt"></i> Clean Sheets</span>
+                <span class="stat-value">${playerData.stats.clean_sheets}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-times-circle"></i> Goals Conceded</span>
+                <span class="stat-value">${playerData.stats.goals_conceded}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-hand-paper"></i> Penalties Saved</span>
+                <span class="stat-value">${playerData.stats.penalties_saved}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-save"></i> Saves</span>
+                <span class="stat-value">${playerData.stats.saves}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-plus-circle"></i> Bonus Points</span>
+                <span class="stat-value">${playerData.stats.bonus}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-star"></i> Expected Goals</span>
+                <span class="stat-value">${playerData.stats.expected_goals}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-chart-line"></i> Expected Assists</span>
+                <span class="stat-value">${playerData.stats.expected_assists}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-balance-scale"></i> xGI (Goal Involvements)</span>
+                <span class="stat-value">${playerData.stats.expected_goal_involvements}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-user-shield"></i> Expected Goals Conceded</span>
+                <span class="stat-value">${playerData.stats.expected_goals_conceded}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-atom"></i> ICT Index</span>
+                <span class="stat-value">${playerData.stats.ict_index}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-fire"></i> Influence</span>
+                <span class="stat-value">${playerData.stats.influence}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-paint-brush"></i> Creativity</span>
+                <span class="stat-value">${playerData.stats.creativity}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-bolt"></i> Threat</span>
+                <span class="stat-value">${playerData.stats.threat}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-trophy"></i> PPG Rank</span>
+                <span class="stat-value">${playerData.stats.points_per_game_rank}</span>
+            </div>
+        `;
+
+    }
+
+    function compareSelectedPlayers() {
+    const player1Id = document.getElementById('player1-select').value;
+    const player2Id = document.getElementById('player2-select').value;
+
+
+    const cleanPlayer1Id = player1Id.replace(/\s+/g, '_');
+    const cleanPlayer2Id = player2Id.replace(/\s+/g, '_');
+    if (!player1Id || !player2Id || !playerData[cleanPlayer1Id] || !playerData[cleanPlayer2Id]) {
+        alert('Please select valid players to compare');
+        return;
+    }
+
+    updatePlayerCard(player1Id, playerData[cleanPlayer1Id], 0);
+    updatePlayerCard(player2Id, playerData[cleanPlayer2Id], 1);
+    compareStats();
+}
+
+    function compareStats() {
+        //console.log("Trying to compare the stats");
+        const playerCards = document.querySelectorAll('.player-card-comparison');
+        if (playerCards.length < 2) return;
+
+        const stats1 = playerCards[0].querySelectorAll('.stat-row .stat-value');
+        const stats2 = playerCards[1].querySelectorAll('.stat-row .stat-value');
+
+        for (let i = 0; i < stats1.length; i++) {
+            const val1 = parseFloat(stats1[i].textContent);
+            const val2 = parseFloat(stats2[i].textContent);
+
+            stats1[i].className = 'stat-value';
+            stats2[i].className = 'stat-value';
+
+            if (val1 > val2) {
+                stats1[i].classList.add('better-stat');
+                stats2[i].classList.add('worse-stat');
+            } else if (val1 < val2) {
+                stats1[i].classList.add('worse-stat');
+                stats2[i].classList.add('better-stat');
+            }
+        }
+
+        document.querySelector(".comparison-container").style.display = "flex";
+    }
+
+
+    // Initialize comparison on page load
+    //document.addEventListener('DOMContentLoaded', compareStats);
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".comparison-container").style.display = "none";
+    });
+</script>
+{% endblock %}

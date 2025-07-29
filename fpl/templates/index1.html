@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title>{{ title if title else "FPL CHEAT" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style_2025.css') }}">
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2PR0K08RF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-D2PR0K08RF');
+
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;0,900;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon_io/apple-touch-icon.png">
+
+<link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon_io/favicon_2025.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon_io/favicon_2025.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+<body>	
+    <div class="wrapper">
+	 <nav class="navbar">
+        <a href="{{url_for('home')}}" class="logo">FPL CHEATBOT</a>
+
+        <!-- Hamburger icon -->
+        <div class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <div class="nav-links">
+            <a href="{{url_for('home')}}">Home</a>
+            <a href="{{url_for('livescore')}}">Livescore</a>
+            <a href="{{url_for('formations')}}">Formations</a>
+            <a href="{{url_for('player_comparison')}}">Player Comparison</a>
+            <a href="{{url_for('news')}}">News</a>
+            <a href="{{url_for('help')}}">Help</a>
+            <a href="https://www.yemisi-og.net/ " target="_blank">Contact Me</a>
+        </div>
+    </nav>
+    
+    
+
+    <div class="main-content">
+			{% block maincontent %}
+			{% endblock %}
+    </div>
+
+    <div class="footer-div">
+		<p class="footer">Created by Yemisi. © 2025 JULY</p>
+	</div>
+    </div>
+</body>
+<script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        console.log("hamburger clicked");
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("disclaimer-modal");
+    const dismissBtn = document.getElementById("dismiss-disclaimer");
+
+    // Only show modal if not already acknowledged
+    if (!localStorage.getItem("fplDisclaimerSeen")) {
+        modal.style.display = "flex"; // Unhide the modal
+    }
+
+    dismissBtn.addEventListener("click", function () {
+            modal.style.animation = "fadeOut 0.4s ease forwards";
+
+            setTimeout(() => {
+                modal.style.display = "none";
+                localStorage.setItem("fplDisclaimerSeen", "true"); // Set the flag
+            }, 400); // Match fadeOut duration
+        });
+    });
+</script>
+
+</html>
