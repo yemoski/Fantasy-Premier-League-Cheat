@@ -58,9 +58,7 @@
                 datalist.appendChild(option);
 
                 // Store full data for later use
-
                 const cleanName = player.name.replace(/\s+/g, '_');
-
                 playerData[cleanName] = {
                     name: player.name,
                     team: player.team,
@@ -84,7 +82,7 @@
         const header = card.querySelector('.player-header');
         header.innerHTML = `
             <img
-             src="https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerData.image}"
+             src="https://resources.premierleague.com/premierleague25/photos/players/110x140/${playerData.image}"
              alt="${playerData.name}"
               onerror="this.onerror=null; this.src='/static/images/default.png';">
             <h2>${playerData.name}</h2>

@@ -40,7 +40,7 @@
                 <div class="card">
                     <h3>Most Captained</h3>
                     <div class="player-info">
-                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ gameweek_info['most_captained']['photo'] }}"
+                        <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ gameweek_info['most_captained']['photo'] }}"
                          alt="NA"
                          onerror="this.onerror=null; this.src='/static/images/default.png';"
                          >
@@ -50,7 +50,7 @@
                 <div class="card">
                     <h3>Vice Captain</h3>
                     <div class="player-info">
-                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ gameweek_info['most_vice_captained']['photo'] }}"
+                        <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ gameweek_info['most_vice_captained']['photo'] }}"
                          alt="NA"
                          onerror="this.onerror=null; this.src='/static/images/default.png';"
                          >
@@ -60,7 +60,7 @@
                 <div class="card">
                     <h3>Highest Points</h3>
                     <div class="player-info">
-                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ gameweek_info['top_element']['photo'] }}" alt="NA">
+                        <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ gameweek_info['top_element']['photo'] }}" alt="NA">
                         <p>{{gameweek_info['top_element']['name']}} with {{gameweek_info['top_element']['points']}} </p>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
     <div class="transfer-grid tab-content" id="in-tab">
         {% for key,value in transfer_in.iterrows() %}
         <div class="player-card">
-            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ value['photo'] }}" width="70" height="70" alt="na"
             onerror="this.onerror=null; this.src='/static/images/default.png';"
             >
             <div class="player-details">
@@ -126,7 +126,7 @@
     <div class="transfer-grid tab-content" id="out-tab" style="display: none;">
         {% for key,value in transfer_out.iterrows() %}
         <div class="player-card">
-            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ value['photo'] }}" width="70" height="70" alt="na"
             onerror="this.onerror=null; this.src='/static/images/default.png';"
             >
             <div class="player-details">
@@ -151,7 +151,7 @@
     <div class="transfer-grid tab-content" id="selected-tab" style="display: none;">
         {% for key,value in selected.iterrows() %}
         <div class="player-card">
-            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ value['photo'] }}" width="70" height="70" alt="na"
             onerror="this.onerror=null; this.src='/static/images/default.png';">
             <div class="player-details">
                 <h3>{{value['name']}}</h3>
@@ -176,7 +176,7 @@
     <div class="transfer-grid tab-content" id="differentials-tab" style="display: none;">
         {% for key,value in differentials.iterrows() %}
         <div class="player-card">
-            <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ value['photo'] }}" width="70" height="70" alt="na"
+            <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ value['photo'] }}" width="70" height="70" alt="na"
             onerror="this.onerror=null; this.src='/static/images/default.png';">
             <div class="player-details">
                 <h3>{{value['name']}}</h3>
@@ -206,7 +206,7 @@
                 <div class="players-grid">
                     {%for y in x['players_to_watch'] %}
                     <div class="player-pick">
-                        <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ y['photo'] }}" alt="NA"
+                        <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ y['photo'] }}" alt="NA"
                         onerror="this.onerror=null; this.src='/static/images/default.png';">
                         <div class="pick-details">
                             <h4>{{y["name"]}}</h4>

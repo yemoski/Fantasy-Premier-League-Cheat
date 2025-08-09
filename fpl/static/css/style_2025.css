@@ -805,7 +805,7 @@
 }
 
 .dream_team_img + b p {
-    max-width: 50px;
+    max-width: 100px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -874,6 +874,10 @@
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
     }
+
+    .dream_team_img + b p {
+    max-width: 50px;
+}
 }
 
 
