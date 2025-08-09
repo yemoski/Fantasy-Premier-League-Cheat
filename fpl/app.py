@@ -122,7 +122,6 @@ def formations():
     formations.append(row)
     
 
-    #pprint(dream)
     return render_template('formations1.html', title="Best Value formations", f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
 
 

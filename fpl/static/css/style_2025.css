@@ -804,6 +804,23 @@
     color: #666;
 }
 
+.dream_team_img + b p {
+    max-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dream_team_img + b p:hover {
+    overflow: visible;
+    white-space: normal;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+}
 /* Captain Info */
 .captain-info {
     background: var(--secondary-color);

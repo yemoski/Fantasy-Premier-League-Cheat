@@ -22,7 +22,6 @@ manager_list = []
 for i in data['elements']:
     name = i['second_name']
     team = str(i['team'])
-
     team_shirt = str(i['team'])
     form_ict_index = float(i['form']) * float(i['ict_index'])
     photo = i['photo']
@@ -244,9 +243,7 @@ def get_percentage_of_manager(x):
 
     # Convert JSON data to a python object
     data = json.loads(response.text)
-
     total = int(data['total_players'])
-
     percentage = int((x/total)*100)
 
 
