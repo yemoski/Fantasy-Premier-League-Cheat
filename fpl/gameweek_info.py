@@ -96,10 +96,8 @@ def get_info():
             break
     for x in current_gameweek['chip_plays']:
         #pprint(x)
-        #percentage = x['percentage']
-        if fpl.get_percentage_of_manager(x['num_played']) ==0:
-            percentage = '<1'
-        #x['percentage'] = percentage
+        x['percentage'] = fpl.get_percentage_of_manager(x['num_played'])
+        
         x['num_played'] = '{:,}'.format(int(x['num_played']))
         if x['chip_name'] =='bboost':     
             x['chip_name'] = 'Bench Boost'

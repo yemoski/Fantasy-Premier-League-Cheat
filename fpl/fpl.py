@@ -247,6 +247,10 @@ def get_percentage_of_manager(x):
     percentage = int((x/total)*100)
 
 
+    if percentage <=1:
+        percentage = 1
+
+
     return percentage
 
 
