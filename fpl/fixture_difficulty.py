@@ -17,8 +17,6 @@ response = requests.get(link)
 data = json.loads(response.text)
 events = data['events']
 events_df = pd.DataFrame(events)
-all_distict_teams = ['Arsenal','Aston Villa','Burnley','Bournemouth','Brentford','Chelsea','Brighton','Crystal Palace','Everton','Fulham','Leeds',
-                     'Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Sunderland','Tottenham','Westham','Wolves']
 
 team_badge_map = {
     "Arsenal": "https://resources.premierleague.com/premierleague/badges/t3.svg",
@@ -60,6 +58,10 @@ def get_team_name(team_code):
     return team_names[team_code]
 
 
+all_distict_teams = ['Arsenal','Aston Villa','Burnley','Bournemouth','Brentford','Brighton','Chelsea','Crystal Palace','Everton','Fulham','Leeds',
+                     'Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Sunderland','Tottenham','Westham','Wolves']
+
+
 #gets the short form of the team name (Arsenal -> ARS)
 def get_short_team(team_code):
     team = str(team_code)
@@ -67,8 +69,8 @@ def get_short_team(team_code):
         team = team.replace('1', 'ARS')
         team = team.replace('2', 'AVL')
         team = team.replace('3', 'BUR')
-        team = team.replace('4', 'BRE')
-        team = team.replace('5', 'BOU')
+        team = team.replace('4', 'BOU')
+        team = team.replace('5', 'BRE')
         team = team.replace('6', 'BHA')
         team = team.replace('7', 'CHE')
         team = team.replace('8', 'CRY')
