@@ -17,7 +17,7 @@ response = requests.get(link)
 data = json.loads(response.text)
 events = data['events']
 events_df = pd.DataFrame(events)
-all_distict_teams = ['Arsenal','Aston Villa','Burnley','Brentford','Bournemouth','Brighton', 'Chelsea','Crystal Palace','Everton','Fulham','Leeds',
+all_distict_teams = ['Arsenal','Aston Villa','Burnley','Bournemouth','Brentford','Chelsea','Brighton','Crystal Palace','Everton','Fulham','Leeds',
                      'Liverpool','Man city','Man United','Newcastle','Nottingham Forest','Sunderland','Tottenham','Westham','Wolves']
 
 team_badge_map = {
