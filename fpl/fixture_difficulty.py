@@ -91,7 +91,7 @@ def get_short_team(team_code):
         team = team.replace('20', 'WOL')
 
     return team
-next_10 = []
+next_7 = []
 
 def get_fixtures():
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
@@ -189,7 +189,7 @@ def get_fixtures():
                 final_total_info.append(total_info[i])
 
 
-        next_10.append(final_total_info)
+        next_7.append(final_total_info)
 
 
     total_data = []
@@ -201,7 +201,7 @@ def get_fixtures():
         fixtures = []
         fixtures_dict = {}
 
-        for gw in next_10:
+        for gw in next_7:
             found = False
             for games in gw:
                 if games['team']==i:
@@ -219,7 +219,7 @@ def get_fixtures():
         data_dict = {
             'team': i,
             'badge': team_badge_map[i],
-            'next_10':fixtures
+            'next_7':fixtures
         }
 
         total_data.append(data_dict)

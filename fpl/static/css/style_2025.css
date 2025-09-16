@@ -254,6 +254,7 @@
     .team-row {
         display: flex;
         align-items: center;
+        width: fit-content;
         padding: 1rem;
         background: white;
         margin-bottom: 0.5rem;
@@ -281,7 +282,7 @@
         padding: 0.5rem;
         border-radius: 4px;
         font-size: 0.875rem;
-        min-width: 80px;
+        min-width: 120px;
         text-align: center;
     }
 

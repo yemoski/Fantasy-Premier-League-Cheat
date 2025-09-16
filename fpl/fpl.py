@@ -51,16 +51,15 @@ for i in data['elements']:
 
     photo = photo.replace('jpg','png')
 
-
-
+    
 
     if len(team)==1:
         team = team.replace('1', 'Arsenal')
         team = team.replace('2', 'Aston Villa')
-        team = team.replace('3', 'Bournemouth')
-        team = team.replace('4', 'Brentford')
-        team = team.replace('5', 'Brighton')
-        team = team.replace('6', 'Burnley')
+        team = team.replace('3', 'Burnley')
+        team = team.replace('4', 'Bournemouth')
+        team = team.replace('5', 'Brentford')
+        team = team.replace('6', 'Brighton')
         team = team.replace('7', 'Chelsea')
         team = team.replace('8', 'Crystal Palace')
         team = team.replace('9', 'Everton')

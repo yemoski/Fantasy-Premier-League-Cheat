@@ -79,8 +79,8 @@
                     <span>{{x['team']}}</span>
                 </div>
                 <div class="fixtures">
-                    {% for y in range(0,10) %}
-                    <div class="fixture difficulty-{{x['next_10'][y]['difficulty']}}">{{x['next_10'][y]['team']}}</div>
+                    {% for y in range(0,7) %}
+                    <div class="fixture difficulty-{{x['next_7'][y]['difficulty']}}">{{x['next_7'][y]['team']}}</div>
                     {% endfor %}
                 </div>
             </div>
