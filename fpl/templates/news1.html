@@ -11,7 +11,7 @@
         {% for index, x in news.iterrows() %}
         <div class="news-card">
             <div class="news-image">
-                <img src="https://resources.premierleague.com/premierleague/photos/players/110x140/p{{ x['photo'] }}" alt="{{ x['name'] }}"
+                <img src="https://resources.premierleague.com/premierleague25/photos/players/110x140/{{ x['photo'] }}" alt="{{ x['name'] }}"
                 onerror="this.onerror=null; this.src='/static/images/default.png';">
                 <div class="news-time">{{ x['time'] }}</div>
             </div>
