@@ -844,6 +844,15 @@
     padding-bottom: 0.5rem;
 }
 
+.highest-value td {
+    color: #16a34a; /* Green for highlight */
+    font-weight: bold;
+}
+
+.highest-value td:first-child::before {
+    content: "⭐ ";
+}
+
 
 /* Fade-in animation */
 @keyframes fadeInUp {
@@ -1153,6 +1162,11 @@
     margin-bottom: 1rem;
     border: 3px solid var(--secondary-color);
     padding: 3px;
+}
+
+.player-header img.winner {
+    border-color: #22c55e;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
 }
 
 .player-header h2 {

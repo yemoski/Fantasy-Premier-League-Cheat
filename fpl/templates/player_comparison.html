@@ -205,6 +205,24 @@
             }
         }
 
+        // Highlight the player with the higher ICT Index
+        const ict1 = parseFloat(playerCards[0].querySelector(".stat-row:nth-last-child(4) .stat-value").textContent);
+        const ict2 = parseFloat(playerCards[1].querySelector(".stat-row:nth-last-child(4) .stat-value").textContent);
+
+        const img1 = playerCards[0].querySelector('.player-header img');
+        const img2 = playerCards[1].querySelector('.player-header img');
+
+        img1.classList.remove('winner');
+        img2.classList.remove('winner');
+
+        if (!isNaN(ict1) && !isNaN(ict2)) {
+            if (ict1 > ict2) {
+                img1.classList.add('winner');
+            } else if (ict2 > ict1) {
+                img2.classList.add('winner');
+            }
+        }
+
         document.querySelector(".comparison-container").style.display = "flex";
     }
 

@@ -27,13 +27,16 @@
                             <th>Remaining Budget</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {% for x in formations%}
-                        <tr>
-                            <td>{{x['name']}}</td>
-                            <td>{{x['value']}}</td>
-                            <td>{{x['ict_form']}}</td>
-                            <td>{{x['budget']}}</td>
+
+
+                   <tbody>
+                        {% set max_value = (formations|max(attribute='value'))['value'] %}
+                        {% for x in formations %}
+                        <tr class="{% if x['value'] == max_value %}highest-value{% endif %}">
+                            <td>{{ x['name'] }}</td>
+                            <td>{{ x['value'] }}</td>
+                            <td>{{ x['ict_form'] }}</td>
+                            <td>{{ x['budget'] }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
