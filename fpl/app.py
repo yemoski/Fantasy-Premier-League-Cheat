@@ -39,6 +39,8 @@ def home():
     
     #pprint(gameweek_info)
 
+    #pprint(fixtures)
+
     #return redirect(url_for("coming_soon"))
     return render_template("home1.html", title="Home", verse=verse, differentials=differentials, gameweek_info=gameweek_info, fixtures=fixtures, headers=header, transfer_in=transfer_in, transfer_out=transfer_out, selected=selected, players_to_watch =players_to_watch)
   

@@ -30,9 +30,9 @@
 
 
                    <tbody>
-                        {% set max_value = (formations|max(attribute='value'))['value'] %}
+                        {% set max_value = (formations|max(attribute='ict_form'))['ict_form'] %}
                         {% for x in formations %}
-                        <tr class="{% if x['value'] == max_value %}highest-value{% endif %}">
+                        <tr class="{% if x['ict_form'] == max_value %}highest-value{% endif %}">
                             <td>{{ x['name'] }}</td>
                             <td>{{ x['value'] }}</td>
                             <td>{{ x['ict_form'] }}</td>

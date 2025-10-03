@@ -93,6 +93,10 @@
         const stats = card.querySelector('.stats-container');
         stats.innerHTML = `
             <div class="stat-row">
+                <span class="stat-label"><i class="fas fa-wallet"></i> Cost</span>
+                <span class="stat-value" class="fas fa-pound-sign">${playerData.stats.cost}</span>
+            </div>
+            <div class="stat-row">
                 <span class="stat-label"><i class="fas fa-clock"></i> Minutes Played</span>
                 <span class="stat-value">${playerData.stats.minutes}</span>
             </div>
@@ -189,20 +193,40 @@
         const stats1 = playerCards[0].querySelectorAll('.stat-row .stat-value');
         const stats2 = playerCards[1].querySelectorAll('.stat-row .stat-value');
 
+        const inverseStats = ["Goals Conceded", "PPG Rank", "Expected Goals Conceded", "Clean Sheets"];
+        
+
         for (let i = 0; i < stats1.length; i++) {
+
+            const statLabel = stats1[i].closest('.stat-row').querySelector('.stat-label').textContent.trim();
+            const isInverse = inverseStats.some(s => statLabel.includes(s));
+
             const val1 = parseFloat(stats1[i].textContent);
             const val2 = parseFloat(stats2[i].textContent);
 
             stats1[i].className = 'stat-value';
             stats2[i].className = 'stat-value';
 
-            if (val1 > val2) {
+            if (isInverse) {
+                if (val1 < val2) {
+                    stats1[i].classList.add('better-stat');
+                    stats2[i].classList.add('worse-stat');
+                } else if (val1 > val2) {
+                    stats1[i].classList.add('worse-stat');
+                    stats2[i].classList.add('better-stat');
+                }
+            }
+            else{
+                if (val1 > val2) {
                 stats1[i].classList.add('better-stat');
                 stats2[i].classList.add('worse-stat');
             } else if (val1 < val2) {
                 stats1[i].classList.add('worse-stat');
                 stats2[i].classList.add('better-stat');
             }
+            }
+
+            
         }
 
         // Highlight the player with the higher ICT Index

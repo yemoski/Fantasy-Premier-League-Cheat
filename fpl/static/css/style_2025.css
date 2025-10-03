@@ -264,13 +264,27 @@
     .team-info {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 1rem;
-        width: 200px;
+        width: 220px;
+        margin-right: 16px;
     }
 
     .team-info img {
         width: 30px;
         height: 30px;
+    }
+
+    .team-info span {
+    margin-right: 6px;
+    }
+
+    .fixture-score {
+        min-width: 40px;   /* ensures same space for score */
+        text-align: right; /* aligns text nicely */
+        font-size: 0.85rem;
+        padding: 2px 6px;
+        border-radius: 6px;
     }
 
     .fixtures {
@@ -285,6 +299,19 @@
         min-width: 120px;
         text-align: center;
     }
+
+    .fixture-score {
+        font-size: 0.85rem;
+        margin-left: 8px;
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: #f5f5f5;
+        color: #333;    
+    }   
+
+    .fixture-score.easy { background: #55ff99; color: #fff; }
+    .fixture-score.medium { background: #f9bc00; color: #fff; }
+    .fixture-score.hard { background: #980000; color: #fff; }
 
     .difficulty-1 { background: #9c9c9c; color: white; }
     .difficulty-2 { background: #55ff99; }
@@ -929,7 +956,7 @@
 
 .news-time {
     position: absolute;
-    top: 1rem;
+    top: 6rem;
     right: 1rem;
     background: rgba(0,0,0,0.7);
     color: white;

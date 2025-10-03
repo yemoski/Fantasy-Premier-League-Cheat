@@ -80,6 +80,12 @@
                 <div class="team-info">
                     <img src="{{x['badge']}}" alt="NA">
                     <span>{{x['team']}}</span>
+                    <span class="fixture-score 
+                        {% if x['fixture_score'] <= 2.5 %}easy
+                        {% elif x['fixture_score'] <= 3.5 %}medium
+                        {% else %}hard
+                        {% endif %}
+                    ">{{x['fixture_score']}}</span>
                 </div>
                 <div class="fixtures">
                     {% for y in range(0,7) %}

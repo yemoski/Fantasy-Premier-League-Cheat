@@ -215,11 +215,14 @@ def get_fixtures():
 
             if found == False:
                 fixtures.append('Blank')
-            
+
+        fixture_score = calculate_fixture_score(fixtures, horizon=5)
+      
         data_dict = {
             'team': i,
             'badge': team_badge_map[i],
-            'next_7':fixtures
+            'next_7':fixtures,
+            'fixture_score': fixture_score
         }
 
         total_data.append(data_dict)
@@ -229,6 +232,23 @@ def get_fixtures():
 
     #pprint(total_data)
     return total_data
+
+def calculate_fixture_score(fixtures, horizon=5):
+    """
+    Calculate a team's average fixture difficulty over the next horizon games.
+    Lower score = tougher fixtures, higher score = easier fixtures.
+    """
+    difficulties = [
+        f['difficulty'] for f in fixtures[:horizon] if isinstance(f, dict)
+    ]
+
+    if not difficulties:
+        return 0
+
+    avg_difficulty = sum(difficulties) / len(difficulties)
+
+    return round(avg_difficulty, 2)
+
 
 #gets the name of the next 5 gw's -> [1,2,3,4,5]
 def get_fixtures_header():
@@ -287,6 +307,7 @@ def get_dataset():
         status = i['status']
         form_ict_index = float(i['form']) * float(i['ict_index'])
         photo = i['photo']
+        cost = i["now_cost"]/10
         points_per_game = i['points_per_game']
         photo = photo.replace('jpg','png')
         useful_stats = {
@@ -296,6 +317,7 @@ def get_dataset():
             "clean_sheets": i["clean_sheets"],
             "goals_conceded": i["goals_conceded"],
             "penalties_saved": i["penalties_saved"],
+            "cost" : cost,
             "saves": i["saves"],
             "bps": i["bps"],
             "bonus": i["bonus"],
