@@ -94,7 +94,7 @@
         stats.innerHTML = `
             <div class="stat-row">
                 <span class="stat-label"><i class="fas fa-wallet"></i> Cost</span>
-                <span class="stat-value" class="fas fa-pound-sign">${playerData.stats.cost}</span>
+                <span class="stat-value">£ ${playerData.stats.cost}</span>
             </div>
             <div class="stat-row">
                 <span class="stat-label"><i class="fas fa-clock"></i> Minutes Played</span>
@@ -201,8 +201,8 @@
             const statLabel = stats1[i].closest('.stat-row').querySelector('.stat-label').textContent.trim();
             const isInverse = inverseStats.some(s => statLabel.includes(s));
 
-            const val1 = parseFloat(stats1[i].textContent);
-            const val2 = parseFloat(stats2[i].textContent);
+            const val1 = parseFloat(stats1[i].textContent.replace("£", "").trim());
+            const val2 = parseFloat(stats2[i].textContent.replace("£", "").trim());
 
             stats1[i].className = 'stat-value';
             stats2[i].className = 'stat-value';
