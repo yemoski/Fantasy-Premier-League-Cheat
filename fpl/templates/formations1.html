@@ -141,7 +141,7 @@
                 //console.log(data.captain.name);
 
                 // Adding captain information to the table
-                captain.innerHTML = data.captain.name
+                captain.innerHTML = data.captain.webname
 
                 // Adding players to both the pitch and the table
                 if (data.GK) addPlayersToRow('goalkeeper', data.GK);
@@ -164,10 +164,10 @@
                 <div class="dream_team_img">
                     <img class="img"
                      src="https://resources.premierleague.com/premierleague25/photos/players/110x140/${player.photo}"
-                      alt="${player.name}"
+                      alt="${player.webname}"
                       onerror="this.onerror=null; this.src='/static/images/default.png';">
                 </div>
-                <b><p title="${player.name}">${player.name}</p></b>
+                <b><p title="${player.webname}">${player.webname}</p></b>
             `;
             const playerFormationCard = document.createElement('div')
             playerFormationCard.innerHTML = `
@@ -177,7 +177,7 @@
                             onerror="this.onerror=null; this.src='/static/images/default.png';">
                         </div>
                         <div class="formation-player-info">
-                            <h4>${player.name}</h4>
+                            <h4>${player.webname}</h4>
                             <div class="player-stats">
                                 <div class="stat">
                                     <div class="stat-value">${player.now_cost}m</div>

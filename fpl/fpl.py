@@ -22,6 +22,7 @@ manager_list = []
 for i in data['elements']:
     name = i['second_name']
     team = str(i['team'])
+    webname = i['web_name']
     team_shirt = str(i['team'])
     form_ict_index = float(i['form']) * float(i['ict_index'])
     photo = i['photo']
@@ -129,7 +130,7 @@ for i in data['elements']:
     else:
         postponed = 'No'
 
-    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game, in_dreamteam,cost_change_event]
+    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game, in_dreamteam,cost_change_event, webname]
 
     # only add players not managers
     if position != '5':
@@ -179,9 +180,8 @@ dataset = pd.DataFrame({
     'selected_by_percent': all_players[:, 15].astype(float),
     'points_per_game': all_players[:,16],
     'in_dreamteam': all_players[:,17],
-    'cost_change_event': all_players[:,18]
-
-
+    'cost_change_event': all_players[:,18],
+    'webname' : all_players[:,19]
 })
 
 
@@ -264,13 +264,13 @@ def get_differentials():
         elif  row['selected_by_percent']<15.0 and row['status']=='a':
                 player_dict = {
                 'name': row['name'],
+                'webname' : row['webname'],
                 'team': row['team'],
                 'photo': row['photo'],
                 'position': row['position'],
                 'points_per_game': row['points_per_game'],
                 'price': row['now_cost'],
                 'selected': row['selected_by_percent'],
-        
                 }
                 players_list.append(player_dict)
                 counter = counter +1
@@ -293,6 +293,7 @@ def get_most_transferred_in():
 
         player_dict = {
         'name': row['name'],
+        'webname' : row['webname'],
         'team': row['team'],
         'position': row['position'],
         'photo': row['photo'],
@@ -322,6 +323,7 @@ def get_most_transferred_out():
         player_dict = {
         'name': row['name'],
         'team': row['team'],
+        'webname' : row['webname'],
         'photo': row['photo'],
         'position': row['position'],
         'points_per_game': row['points_per_game'],
@@ -348,6 +350,7 @@ def get_most_selected():
 
         player_dict = {
         'name': row['name'],
+        'webname' : row['webname'],
         'team': row['team'],
         'photo': row['photo'],
         'position': row['position'],
@@ -404,7 +407,7 @@ def get_news():
             news = {'time': full_date,
                 'sorting_time': time,
             'news': row['news'],
-            'name': row['name'],
+            'name': row['webname'],
             'photo': row['photo'],
             'team': row['team']}
         
@@ -417,7 +420,7 @@ def get_news():
                 'time' : full_date2,
                  'sorting_time': current_time,
                 'news': str(row['now_cost']),
-                'name': row['name'],
+                'name': row['webname'],
                 'photo': row['photo'],
                 'team': row['team'],
                 'price_change': 'risen'
@@ -427,7 +430,7 @@ def get_news():
                 'time' : full_date2,
                  'sorting_time': current_time,
                 'news': str(row['now_cost']),
-                'name': row['name'],
+                'name': row['webname'],
                 'photo': row['photo'],
                 'team': row['team'],
                 'price_change': 'fallen'
@@ -558,16 +561,16 @@ def get_442():
     FOW = 0
     teams = []
     ict_form = 0
-    captain =  {'name':None,
+    captain =  {'webname':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
+                    captain['webname'] = row['webname']
 
-                new_row = {'name': row['name'],
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -587,8 +590,8 @@ def get_442():
             if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -606,8 +609,8 @@ def get_442():
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -625,8 +628,8 @@ def get_442():
             if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -662,15 +665,15 @@ def get_532():
     FOW = 0
     teams = []
     ict_form = 0
-    captain =  {'name':None,
+    captain =  {'webname':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -688,8 +691,8 @@ def get_532():
             if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -707,8 +710,8 @@ def get_532():
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -726,8 +729,8 @@ def get_532():
             if row['position']=='DEF' and DEF<=4 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -766,15 +769,15 @@ def get_451():
     FOW = 0
     teams = []
     ict_form = 0
-    captain =  {'name':None,
+    captain =  {'webname':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=0 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -792,8 +795,8 @@ def get_451():
             if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -811,8 +814,8 @@ def get_451():
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -830,8 +833,8 @@ def get_451():
             if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -867,15 +870,15 @@ def get_433():
     FOW = 0
     teams = []
     ict_form = 0
-    captain =  {'name':None,
+    captain =  {'webname':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -893,8 +896,8 @@ def get_433():
             if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -912,8 +915,8 @@ def get_433():
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -931,8 +934,8 @@ def get_433():
             if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -970,15 +973,15 @@ def get_352():
     FOW = 0
     teams = []
     ict_form = 0
-    captain =  {'name':None,
+    captain =  {'webname':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -996,8 +999,8 @@ def get_352():
             if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -1015,8 +1018,8 @@ def get_352():
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -1034,8 +1037,8 @@ def get_352():
             if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -1072,15 +1075,15 @@ def get_343():
     FOW = 0
     teams = []
     ict_form = 0
-    captain =  {'name':None,
+    captain =  {'webname':None,
             'ict_form_index': 0}
     for index,row in dataset.iterrows():
         if teams.count(row['team']) < 3 and row['postponed']=='No':
             if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -1098,8 +1101,8 @@ def get_343():
             if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -1117,8 +1120,8 @@ def get_343():
             if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
@@ -1136,8 +1139,8 @@ def get_343():
             if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost'] :
                 if row['form_ict_index'] >= captain['ict_form_index']:
                     captain['ict_form_index'] = row['form_ict_index']
-                    captain['name'] = row['name']
-                new_row = {'name': row['name'],
+                    captain['webname'] = row['webname']
+                new_row = {'webname': row['webname'],
                             'now_cost': row['now_cost'],
                             'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
                             'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
