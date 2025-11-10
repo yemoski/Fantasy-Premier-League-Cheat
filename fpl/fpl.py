@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 from pprint import pprint
+from collections import Counter
 import fixture_difficulty as fd
 
 
@@ -24,6 +25,7 @@ for i in data['elements']:
     team = str(i['team'])
     webname = i['web_name']
     team_shirt = str(i['team'])
+    ict_index = float(i['ict_index'])
     form_ict_index = float(i['form']) * float(i['ict_index'])
     photo = i['photo']
     total_points = i['total_points']
@@ -130,7 +132,7 @@ for i in data['elements']:
     else:
         postponed = 'No'
 
-    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game, in_dreamteam,cost_change_event, webname]
+    stats = [name,form_ict_index,photo,total_points,transfers_in,status,team,now_cost,position,team_shirt,postponed,news, news_added, transfers_in_event,transfers_out_event,selected_by_percent,points_per_game, in_dreamteam,cost_change_event, webname, ict_index]
 
     # only add players not managers
     if position != '5':
@@ -181,7 +183,8 @@ dataset = pd.DataFrame({
     'points_per_game': all_players[:,16],
     'in_dreamteam': all_players[:,17],
     'cost_change_event': all_players[:,18],
-    'webname' : all_players[:,19]
+    'webname' : all_players[:,19],
+    'ict_index': all_players[:,20]
 })
 
 
@@ -541,621 +544,147 @@ def get_dream_team():
 
 
 
+def add_ranking_score(df, fixtures_data, horizon=6):
+    # 1. Team-level fixture score (lower = easier)
+    team_fix = {d['team']: d['fixture_score'] for d in fixtures_data}
+    df['team_fixture'] = df['team'].map(team_fix).fillna(5.0)   # worst case
+
+    # 2. Raw columns we need
+    df['form']          = df['form_ict_index'].astype(float)   # you already have this
+    df['points_per_game'] = pd.to_numeric(df['points_per_game'], errors='coerce').fillna(0)
+    df['ict_index']     = pd.to_numeric(df['ict_index'], errors='coerce').fillna(0)
+
+    # 3. Normalise everything to 0-1 (so weights add up nicely)
+    for col in ['form', 'points_per_game', 'ict_index']:
+        col_min, col_max = df[col].min(), df[col].max()
+        if col_max > col_min:
+            df[f'norm_{col}'] = (df[col] - col_min) / (col_max - col_min)
+        else:
+            df[f'norm_{col}'] = 0.0
+
+    # 4. Fixture ease = 5 - difficulty (higher = easier)
+    df['fixture_ease'] = 5.0 - df['team_fixture']
+    fix_min, fix_max = df['fixture_ease'].min(), df['fixture_ease'].max()
+    if fix_max > fix_min:
+        df['norm_fixture'] = (df['fixture_ease'] - fix_min) / (fix_max - fix_min)
+    else:
+        df['norm_fixture'] = 0.0
+
+    # 5. Weighted composite score
+    #    Form 50%, Fixture 25%, ICT 25%
+    df['ranking_score'] = (
+        0.5 * df['norm_form'] +
+        0.2 * df['norm_fixture'] +
+        0.3 * df['norm_ict_index']
+    )
+
+    return df
+
+def build_formation(df, formation="442", budget=100.0, max_per_team=3):
+    # Normalize formation string (accepts "442" or "4-4-2")
+    if "-" not in formation and len(formation) == 3:
+        formation = "-".join(list(formation))  # "442" → "4-4-2"
+    
+    try:
+        gk_str, def_str, mid_str, fwd_str = formation.replace('-', ' ').split()
+        req = {
+            'GK':  int(gk_str),
+            'DEF': int(def_str),
+            'MID': int(mid_str),
+            'FOW': int(fwd_str)
+        }
+    except Exception:
+        raise ValueError("formation must be like '1-3-5-2' or '442'")
+
+    # ---- Sort by our new ranking score ----------------------------------
+    sorted_df = df.sort_values('ranking_score', ascending=False).reset_index(drop=True)
+
+    # ---- State -----------------------------------------------------------
+    squad = {pos: [] for pos in req}
+    remaining = budget
+    team_cnt = Counter()
+    total_form = 0.0
+    captain = {'webname': None, 'form': 0.0}
+
+    # ---- Helper ----------------------------------------------------------
+    def add_player(row, pos):
+        nonlocal remaining, total_form, captain
+        player = {
+            'webname': row['webname'],
+            'now_cost': row['now_cost'],
+            'transfer_in_event': '{:,}'.format(int(row['transfer_in_event'])),
+            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
+            'selected_by_percent': row['selected_by_percent'],
+            'in_dreamteam': row['in_dreamteam'],
+            'points_per_game': row['points_per_game'],
+            'photo': row['photo'],
+            'team_shirt': row['team_shirt'],
+            'team': row['team']
+        }
+        squad[pos].append(player)
+        remaining -= row['now_cost']
+        total_form += row['form']
+        team_cnt[row['team']] += 1
+
+        # Captain = highest raw form in squad
+        if row['form'] > captain['form']:
+            captain['webname'] = row['webname']
+            captain['form'] = row['form']
+
+    # ---- Main loop -------------------------------------------------------
+    needed = {pos: req[pos] for pos in req}
+    for _, row in sorted_df.iterrows():
+        if remaining < row['now_cost']:
+            continue
+        if row['status'] != 'a' or row['postponed'] == 'Yes':
+            continue
+        if team_cnt[row['team']] >= max_per_team:
+            continue
+
+        pos = row['position']
+        if needed.get(pos, 0) > 0:
+            add_player(row, pos)
+            needed[pos] -= 1
+
+        # Stop when squad is full
+        if all(v == 0 for v in needed.values()):
+            break
+
+    # ---- Finalise --------------------------------------------------------
+    squad['team_value'] = budget - remaining
+    squad['ict_form'] = total_form
+    squad['captain'] = captain
+
+    return squad
+
+fixtures_data = fd.get_fixtures()           
+dataset = add_ranking_score(dataset, fixtures_data, horizon=6)
 
 def get_442():
-
-
-    f442 = {'GK':[],
-            'DEF':[],
-            'MID':[],
-            'FOW':[],
-            'team_value':[],
-            'ict_form':[],
-            'captain': None
-            }
-
-    budget = 100
-    GK = 0
-    DEF = 0
-    MID = 0
-    FOW = 0
-    teams = []
-    ict_form = 0
-    captain =  {'webname':None,
-            'ict_form_index': 0}
-    for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f442['FOW'].append(new_row)
-                budget -=row['now_cost']
-                ict_form += row['form_ict_index']
-                
-                teams.append(row['team'])
-
-                FOW = FOW +1
-            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f442['MID'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                MID = MID +1
-            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f442['GK'].append(new_row)
-                budget -=row['now_cost']
-                ict_form += row['form_ict_index']
-                teams.append(row['team'])
-                GK = GK +1
-            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f442['DEF'].append(new_row)
-                budget -=row['now_cost']
-                ict_form += row['form_ict_index']
-                teams.append(row['team'])
-                DEF = DEF +1
-    f442['ict_form'] = ict_form
-    f442['team_value'] = 100-budget
-    f442['captain'] = captain
-    return f442
+    nf442 = build_formation(dataset, "1-4-4-2")
+    return nf442
 
 def get_532():
-    f532 = {'GK':[],
-            'DEF':[],
-            'MID':[],
-            'FOW':[],
-            'team_value':[],
-            'ict_form':[],
-            'captain':None
-            }
-    budget = 100
-    GK = 0
-    DEF = 0
-    MID = 0
-    FOW = 0
-    teams = []
-    ict_form = 0
-    captain =  {'webname':None,
-            'ict_form_index': 0}
-    for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f532['FOW'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                FOW = FOW +1
-            if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f532['MID'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                MID = MID +1
-            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f532['GK'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                GK = GK +1
-            if row['position']=='DEF' and DEF<=4 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f532['DEF'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                DEF = DEF +1
-    f532['ict_form'] =ict_form
-    f532['team_value'] =  100-budget
-    f532['captain'] = captain
-    return f532
+    nf532 = build_formation(dataset, "1-5-3-2")
+    return nf532
  
 
 def get_451():
 
-
-    f451 = {'GK':[],
-            'DEF':[],
-            'MID':[],
-            'FOW':[],
-            'team_value':[],
-            'ict_form':[],
-            'captain':None
-            }
-    budget = 100
-    GK = 0
-    DEF = 0
-    MID = 0
-    FOW = 0
-    teams = []
-    ict_form = 0
-    captain =  {'webname':None,
-            'ict_form_index': 0}
-    for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=0 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f451['FOW'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                FOW = FOW +1
-            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f451['MID'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                MID = MID +1
-            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f451['GK'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                GK = GK +1
-            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f451['DEF'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                DEF = DEF +1
-    f451['ict_form'] =ict_form
-    f451['team_value'] =  100-budget
-    f451['captain'] = captain
-    return f451
+    nf541 = build_formation(dataset, "1-5-4-1")
+    return nf541
 
 def get_433():
-    f433 = {'GK':[],
-            'DEF':[],
-            'MID':[],
-            'FOW':[],
-            'team_value':[],
-            'ict_form':[],
-            'captain':None
-            }
-    budget = 100
-    GK = 0
-    DEF = 0
-    MID = 0
-    FOW = 0
-    teams = []
-    ict_form = 0
-    captain =  {'webname':None,
-            'ict_form_index': 0}
-    for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f433['FOW'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                FOW = FOW +1
-            if row['position']=='MID' and MID<=2 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f433['MID'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                MID = MID +1
-            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f433['GK'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                GK = GK +1
-            if row['position']=='DEF' and DEF<=3 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f433['DEF'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                DEF = DEF +1
-    f433['ict_form'] =ict_form
-    f433['team_value'] =  100-budget
-    f433['captain'] = captain
-    return f433
+    nf433 = build_formation(dataset, "1-4-3-3")
+    return nf433
 
 
 
 def get_352():
-    f352 = {'GK':[],
-            'DEF':[],
-            'MID':[],
-            'FOW':[],
-            'team_value':[],
-            'ict_form':[],
-            'captain':None
-            }
-    budget = 100
-    GK = 0
-    DEF = 0
-    MID = 0
-    FOW = 0
-    teams = []
-    ict_form = 0
-    captain =  {'webname':None,
-            'ict_form_index': 0}
-    for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=1 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f352['FOW'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                FOW = FOW +1
-            if row['position']=='MID' and MID<=4 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f352['MID'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                MID = MID +1
-            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f352['GK'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                GK = GK +1
-            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                           'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f352['DEF'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                DEF = DEF +1
-    f352['ict_form'] =ict_form
-    f352['team_value'] =  100-budget
-    f352['captain'] = captain
-    return f352
+    nf352 = build_formation(dataset, "1-3-5-2")
+    return nf352
 
 
 def get_343():
-    f343 = {'GK':[],
-            'DEF':[],
-            'MID':[],
-            'FOW':[],
-            'team_value':[],
-            'ict_form':[],
-            'captain':None
-            }
-    budget = 100
-    GK = 0
-    DEF = 0
-    MID = 0
-    FOW = 0
-    teams = []
-    ict_form = 0
-    captain =  {'webname':None,
-            'ict_form_index': 0}
-    for index,row in dataset.iterrows():
-        if teams.count(row['team']) < 3 and row['postponed']=='No':
-            if row['position']=='FOW' and FOW<=2 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f343['FOW'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                FOW = FOW +1
-            if row['position']=='MID' and MID<=3 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f343['MID'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                MID = MID +1
-            if row['position']=='GK' and GK<1 and row['status']=='a' and budget>row['now_cost']:
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f343['GK'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                GK = GK +1
-            if row['position']=='DEF' and DEF<=2 and row['status']=='a' and budget>row['now_cost'] :
-                if row['form_ict_index'] >= captain['ict_form_index']:
-                    captain['ict_form_index'] = row['form_ict_index']
-                    captain['webname'] = row['webname']
-                new_row = {'webname': row['webname'],
-                            'now_cost': row['now_cost'],
-                            'transfer_in_event':'{:,}'.format(int(row['transfer_in_event'])),
-                            'transfer_out_event': '{:,}'.format(int(row['transfer_out_event'])),
-                            'selected_by_percent': row['selected_by_percent'],
-                            'in_dreamteam': row['in_dreamteam'],
-                            'points_per_game': row['points_per_game'],
-                            'photo': row['photo'],
-                            'team_shirt': row['team_shirt'],
-                            'team': row['team']}
-                f343['DEF'].append(new_row)
-                budget -=row['now_cost']
-                teams.append(row['team'])
-                ict_form += row['form_ict_index']
-                DEF = DEF +1
-    f343['ict_form'] =ict_form
-    f343['team_value'] =  100-budget
-    f343['captain'] = captain
-    return f343
+    nf343 = build_formation(dataset, "1-3-4-3")
+    return nf343
