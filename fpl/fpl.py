@@ -571,7 +571,7 @@ def add_ranking_score(df, fixtures_data, horizon=6):
         df['norm_fixture'] = 0.0
 
     # 5. Weighted composite score
-    #    Form 50%, Fixture 25%, ICT 25%
+    #    Form 50%, Fixture 20%, ICT 30%
     df['ranking_score'] = (
         0.5 * df['norm_form'] +
         0.2 * df['norm_fixture'] +
