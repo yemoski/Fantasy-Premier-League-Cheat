@@ -546,7 +546,7 @@ def get_dream_team():
 
 def add_ranking_score(df, fixtures_data, horizon=6):
     # 1. Team-level fixture score (lower = easier)
-    team_fix = {d['team']: d['fixture_score'] for d in fixtures_data}
+    team_fix = {d['team']: d['next_game_difficulty'] for d in fixtures_data}
     df['team_fixture'] = df['team'].map(team_fix).fillna(5.0)   # worst case
 
     # 2. Raw columns we need

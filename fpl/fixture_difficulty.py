@@ -222,7 +222,8 @@ def get_fixtures():
             'team': i,
             'badge': team_badge_map[i],
             'next_7':fixtures,
-            'fixture_score': fixture_score
+            'fixture_score': fixture_score,
+            'next_game_difficulty': fixtures[0]['difficulty']
         }
 
         total_data.append(data_dict)
@@ -329,7 +330,8 @@ def get_dataset():
             "influence": i["influence"],
             "creativity": i["creativity"],
             "threat": i["threat"],
-            "points_per_game_rank": i["points_per_game_rank"]
+            "points_per_game_rank": i["points_per_game_rank"],
+            "selected_by_percent": i['selected_by_percent']
         }
 
 
