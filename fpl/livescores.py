@@ -83,7 +83,7 @@ def get_home_stadium(team_code):
         team = team.replace('6', 'Amex Stadium, Falmer')
         team = team.replace('7', 'Stamford Bridge, London')
         team = team.replace('8', 'Selhurst Park, London')
-        team = team.replace('9', 'Goodison Park, Liverpool')
+        team = team.replace('9', 'Hill Dickinson Stadium, Liverpool')
         
 
     elif len(team) == 2:
@@ -284,14 +284,14 @@ def get_livescore():
 
             away_goals_string = ''
             for z in goal_scored['a']:
-                away_goals_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + away_goals_string
+                away_goals_string =  get_player_name(z['element'])+' ⚽'+str(z['value']) + ', ' + away_goals_string
             
             for z in own_goals['h']:
-                away_goals_string =  get_player_name(z['element'])+' x'+str(z['value']) + '   ' + away_goals_string 
+                away_goals_string =  get_player_name(z['element'])+' 🤦‍♂️'+str(z['value']) + '   ' + away_goals_string 
 
             away_assists_string = ''
             for z in assist['a']:
-                away_assists_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + away_assists_string
+                away_assists_string =  get_player_name(z['element'])+' 🅰️'+str(z['value']) + ', ' + away_assists_string
 
             away_yellowcards_string = ''
             for z in yellow_cards['a']:
@@ -346,16 +346,16 @@ def get_livescore():
             #Getting goals and own goals for the home team
             home_goals_string = ''
             for z in goal_scored['h']:
-                home_goals_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + home_goals_string 
+                home_goals_string =  get_player_name(z['element'])+' ⚽'+str(z['value']) + ', ' + home_goals_string 
             
             for z in own_goals['a']:
-                home_goals_string =  '(OG) ' + get_player_name(z['element'])+' x'+str(z['value']) + ', ' + home_goals_string 
+                home_goals_string =  '(OG) ' + get_player_name(z['element'])+' 🤦‍♂️'+str(z['value']) + ', ' + home_goals_string 
 
             #home_goals_string = home_goals_string.rstrip(home_goals_string[-1])
 
             home_assists_string = ''
             for z in assist['h']:
-                home_assists_string =  get_player_name(z['element'])+' x'+str(z['value']) + ', ' + home_assists_string
+                home_assists_string =  get_player_name(z['element'])+' 🅰️'+str(z['value']) + ', ' + home_assists_string
 
             home_yellowcards_string = ''
             for z in yellow_cards['h']:

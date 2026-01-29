@@ -590,7 +590,7 @@
     }
 
     .bonus {
-        color: var(--primary-color);
+        color: red;
         font-weight: bold;
     }
 
