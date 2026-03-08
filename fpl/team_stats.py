@@ -255,12 +255,6 @@ def get_expected_a():
 
 
 
-    """xa = df[['player_name','assists','xA']]
-    xa['xA']=xa['xA'].astype(float)
-    xa = xa.sort_values(by=['xA'], ascending=False)
-    xa = xa.loc[0:15]
-    pprint(xa)
-    """
     
 
 

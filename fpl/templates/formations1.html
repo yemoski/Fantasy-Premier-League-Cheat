@@ -45,6 +45,17 @@
         </div>
     </section>
 
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+        <button class="mode-btn {% if mode == 'short' %}active{% endif %}" data-mode="short">
+            Short Term (Next 1 Game)
+        </button>
+        <button class="mode-btn {% if mode == 'long' %}active{% endif %}" data-mode="long">
+            Long Term (Next 6 Games)
+        </button>
+    </div>
+    <p class="mode-label">Planning horizon: <strong>{{ 'Short Term (1 game)' if mode == 'short' else 'Long Term (6 games)' }}</strong></p>
+
     <!-- Formation Selector -->
     <div class="formation-selector">
         <!-- <button class="formation-btn active" data-formation="dream">Dream Team</button> -->
@@ -98,6 +109,8 @@
     </div>
 <script>
     //console.log("Getting the formations");
+    let currentMode = "{{ mode }}";
+
     const pitch = {
         forwards: document.querySelector('.position-row.forwards'),
         midfielders: document.querySelector('.position-row.midfielders'),
@@ -135,7 +148,7 @@
             captain.innerHTML = '';            
 
             try {
-                const response = await fetch(`/api/formation/${formation}`);
+                const response = await fetch(`/api/formation/${formation}?mode=${currentMode}`);
                 const data = await response.json();
 
                 //console.log(data.captain.name);
@@ -206,6 +219,16 @@
             player_list[position].appendChild(playerFormationCard);
         });
     }
+
+    document.querySelectorAll('.mode-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+            currentMode = button.dataset.mode;
+            const activeBtn = document.querySelector('.formation-btn.active');
+            if (activeBtn) activeBtn.click();
+        });
+    });
 
     window.addEventListener('DOMContentLoaded', () => {
         const defaultBtn = document.querySelector('.formation-btn[data-formation="442"]');

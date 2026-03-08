@@ -313,9 +313,9 @@
     .fixture-score.medium { background: #f9bc00; color: #fff; }
     .fixture-score.hard { background: #980000; color: #fff; }
 
-    .difficulty-1 { background: #9c9c9c; color: white; }
-    .difficulty-2 { background: #55ff99; }
-    .difficulty-3 { background: #f9bc00; }
+    .difficulty-1 { background: #00a651; color: white; }
+    .difficulty-2 { background: #8dc63f; color: white; }
+    .difficulty-3 { background: #f9bc00; color: white; }
     .difficulty-4 { background: #ff5555; color: white; }
     .difficulty-5 { background: #980000; color: white; }
 
@@ -1472,4 +1472,33 @@
     .position-row {
         min-width: 300px; /* Adjust depending on players count */
     }
+}
+
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.mode-btn {
+    padding: 0.6rem 1.25rem;
+    background: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--secondary-color);
+    transition: all 0.3s;
+}
+
+.mode-btn:hover, .mode-btn.active {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.mode-label {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
 }

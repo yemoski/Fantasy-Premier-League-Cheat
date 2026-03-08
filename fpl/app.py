@@ -56,13 +56,16 @@ def livescore():
 
 @app.route("/formations", methods=["GET", "POST"])
 def formations():
+    mode = request.args.get('mode', 'long')
+    if mode not in ('short', 'long'):
+        mode = 'long'
 
-    f442 = fpl.get_442()
-    f451 = fpl.get_451()
-    f532 = fpl.get_532()
-    f433 = fpl.get_433()
-    f352 = fpl.get_352()
-    f343 = fpl.get_343()
+    f442 = fpl.get_442(mode)
+    f451 = fpl.get_451(mode)
+    f532 = fpl.get_532(mode)
+    f433 = fpl.get_433(mode)
+    f352 = fpl.get_352(mode)
+    f343 = fpl.get_343(mode)
 
     dream = fpl.get_dream_team()
    
@@ -124,19 +127,22 @@ def formations():
     formations.append(row)
     
 
-    return render_template('formations1.html', title="Best Value formations", f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream)
+    return render_template('formations1.html', title="Best Value formations", f442=f442, formations=formations, f451=f451, f433=f433, f352=f352, f532=f532, f343=f343, dream=dream, mode=mode)
 
 
 
 @app.route("/api/formation/<formation_name>", methods=["GET"])
 def get_formation_data(formation_name):
+    mode = request.args.get('mode', 'long')
+    if mode not in ('short', 'long'):
+        mode = 'long'
     formations = {
-        "442": fpl.get_442(),
-        "451": fpl.get_451(),
-        "433": fpl.get_433(),
-        "532": fpl.get_532(),
-        "352": fpl.get_352(),
-        "343": fpl.get_343(),
+        "442": fpl.get_442(mode),
+        "451": fpl.get_451(mode),
+        "433": fpl.get_433(mode),
+        "532": fpl.get_532(mode),
+        "352": fpl.get_352(mode),
+        "343": fpl.get_343(mode),
         "dream": fpl.get_dream_team()
     }
 

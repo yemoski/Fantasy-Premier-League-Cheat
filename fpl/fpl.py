@@ -544,38 +544,30 @@ def get_dream_team():
 
 
 
-def add_ranking_score(df, fixtures_data, horizon=6):
+def add_ranking_score(df, team_fix, mode='long'):
+    # team_fix: dict of {team_name: difficulty_score}
     # 1. Team-level fixture score (lower = easier)
-    team_fix = {d['team']: d['next_game_difficulty'] for d in fixtures_data}
     df['team_fixture'] = df['team'].map(team_fix).fillna(5.0)   # worst case
 
-    # 2. Raw columns we need
-    df['form']          = df['form_ict_index'].astype(float)   # you already have this
-    df['points_per_game'] = pd.to_numeric(df['points_per_game'], errors='coerce').fillna(0)
-    df['ict_index']     = pd.to_numeric(df['ict_index'], errors='coerce').fillna(0)
+    # 2. form = form * ict_index (already computed at import)
+    df['form'] = df['form_ict_index'].astype(float)
 
-    # 3. Normalise everything to 0-1 (so weights add up nicely)
-    for col in ['form', 'points_per_game', 'ict_index']:
-        col_min, col_max = df[col].min(), df[col].max()
-        if col_max > col_min:
-            df[f'norm_{col}'] = (df[col] - col_min) / (col_max - col_min)
-        else:
-            df[f'norm_{col}'] = 0.0
+    # 3. Normalise to 0-1
+    col_min, col_max = df['form'].min(), df['form'].max()
+    df['norm_form'] = (df['form'] - col_min) / (col_max - col_min) if col_max > col_min else 0.0
 
     # 4. Fixture ease = 5 - difficulty (higher = easier)
     df['fixture_ease'] = 5.0 - df['team_fixture']
     fix_min, fix_max = df['fixture_ease'].min(), df['fixture_ease'].max()
-    if fix_max > fix_min:
-        df['norm_fixture'] = (df['fixture_ease'] - fix_min) / (fix_max - fix_min)
-    else:
-        df['norm_fixture'] = 0.0
+    df['norm_fixture'] = (df['fixture_ease'] - fix_min) / (fix_max - fix_min) if fix_max > fix_min else 0.0
 
     # 5. Weighted composite score
-    #    Form * ICT index 80%, Fixture 20%
-    df['ranking_score'] = (
-        0.8 * df['norm_form'] +
-        0.2 * df['norm_fixture'] 
-    )
+    #    Short term: form dominates, fixture is a small tiebreaker
+    #    Long term:  fixture run deserves more weight over 6 games
+    if mode == 'short':
+        df['ranking_score'] = 0.85 * df['norm_form'] + 0.15 * df['norm_fixture']
+    else:
+        df['ranking_score'] = 0.65 * df['norm_form'] + 0.35 * df['norm_fixture']
 
     return df
 
@@ -656,34 +648,35 @@ def build_formation(df, formation="442", budget=100.0, max_per_team=3):
 
     return squad
 
-fixtures_data = fd.get_fixtures()           
-dataset = add_ranking_score(dataset, fixtures_data, horizon=6)
+fixtures_data = fd.get_fixtures()
 
-def get_442():
-    nf442 = build_formation(dataset, "1-4-4-2")
-    return nf442
+team_fix_short = {d['team']: d['next_game_difficulty'] for d in fixtures_data}
 
-def get_532():
-    nf532 = build_formation(dataset, "1-5-3-2")
-    return nf532
- 
+def _avg_difficulty(next_7_list, n=6):
+    diffs = [g['difficulty'] for g in next_7_list[:n] if isinstance(g, dict)]
+    return round(sum(diffs) / len(diffs), 2) if diffs else 5.0
 
-def get_451():
+team_fix_long = {d['team']: _avg_difficulty(d['next_7']) for d in fixtures_data}
 
-    nf541 = build_formation(dataset, "1-5-4-1")
-    return nf541
+dataset_short = add_ranking_score(dataset.copy(), team_fix_short, mode='short')
+dataset_long  = add_ranking_score(dataset.copy(), team_fix_long,  mode='long')
 
-def get_433():
-    nf433 = build_formation(dataset, "1-4-3-3")
-    return nf433
+_datasets = {'short': dataset_short, 'long': dataset_long}
 
+def get_442(mode='long'):
+    return build_formation(_datasets.get(mode, dataset_long), "1-4-4-2")
 
+def get_532(mode='long'):
+    return build_formation(_datasets.get(mode, dataset_long), "1-5-3-2")
 
-def get_352():
-    nf352 = build_formation(dataset, "1-3-5-2")
-    return nf352
+def get_451(mode='long'):
+    return build_formation(_datasets.get(mode, dataset_long), "1-5-4-1")
 
+def get_433(mode='long'):
+    return build_formation(_datasets.get(mode, dataset_long), "1-4-3-3")
 
-def get_343():
-    nf343 = build_formation(dataset, "1-3-4-3")
-    return nf343
+def get_352(mode='long'):
+    return build_formation(_datasets.get(mode, dataset_long), "1-3-5-2")
+
+def get_343(mode='long'):
+    return build_formation(_datasets.get(mode, dataset_long), "1-3-4-3")
