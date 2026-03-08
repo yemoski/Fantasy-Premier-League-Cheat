@@ -680,3 +680,46 @@ def get_352(mode='long'):
 
 def get_343(mode='long'):
     return build_formation(_datasets.get(mode, dataset_long), "1-3-4-3")
+
+def get_search_dataset():
+    result = []
+    for i in data['elements']:
+        pos = str(i['element_type'])
+        pos = pos.replace('1', 'GK').replace('2', 'DEF').replace('3', 'MID').replace('4', 'FOW')
+        if pos == '5':
+            continue
+
+        team = str(i['team'])
+        if len(team) == 1:
+            team = (team.replace('1', 'Arsenal').replace('2', 'Aston Villa')
+                        .replace('3', 'Burnley').replace('4', 'Bournemouth')
+                        .replace('5', 'Brentford').replace('6', 'Brighton')
+                        .replace('7', 'Chelsea').replace('8', 'Crystal Palace')
+                        .replace('9', 'Everton'))
+        elif len(team) == 2:
+            team = (team.replace('10', 'Fulham').replace('11', 'Leeds')
+                        .replace('12', 'Liverpool').replace('13', 'Man City')
+                        .replace('14', 'Man United').replace('15', 'Newcastle')
+                        .replace('16', 'Nottm Forest').replace('17', 'Sunderland')
+                        .replace('18', 'Tottenham').replace('19', 'West Ham')
+                        .replace('20', 'Wolves'))
+
+        photo = i['photo'].replace('jpg', 'png')
+        form_ict = round(float(i['form']) * float(i['ict_index']), 2)
+
+        result.append({
+            'webname': i['web_name'],
+            'team': team,
+            'position': pos,
+            'status': i['status'],
+            'photo': photo,
+            'cost': i['now_cost'] / 10,
+            'points_per_game': float(i['points_per_game']),
+            'ict_index': float(i['ict_index']),
+            'form_ict_index': form_ict,
+            'goals_scored': i['goals_scored'],
+            'assists': i['assists'],
+            'expected_goals': float(i['expected_goals']),
+            'expected_assists': float(i['expected_assists']),
+        })
+    return result

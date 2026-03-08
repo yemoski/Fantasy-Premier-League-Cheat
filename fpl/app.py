@@ -229,6 +229,14 @@ def get_all_players():
     else:
         return jsonify({"error": "Invalid data"}), 404
 
+@app.route("/player_search", methods=["GET"])
+def player_search():
+    return render_template("player_search.html", title="Player Search")
+
+@app.route("/api/players/search", methods=["GET"])
+def get_search_players():
+    return jsonify(fpl.get_search_dataset())
+
 
 if __name__ == "__main__":
 
