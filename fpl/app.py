@@ -2,12 +2,9 @@ from flask import Flask, render_template, request, url_for, flash, jsonify, redi
 import fpl
 from pprint import pprint
 import bible
-import team_stats
 import gameweek_info as gi
 import livescores as ls
 import fixture_difficulty as fd
-import setpieceinfo as spi
-import manager_info as mi
 import json
 import os
 
