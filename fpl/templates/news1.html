@@ -33,9 +33,31 @@
         {% endfor %}
     </div>
 
+    <div id="load-more-wrap" style="display:none; text-align:center; margin: 1.5rem 0;">
+        <button id="load-more-btn" class="filter-input" style="cursor:pointer; padding: 0.5rem 2rem;">Load more</button>
+    </div>
+
     <script>
-        // Add any additional JavaScript functionality here
-        document.querySelectorAll('.news-card').forEach(card => {
+        const PAGE_SIZE = 50;
+        let displayCount = PAGE_SIZE;
+        const cards = Array.from(document.querySelectorAll('.news-card'));
+
+        function updateVisibility() {
+            cards.forEach((card, i) => {
+                card.style.display = i < displayCount ? '' : 'none';
+            });
+            document.getElementById('load-more-wrap').style.display =
+                displayCount < cards.length ? 'block' : 'none';
+        }
+
+        document.getElementById('load-more-btn').addEventListener('click', () => {
+            displayCount += PAGE_SIZE;
+            updateVisibility();
+        });
+
+        updateVisibility();
+
+        cards.forEach(card => {
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-5px)';
                 card.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';

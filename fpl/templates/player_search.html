@@ -3,7 +3,7 @@
 
 <!-- Header -->
 <header class="header">
-    <h1>Player Search</h1>
+    <h1>Transfer Scout</h1>
     <p>Find players within your budget, filtered by position and team</p>
 </header>
 
@@ -45,10 +45,18 @@
 
 <!-- Results Grid -->
 <div class="search-results-grid" id="results-grid"></div>
+
+<!-- Load More -->
+<div id="load-more-wrap" style="display:none; text-align:center; margin: 1.5rem 0;">
+    <button id="load-more-btn" class="filter-input" style="cursor:pointer; padding: 0.5rem 2rem;">Load more</button>
+</div>
 </div>
 
 <script>
     let allPlayers = [];
+    let currentFiltered = [];
+    const PAGE_SIZE = 50;
+    let displayCount = PAGE_SIZE;
 
     const positionColors = {
         GK: '#f59e0b',
@@ -94,7 +102,9 @@
         });
 
         filtered.sort((a, b) => b[sortBy] - a[sortBy]);
-        renderResults(filtered);
+        currentFiltered = filtered;
+        displayCount = PAGE_SIZE;
+        renderResults();
     }
 
     function statusIcon(status) {
@@ -103,11 +113,23 @@
         return ' <span class="search-status-out" title="Unavailable">✕</span>';
     }
 
-    function renderResults(players) {
-        document.getElementById('results-count').textContent =
-            `${players.length} player${players.length !== 1 ? 's' : ''} found`;
+    function blankGwBadge(hasFixture) {
+        if (!hasFixture) return ' <span class="search-status-out" title="No fixture this GW">BLK</span>';
+        return '';
+    }
 
-        document.getElementById('results-grid').innerHTML = players.map(p => {
+    function renderResults() {
+        const players = currentFiltered;
+        const visible = players.slice(0, displayCount);
+        const total = players.length;
+
+        document.getElementById('results-count').textContent =
+            `Showing ${Math.min(displayCount, total)} of ${total} player${total !== 1 ? 's' : ''}`;
+
+        const wrap = document.getElementById('load-more-wrap');
+        wrap.style.display = displayCount < total ? 'block' : 'none';
+
+        document.getElementById('results-grid').innerHTML = visible.map(p => {
             const badgeColor = positionColors[p.position] || '#6b7280';
             const imgSrc = `https://resources.premierleague.com/premierleague25/photos/players/110x140/${p.photo}`;
             return `
@@ -120,7 +142,7 @@
                     <span class="search-position-badge" style="background:${badgeColor}">${p.position}</span>
                 </div>
                 <div class="search-card-body">
-                    <p class="search-player-name">${p.webname}${statusIcon(p.status)}</p>
+                    <p class="search-player-name">${p.webname}${statusIcon(p.status)}${blankGwBadge(p.has_next_fixture)}</p>
                     <p class="search-player-team">${p.team}</p>
                     <div class="search-stat-pills">
                         <span class="search-pill search-pill-blue">£${p.cost.toFixed(1)}</span>
@@ -137,6 +159,11 @@
             </div>`;
         }).join('');
     }
+
+    document.getElementById('load-more-btn').addEventListener('click', () => {
+        displayCount += PAGE_SIZE;
+        renderResults();
+    });
 
     document.getElementById('budget-input').addEventListener('input', applyFilters);
     document.getElementById('position-select').addEventListener('change', applyFilters);

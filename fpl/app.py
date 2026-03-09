@@ -231,7 +231,7 @@ def get_all_players():
 
 @app.route("/player_search", methods=["GET"])
 def player_search():
-    return render_template("player_search.html", title="Player Search")
+    return render_template("player_search.html", title="Transfer Scout")
 
 @app.route("/api/players/search", methods=["GET"])
 def get_search_players():

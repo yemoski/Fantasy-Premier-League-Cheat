@@ -217,13 +217,15 @@ def get_fixtures():
                 fixtures.append('Blank')
 
         fixture_score = calculate_fixture_score(fixtures, horizon=5)
-      
+        has_next = isinstance(fixtures[0], dict)
+
         data_dict = {
             'team': i,
             'badge': team_badge_map[i],
-            'next_7':fixtures,
+            'next_7': fixtures,
             'fixture_score': fixture_score,
-            'next_game_difficulty': fixtures[0]['difficulty']
+            'next_game_difficulty': fixtures[0]['difficulty'] if has_next else 5,
+            'has_next_fixture': has_next
         }
 
         total_data.append(data_dict)
@@ -238,17 +240,17 @@ def calculate_fixture_score(fixtures, horizon=5):
     """
     Calculate a team's average fixture difficulty over the next horizon games.
     Lower score = tougher fixtures, higher score = easier fixtures.
+    Blank GWs (no fixture) count as difficulty 5 — worst case.
     """
     difficulties = [
-        f['difficulty'] for f in fixtures[:horizon] if isinstance(f, dict)
+        f['difficulty'] if isinstance(f, dict) else 5
+        for f in fixtures[:horizon]
     ]
 
     if not difficulties:
         return 0
 
-    avg_difficulty = sum(difficulties) / len(difficulties)
-
-    return round(avg_difficulty, 2)
+    return round(sum(difficulties) / len(difficulties), 2)
 
 
 #gets the name of the next 5 gw's -> [1,2,3,4,5]

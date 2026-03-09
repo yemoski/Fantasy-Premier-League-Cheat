@@ -68,6 +68,8 @@ Flask routes in app.py → Jinja2 templates or JSON responses
 | `/news`                   | Latest player injury/price change news                                                    |
 | `/player_comparison`      | Interactive player comparison tool                                                        |
 | `/api/players`            | JSON: full player dataset from `fixture_difficulty.get_dataset()`                         |
+| `/player_search`          | **Transfer Scout** — budget/position/team filter page, all filtering is client-side JS    |
+| `/api/players/search`     | JSON: player list from `fpl.get_search_dataset()` (position, cost, xG/xA, PPG, ICT, `has_next_fixture`) |
 | `/stats`, `/manager_info` | Disabled — redirect to `/coming_soon`                                                     |
 
 ### Templates & Static Assets
@@ -75,6 +77,7 @@ Flask routes in app.py → Jinja2 templates or JSON responses
 - Templates use **Jinja2** and live in `templates/`. Active templates are named `*1.html` (e.g. `home1.html`, `livescore1.html`). The `old_template/` subdirectory contains legacy/unused templates.
 - CSS lives in `static/css/`. `style_2025.css` is the current stylesheet; others may be legacy.
 - Player photos and team badges are served from `static/images/`.
+- `.page-content` class in `style_2025.css` provides standard page padding (`1.5rem 2rem`) and max-width (`1400px`) — use it to wrap page body content below the header.
 
 ## Key Implementation Details
 
@@ -82,6 +85,9 @@ Flask routes in app.py → Jinja2 templates or JSON responses
   - **Short term** (`mode=short`): next 1 game difficulty, weights 85% form / 15% fixture
   - **Long term** (`mode=long`): avg difficulty over next 6 games, weights 65% form / 35% fixture
   - Both datasets live in `_datasets` dict in `fpl.py`; getter functions (`get_442`, etc.) accept a `mode` param.
-- **FDR data** (`fixture_difficulty.py`): Looks ahead up to 10 gameweeks; `next_game_difficulty` is the next fixture's raw FPL difficulty (1–5); `next_7` is the full list used for long-term averaging.
+- **FDR data** (`fixture_difficulty.py`): Looks ahead up to 10 gameweeks; `next_game_difficulty` is the next fixture's raw FPL difficulty (1–5); `next_7` is the full list used for long-term averaging. Each team dict includes `has_next_fixture` (bool).
+- **Blank gameweek handling**: Teams with no fixture get `'Blank'` strings in `next_7`. The app handles this throughout: blank GWs count as difficulty 5 in all averages; `get_differentials()` excludes blank-team players; formations skip them via the `postponed` flag; Transfer Scout and transfers show a red `BLK` badge; FDR table renders a `BLK` cell instead of crashing.
 - **Team name/badge mappings** are hardcoded and duplicated across `fpl.py` and `livescores.py` — update both if Premier League teams change.
+- **`get_search_dataset()`** (`fpl.py`): Iterates the already-loaded `data['elements']` (no extra API call) and returns a flat list with `webname`, `team`, `position`, `status`, `photo`, `cost`, `points_per_game`, `ict_index`, `form_ict_index`, `goals_scored`, `assists`, `expected_goals`, `expected_assists`, `has_next_fixture`. Used by the Transfer Scout page.
+- **Pagination**: News page and Transfer Scout both show 50 items at a time with a "Load more" button. All data is loaded upfront; display is truncated client-side (JS for Transfer Scout, HTML hidden via JS for news).
 - **No test suite** and no linter configuration exist in this project.

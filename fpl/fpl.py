@@ -264,7 +264,7 @@ def get_differentials():
     for index,row in dataset.iterrows():
         if counter ==20 :
             break
-        elif  row['selected_by_percent']<15.0 and row['status']=='a':
+        elif  row['selected_by_percent']<15.0 and row['status']=='a' and row['postponed']!='Yes':
                 player_dict = {
                 'name': row['name'],
                 'webname' : row['webname'],
@@ -304,7 +304,8 @@ def get_most_transferred_in():
         'price': row['now_cost'],
         'percent': row['selected_by_percent'],
         'fake_count': row['transfer_in_event'],
-        'count': '{:,}'.format(int(row['transfer_in_event']))
+        'count': '{:,}'.format(int(row['transfer_in_event'])),
+        'postponed': row['postponed']
         }
         players_list.append(player_dict)
         counter = counter +1
@@ -333,7 +334,8 @@ def get_most_transferred_out():
         'price': row['now_cost'],
         'percent': row['selected_by_percent'],
         'fake_count': row['transfer_out_event'],
-        'count': '{:,}'.format(int(row['transfer_out_event']))
+        'count': '{:,}'.format(int(row['transfer_out_event'])),
+        'postponed': row['postponed']
         }
         players_list.append(player_dict)
         counter = counter +1
@@ -650,10 +652,14 @@ def build_formation(df, formation="442", budget=100.0, max_per_team=3):
 
 fixtures_data = fd.get_fixtures()
 
+# Maps raw FPL team ID (1-20) → whether that team has a fixture next GW
+team_id_to_has_fixture = {i + 1: d['has_next_fixture'] for i, d in enumerate(fixtures_data)}
+
 team_fix_short = {d['team']: d['next_game_difficulty'] for d in fixtures_data}
 
 def _avg_difficulty(next_7_list, n=6):
-    diffs = [g['difficulty'] for g in next_7_list[:n] if isinstance(g, dict)]
+    slice_ = next_7_list[:n]
+    diffs = [g['difficulty'] if isinstance(g, dict) else 5 for g in slice_]
     return round(sum(diffs) / len(diffs), 2) if diffs else 5.0
 
 team_fix_long = {d['team']: _avg_difficulty(d['next_7']) for d in fixtures_data}
@@ -721,5 +727,6 @@ def get_search_dataset():
             'assists': i['assists'],
             'expected_goals': float(i['expected_goals']),
             'expected_assists': float(i['expected_assists']),
+            'has_next_fixture': team_id_to_has_fixture.get(i['team'], True),
         })
     return result
