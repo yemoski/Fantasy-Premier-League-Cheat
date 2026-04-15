@@ -255,6 +255,9 @@
 
     .fdr-grid {
         margin-top: 1rem;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .team-row {

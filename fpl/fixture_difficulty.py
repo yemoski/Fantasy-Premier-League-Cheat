@@ -94,6 +94,7 @@ def get_short_team(team_code):
 next_7 = []
 
 def get_fixtures():
+    next_7.clear()
     link2 = 'https://fantasy.premierleague.com/api/fixtures/'
     response = requests.get(link2)
 
@@ -103,7 +104,7 @@ def get_fixtures():
  
 
     #getting all the games playing in this game week
-    for i in range(0,10):
+    for i in range(0, min(7, 39 - current_gw)):
         gw = []
     
         for x in data:

@@ -88,11 +88,11 @@
                     ">{{x['fixture_score']}}</span>
                 </div>
                 <div class="fixtures">
-                    {% for y in range(0,7) %}
-                    {% if x['next_7'][y] == 'Blank' %}
+                    {% for item in x['next_7'] %}
+                    {% if item == 'Blank' %}
                     <div class="fixture difficulty-blank">BLK</div>
                     {% else %}
-                    <div class="fixture difficulty-{{x['next_7'][y]['difficulty']}}">{{x['next_7'][y]['team']}}</div>
+                    <div class="fixture difficulty-{{item['difficulty']}}">{{item['team']}}</div>
                     {% endif %}
                     {% endfor %}
                 </div>
