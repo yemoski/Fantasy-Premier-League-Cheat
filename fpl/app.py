@@ -15,6 +15,15 @@ app = Flask(__name__)
 app.secret_key = 'fpl'
 
 
+# Off-season lockdown: the 2025/26 season is over, so every page redirects to
+# the coming-soon screen. Remove this handler to bring the full site back online.
+@app.before_request
+def offseason_lockdown():
+    allowed_endpoints = {"coming_soon", "static"}
+    if request.endpoint not in allowed_endpoints:
+        return redirect(url_for("coming_soon"))
+
+
 
 
     
