@@ -43,6 +43,9 @@ team_badge_map = {
 
 
 
+# Default so the module still imports during the off-season, when every event
+# is finished and the loop below never finds an "unfinished" gameweek.
+current_gw = 1
 for index, row in events_df.iterrows():
     if str(row['finished']).lower() == 'false':
         current_gw = row['name']
