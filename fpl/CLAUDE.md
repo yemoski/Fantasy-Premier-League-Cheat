@@ -72,7 +72,7 @@ Flask routes in app.py → Jinja2 templates or JSON responses
 | `/api/players/search`     | JSON: player list from `fpl.get_search_dataset()` (position, cost, xG/xA, PPG, ICT, `has_next_fixture`) |
 | `/stats`, `/manager_info` | Disabled — redirect to `/coming_soon`                                                     |
 
-**Off-season lockdown (currently active):** a `before_request` handler in `app.py` (`offseason_lockdown`) redirects *every* endpoint except `coming_soon` and `static` to `/coming_soon`. The whole site shows the coming-soon page until that handler is removed to bring it back online for the new season. The page itself (`templates/coming_soon.html` + `static/css/coming_soon.css`) is a standalone Arsenal-themed countdown to the 2026/27 season — it does not extend `index1.html`.
+**Off-season lockdown (currently active):** a `before_request` handler in `app.py` (`offseason_lockdown`) intercepts *every* endpoint except `coming_soon`, `static`, `robots_txt` and `sitemap_xml`, and renders the coming-soon page **in place with HTTP 200** (not a redirect — a 302 made Google report the homepage as "Page with redirect" and skip indexing). The whole site shows the coming-soon page until that handler is removed to bring it back online for the new season. The page itself (`templates/coming_soon.html` + `static/css/coming_soon.css`) is a standalone Arsenal-themed countdown to the 2026/27 season — it does not extend `index1.html`, so its `<head>` carries its own SEO meta tags. `robots.txt`/`sitemap.xml` are served from the site root via dedicated routes (`/robots.txt`, `/sitemap.xml`) backed by files in `static/`.
 
 ### Templates & Static Assets
 
