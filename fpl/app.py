@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, flash, jsonify, redirect
+from flask import Flask, render_template, request, url_for, flash, jsonify, redirect, send_from_directory
 import fpl
 from pprint import pprint
 import bible
@@ -19,9 +19,21 @@ app.secret_key = 'fpl'
 # the coming-soon screen. Remove this handler to bring the full site back online.
 @app.before_request
 def offseason_lockdown():
-    allowed_endpoints = {"coming_soon", "static"}
+    # robots.txt / sitemap.xml stay reachable so search engines can still crawl.
+    allowed_endpoints = {"coming_soon", "static", "robots_txt", "sitemap_xml"}
     if request.endpoint not in allowed_endpoints:
         return redirect(url_for("coming_soon"))
+
+
+# SEO files served at the site root (search engines expect them there, not under /static).
+@app.route("/robots.txt")
+def robots_txt():
+    return send_from_directory(app.static_folder, "robots.txt", mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    return send_from_directory(app.static_folder, "sitemap.xml", mimetype="application/xml")
 
 
 
