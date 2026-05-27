@@ -22,7 +22,11 @@ def offseason_lockdown():
     # robots.txt / sitemap.xml stay reachable so search engines can still crawl.
     allowed_endpoints = {"coming_soon", "static", "robots_txt", "sitemap_xml"}
     if request.endpoint not in allowed_endpoints:
-        return redirect(url_for("coming_soon"))
+        # Serve the coming-soon page in place (HTTP 200) instead of redirecting,
+        # so the homepage stays indexable (a 302 makes Google report
+        # "Page with redirect" and skip it). The page's canonical tag points all
+        # URLs back to the homepage.
+        return render_template("coming_soon.html")
 
 
 # SEO files served at the site root (search engines expect them there, not under /static).
