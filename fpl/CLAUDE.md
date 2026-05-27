@@ -72,6 +72,8 @@ Flask routes in app.py → Jinja2 templates or JSON responses
 | `/api/players/search`     | JSON: player list from `fpl.get_search_dataset()` (position, cost, xG/xA, PPG, ICT, `has_next_fixture`) |
 | `/stats`, `/manager_info` | Disabled — redirect to `/coming_soon`                                                     |
 
+**Off-season lockdown (currently active):** a `before_request` handler in `app.py` (`offseason_lockdown`) redirects *every* endpoint except `coming_soon` and `static` to `/coming_soon`. The whole site shows the coming-soon page until that handler is removed to bring it back online for the new season. The page itself (`templates/coming_soon.html` + `static/css/coming_soon.css`) is a standalone Arsenal-themed countdown to the 2026/27 season — it does not extend `index1.html`.
+
 ### Templates & Static Assets
 
 - Templates use **Jinja2** and live in `templates/`. Active templates are named `*1.html` (e.g. `home1.html`, `livescore1.html`). The `old_template/` subdirectory contains legacy/unused templates.
@@ -90,4 +92,5 @@ Flask routes in app.py → Jinja2 templates or JSON responses
 - **Team name/badge mappings** are hardcoded and duplicated across `fpl.py` and `livescores.py` — update both if Premier League teams change.
 - **`get_search_dataset()`** (`fpl.py`): Iterates the already-loaded `data['elements']` (no extra API call) and returns a flat list with `webname`, `team`, `position`, `status`, `photo`, `cost`, `points_per_game`, `ict_index`, `form_ict_index`, `goals_scored`, `assists`, `expected_goals`, `expected_assists`, `has_next_fixture`. Used by the Transfer Scout page.
 - **Pagination**: News page and Transfer Scout both show 50 items at a time with a "Load more" button. All data is loaded upfront; display is truncated client-side (JS for Transfer Scout, HTML hidden via JS for news).
+- **Off-season fragility**: because all data modules fetch and process FPL API data at **import time**, off-season data shapes can crash the whole app on boot (gunicorn "Worker failed to boot" / Heroku H10), even while the site is just serving the coming-soon page. Known case (fixed): when the season ends every event is `finished: true`, so `fixture_difficulty.py`'s loop never assigned `current_gw` and the import-time `fd.get_postponed_games()` call in `fpl.py` raised `NameError` — now guarded by defaulting `current_gw = 1` before the loop. When debugging an off-season crash, look at import-time code in the data modules (check `heroku logs --app fplcheat` for the real traceback above gunicorn's tail), not the routes. Other modules (`gameweek_info`, `livescores`, `team_stats`) may hold similar season-boundary assumptions.
 - **No test suite** and no linter configuration exist in this project.
