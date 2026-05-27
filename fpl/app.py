@@ -14,6 +14,31 @@ import os
 app = Flask(__name__)
 app.secret_key = 'fpl'
 
+CANONICAL_HOST = "www.fplcheat.com"
+# Hosts that serve duplicate content and must be funnelled to the canonical host.
+DUPLICATE_HOSTS = {"fplcheat.herokuapp.com", "fplcheat.com"}
+
+
+# Canonical host/scheme: 301 the Heroku default domain and the bare apex to
+# https://www.fplcheat.com so Google indexes the custom domain, not the
+# duplicates. Kept separate from the off-season lockdown so it survives when
+# that handler is removed. Localhost is untouched (dev still works).
+@app.before_request
+def canonical_host():
+    host = request.host.split(":")[0]
+    if host not in DUPLICATE_HOSTS and host != CANONICAL_HOST:
+        return  # e.g. localhost — leave it alone
+
+    proto = request.headers.get("X-Forwarded-Proto", "")
+    needs_redirect = host in DUPLICATE_HOSTS or proto == "http"
+    if not needs_redirect:
+        return
+
+    target = "https://" + CANONICAL_HOST + request.path
+    if request.query_string:
+        target += "?" + request.query_string.decode()
+    return redirect(target, code=301)
+
 
 # Off-season lockdown: the 2025/26 season is over, so every page redirects to
 # the coming-soon screen. Remove this handler to bring the full site back online.
