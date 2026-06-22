@@ -74,6 +74,18 @@ Flask routes in app.py → Jinja2 templates or JSON responses
 
 **Off-season lockdown (currently active):** a `before_request` handler in `app.py` (`offseason_lockdown`) intercepts *every* endpoint except `coming_soon`, `static`, `robots_txt` and `sitemap_xml`, and renders the coming-soon page **in place with HTTP 200** (not a redirect — a 302 made Google report the homepage as "Page with redirect" and skip indexing). The whole site shows the coming-soon page until that handler is removed to bring it back online for the new season. The page itself (`templates/coming_soon.html` + `static/css/coming_soon.css`) is a standalone Arsenal-themed countdown to the 2026/27 season — it does not extend `index1.html`, so its `<head>` carries its own SEO meta tags.
 
+**`COMING_SOON` toggle:** the lockdown is gated by the `COMING_SOON` env var. **Default is `on`** (unset = locked) so production stays safe even if the var is missing — never change this default. To work on the real site locally, set `COMING_SOON=off`:
+
+```powershell
+# PowerShell — see the real app
+$env:COMING_SOON = "off"; python app.py
+
+# Default — see the coming-soon page
+python app.py
+```
+
+Accepted "off" values: `off`, `0`, `false`, `no` (case-insensitive). **Always commit and deploy with the lockdown effectively on** — since the code defaults to on, this just means don't ship a change that flips the default. On Heroku, leave `COMING_SOON` unset (or set to `on`).
+
 **SEO & canonical host:** the canonical domain is `https://www.fplcheat.com`. A separate `before_request` handler (`canonical_host`) issues a **301** from the duplicate hosts (`fplcheat.herokuapp.com`, bare apex `fplcheat.com`) and from `http://` to `https://www.fplcheat.com`, preserving path/query — this is what stops Google indexing the Heroku domain. It is **deliberately separate from `offseason_lockdown` and registered first** (before_request handlers run in registration order), so it keeps working after the lockdown is removed; `localhost` is skipped so local dev is unaffected. SEO meta tags (title, description, canonical, OpenGraph, Twitter) live in both `coming_soon.html` and the `index1.html` base template (the base uses `request.base_url` for a per-page canonical). `robots.txt`/`sitemap.xml` are real files in `static/` but served from the site root via dedicated routes (`/robots.txt`, `/sitemap.xml`), which are exempted from the lockdown so crawlers can reach them. **`sitemap.xml` URLs are hardcoded** to `www.fplcheat.com` — update it when public routes change.
 
 ### Templates & Static Assets

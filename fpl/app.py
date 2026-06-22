@@ -40,10 +40,18 @@ def canonical_host():
     return redirect(target, code=301)
 
 
-# Off-season lockdown: the 2025/26 season is over, so every page redirects to
-# the coming-soon screen. Remove this handler to bring the full site back online.
+# Off-season lockdown: when COMING_SOON is "on" (the default), every page
+# serves the coming-soon screen with HTTP 200. Set COMING_SOON=off locally
+# to see the real site during development. Default-on is intentional so
+# production stays locked unless explicitly disabled.
+def _lockdown_enabled():
+    return os.getenv("COMING_SOON", "on").strip().lower() not in ("off", "0", "false", "no")
+
+
 @app.before_request
 def offseason_lockdown():
+    if not _lockdown_enabled():
+        return
     # robots.txt / sitemap.xml stay reachable so search engines can still crawl.
     allowed_endpoints = {"coming_soon", "static", "robots_txt", "sitemap_xml"}
     if request.endpoint not in allowed_endpoints:
